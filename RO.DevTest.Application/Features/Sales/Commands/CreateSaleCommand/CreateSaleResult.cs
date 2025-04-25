@@ -2,5 +2,5 @@
 
 public class CreateSaleResult
 {
-    
+    public Guid SaleId { get; set; }
 }
