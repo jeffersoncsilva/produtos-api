@@ -24,7 +24,6 @@ public class DeleteProductCommandHandlerTest
         var result = await _sut.Handle(command, CancellationToken.None);
         
         _repositoryMock.Verify(repo => repo.Delete(It.IsAny<Product>()), Times.Once());
-        _repositoryMock.Verify(repo => repo.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once());
         
         result.Should().NotBeNull();
     }

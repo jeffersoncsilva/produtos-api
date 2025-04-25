@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RO.DevTest.Application.Contracts.Persistance.Repositories;
+using RO.DevTest.Application.Features.Sales.Commands.GetSalesCommand;
 using RO.DevTest.Persistence.Repositories;
 
 namespace RO.DevTest.Persistence.IoC;
@@ -22,6 +23,7 @@ public static class PersistenceDependencyInjector {
             connectionString = "Server=localhost;port=5432;Database=rodevtest;User Id=postgres;Password=root;";
         services.AddDbContext<DefaultContext>(options => options.UseNpgsql(connectionString));
         services.AddScoped<IProductsRepository, ProductRepository>();
+        services.AddScoped<ISaleRepository, SaleRepository>();
         return services;
     }
 }

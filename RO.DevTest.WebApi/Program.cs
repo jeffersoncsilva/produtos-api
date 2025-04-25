@@ -1,6 +1,7 @@
 using RO.DevTest.Application;
 using RO.DevTest.Infrastructure.IoC;
 using RO.DevTest.Persistence.IoC;
+using System.Text.Json.Serialization;
 
 namespace RO.DevTest.WebApi;
 
@@ -8,7 +9,7 @@ public class Program {
     public static void Main(string[] args) {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
