@@ -7,6 +7,8 @@ namespace RO.DevTest.Persistence;
 public class DefaultContext : IdentityDbContext<User> {
 
     public DefaultContext() { }
+    
+    public DbSet<Product> Products { get; set; }
 
     public DefaultContext(DbContextOptions<DefaultContext> options) : base(options) { }
 
