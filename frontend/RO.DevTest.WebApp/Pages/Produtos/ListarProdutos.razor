@@ -2,6 +2,7 @@
 @using RO.DevTest.FronEnd.Application.Features.Products.GetProductsCommand
 @using RO.DevTest.FrontEnd.ViewModels.Features.Product
 @inject IMediator Mediator
+@inject NavigationManager NavManager
 
 <h3>Produtos</h3>
 
@@ -17,6 +18,10 @@ else
     }
 }
 
+<button type="button" @onclick="NavegaPaginaNovoProduto" class="btn btn-primary btn-sm m-2">
+    Novo Produto
+</button>
+
 @code {
     private int page = 0;
     private int size = 5;
@@ -28,5 +33,10 @@ else
         _products = resultado.Products;
         page = resultado.Page;
         size = resultado.Size;
+    }
+
+    private void NavegaPaginaNovoProduto()
+    {
+        NavManager.NavigateTo("novo-produto");
     }
 }
