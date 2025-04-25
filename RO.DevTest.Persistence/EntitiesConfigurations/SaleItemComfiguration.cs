@@ -18,9 +18,9 @@ public sealed class SaleItemComfiguration : IEntityTypeConfiguration<SaleItem>
 		b.Property(s => s.Price).IsRequired().HasColumnType("money");
 
 		b.HasOne(i => i.Sale)
-			.WithMany()
+			.WithMany(s => s.Itens)
 			.HasForeignKey(i => i.SaleId)
-			.HasPrincipalKey(sa => sa.Id);
+			.HasPrincipalKey(v => v.Id);
 
 		b.HasOne(s => s.Product)
 			.WithMany()

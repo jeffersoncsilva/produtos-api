@@ -9,6 +9,7 @@ public class DefaultContext : IdentityDbContext<User> {
     public DefaultContext() { }
     
     public DbSet<Product> Products { get; set; }
+    public DbSet<Sale> Sales { get; set; }
 
     public DefaultContext(DbContextOptions<DefaultContext> options) : base(options) { }
 

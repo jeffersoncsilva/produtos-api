@@ -24,9 +24,8 @@ public class SalesConfiguration : IEntityTypeConfiguration<Sale>
 			.HasColumnType("money");
 
 		b.HasMany(s => s.Itens)
-			.WithOne()
+			.WithOne(e => e.Sale)
 			.HasForeignKey(i => i.SaleId)
-			.HasPrincipalKey(s => s.Id);
-
+			.HasPrincipalKey(v => v.Id);
 	}
 }
