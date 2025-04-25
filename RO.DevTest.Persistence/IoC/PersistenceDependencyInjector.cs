@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using RO.DevTest.Application.Contracts.Persistance.Repositories;
+using RO.DevTest.Persistence.Repositories;
 
 namespace RO.DevTest.Persistence.IoC;
 
@@ -15,8 +17,11 @@ public static class PersistenceDependencyInjector {
     /// The <see cref="IServiceCollection"/> with dependencies injected
     /// </returns>
     public static IServiceCollection InjectPersistenceDependencies(this IServiceCollection services) {
-        services.AddDbContext<DefaultContext>(options => options.UseInMemoryDatabase("rota"));
-
+        var connectionString = Environment.GetEnvironmentVariable("RO_DEV_TEST_CONNECTION_STRING");
+        if (string.IsNullOrWhiteSpace(connectionString))
+            connectionString = "Server=localhost;port=5432;Database=rodevtest;User Id=postgres;Password=root;";
+        services.AddDbContext<DefaultContext>(options => options.UseNpgsql(connectionString));
+        services.AddScoped<IProductsRepository, ProductRepository>();
         return services;
     }
 }
