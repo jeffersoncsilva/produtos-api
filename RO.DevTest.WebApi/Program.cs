@@ -29,9 +29,8 @@ public class Program {
         {
             op.AddPolicy("LocalPolyce", policy =>
             {
-                policy.AllowAnyOrigin();
-                policy.AllowAnyMethod();
-                policy.AllowAnyMethod();
+                policy.WithOrigins("http://localhost:*").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                policy.WithOrigins("https://localhost:*").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
             });
         });
 
@@ -43,13 +42,12 @@ public class Program {
             app.UseSwaggerUI();
         }
 
-        app.UseHttpsRedirection();
+		app.UseHttpsRedirection();
 
-        app.UseAuthorization();
+		app.UseCors("LocalPolyce");
+		app.UseAuthorization();
 
         app.MapControllers();
-
-        app.UseCors("LocalPolyce");
 
         app.Run();
     }

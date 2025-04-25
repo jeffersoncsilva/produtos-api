@@ -18,8 +18,8 @@ builder.Services.AddMediatR(cfg =>
 var uriBase = Environment.GetEnvironmentVariable("RO_DEVTES_BACKEND_API");
 if (string.IsNullOrEmpty(uriBase))
 	uriBase = "http://localhost:5087";
-builder.Services.AddHttpClient("ApiDevTest", op => op.BaseAddress = new Uri(uriBase));
+builder.Services.AddHttpClient(HttpConfiguration.HttpClientName, op => op.BaseAddress = new Uri(uriBase));
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 await builder.Build().RunAsync();
