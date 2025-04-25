@@ -13,7 +13,6 @@ public class DeleteProductCommandHandler(IProductsRepository repository) : IRequ
             throw new BadRequestException("Id do produto não encontrado.");
 
         repository.Delete(product);
-        await repository.SaveChangesAsync(ct);
 
         return new DeleteProductResult();
     }

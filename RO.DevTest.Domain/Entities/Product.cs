@@ -4,14 +4,14 @@ namespace RO.DevTest.Domain.Entities;
 
 public class Product : BaseEntity
 {
-    public string? Name { get; init; }
-    public string? Description { get; init; }
-    public decimal Price { get; init; }
-    public string? ImageUrl { get; init; }
-    public string? Category { get; init; }
-    public string? Brand { get; init; }
-    public int Stock { get; init; }
-    public bool IsActive { get; init; }
-    public string? CreatedBy { get; init; }
-    public string? ModifiedBy { get; init; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public decimal Price { get; set; }
+    public string? ImageUrl { get; set; }
+    public string? Category { get; set; }
+    public string? Brand { get; set; }
+    public int Stock { get; set; }
+    public bool IsActive { get; set; }
+    public string? CreatedBy { get; set; }
+    public string? ModifiedBy { get; set; }
 }

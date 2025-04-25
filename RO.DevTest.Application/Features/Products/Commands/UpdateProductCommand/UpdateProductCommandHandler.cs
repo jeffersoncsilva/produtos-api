@@ -18,16 +18,21 @@ public class UpdateProductCommandHandler(IProductsRepository productRepository) 
         if(entitie is null)
             throw new BadRequestException("Nenhum produto encontrado com o ID informado.");
 
-        var entitieToUpdate = request.ToEntity();
-        
-        productRepository.Delete(entitie);
-        productRepository.Update(entitieToUpdate);
-        
-        await productRepository.SaveChangesAsync(ct);
+        entitie.Name = request.Name;
+        entitie.Description = request.Description;
+        entitie.Price = request.Price;
+        entitie.ImageUrl = request.ImageUrl;
+        entitie.Category = request.Category;
+        entitie.Brand = request.Brand;
+        entitie.Stock = request.Stock;
+        entitie.IsActive = request.IsActive;
+        entitie.ModifiedBy = request.ModifiedBy;
+
+        productRepository.Update(entitie);
 
         return new UpdateProductResult()
         {
-            Id = entitieToUpdate.Id
+            Id = entitie.Id
         };
     }
 }
