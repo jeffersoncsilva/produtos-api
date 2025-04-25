@@ -1,0 +1,21 @@
+﻿@using RO.DevTest.FrontEnd.ViewModels.Features.Product
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-text">
+            @Product?.Name
+        </h5>
+    </div>
+    <div class="card-body">
+        <h6>
+            @Product?.Price.ToString("C")
+        </h6>
+    </div>
+</div>
+<h3></h3>
+
+
+
+@code {
+    [Parameter] public ProductSimpleViewModel? Product { get; set; }
+}

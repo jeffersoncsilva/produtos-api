@@ -25,6 +25,16 @@ public class Program {
             );
         });
 
+        builder.Services.AddCors(op =>
+        {
+            op.AddPolicy("LocalPolyce", policy =>
+            {
+                policy.AllowAnyOrigin();
+                policy.AllowAnyMethod();
+                policy.AllowAnyMethod();
+            });
+        });
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -38,6 +48,8 @@ public class Program {
         app.UseAuthorization();
 
         app.MapControllers();
+
+        app.UseCors("LocalPolyce");
 
         app.Run();
     }

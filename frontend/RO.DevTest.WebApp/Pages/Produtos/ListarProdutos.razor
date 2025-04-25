@@ -1,0 +1,32 @@
+﻿@page "/produtos"
+@using RO.DevTest.FronEnd.Application.Features.Products.GetProductsCommand
+@using RO.DevTest.FrontEnd.ViewModels.Features.Product
+@inject IMediator Mediator
+
+<h3>Produtos</h3>
+
+@if (!_products?.Any() ?? false)
+{
+    <h4>Nenhum produto encontrado!</h4>
+}
+else
+{
+    @foreach(var product in _products ?? [])
+    {
+        <ProdutoComponent Product="@product" />
+    }
+}
+
+@code {
+    private int page = 0;
+    private int size = 5;
+    private IEnumerable<ProductSimpleViewModel>? _products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var resultado = await Mediator.Send(new GetProductCommandRequest(page, size));
+        _products = resultado.Products;
+        page = resultado.Page;
+        size = resultado.Size;
+    }
+}
