@@ -8,6 +8,6 @@ public class SaleRepository(DefaultContext db) : BaseRepository<Sale>(db),ISaleR
 {
     public async Task<IReadOnlyList<Sale>> GetPagedSalesAsync(int page, int size, CancellationToken ct)
     {
-        return await db.Sales.AsNoTracking().Skip(page * size).Take(size).ToListAsync(ct);
+        return await db.Sales.AsNoTracking().Skip(page * size).Take(size).Include(p => p.Itens).ToListAsync(ct);
     }
 }

@@ -28,6 +28,8 @@ public class SalesController(IMediator mediator) : Controller
     [HttpGet]
     [ProducesResponseType(typeof(GetSalesResult), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(GetSalesResult), StatusCodes.Status401Unauthorized)]
+    [EndpointName("Obtem lista de vendas.")]
+    [EndpointSummary("Obtem uma lista de vendas informando a pagina e a quantidade de itens.")]
     public async Task<IActionResult> GetVendas([Description("Pagina de venda requerida.")][FromQuery] int page, [Description("Quantidade de vendas para aretornar.")][FromQuery] int pageSize)
     {
         var response = await mediator.Send(new GetSalesCommandRequest(page, pageSize));
