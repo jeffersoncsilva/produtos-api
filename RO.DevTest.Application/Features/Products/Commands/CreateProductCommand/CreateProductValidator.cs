@@ -41,8 +41,8 @@ public class CreateProductValidator : AbstractValidator<CreateProductCommand>
             .WithMessage("Marca não pode ser maior que 128 caracteres.");
 
         RuleFor(x => x.Stock)
-            .GreaterThan(1)
-            .WithMessage("O estoque deve ser maior que 1.");
+            .GreaterThan(0)
+            .WithMessage("O estoque deve ser maior que 0.");
         
         RuleFor(x => x.IsActive)
             .NotEqual(false)
