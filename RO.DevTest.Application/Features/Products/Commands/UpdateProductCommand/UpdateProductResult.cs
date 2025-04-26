@@ -1,6 +1,9 @@
-﻿namespace RO.DevTest.Application.Features.Products.Commands.UpdateProductCommand;
+﻿using System.Text.Json.Serialization;
 
-public class UpdateProductResult
+namespace RO.DevTest.Application.Features.Products.Commands.UpdateProductCommand;
+
+public class UpdateProductResult(Guid id)
 {
-    public Guid Id { get; init; }
+    [JsonPropertyName("id")]
+    public Guid Id { get; init; } = id;
 }
