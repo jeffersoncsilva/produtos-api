@@ -13,10 +13,10 @@
 else
 {
     <div class="d-flex flex-row justify-content-evenly align-items-center">
-    @foreach(var product in _products ?? [])
-    {
-        <ProdutoComponent Product="@product" OnSelected="EditarProduto" />
-    }
+        @foreach(var product in _products ?? [])
+        {
+            <ProdutoComponent Product="@product" OnSelected="EditarProduto" OnVendaSelected="VenderProduto" />
+        }
     </div>
 }
 
@@ -46,5 +46,11 @@ else
     {
         if (produto is not null)
             NavManager.NavigateTo($"editar-produto?id={produto.Id}");
+    }
+
+    private void VenderProduto(ProductSimpleViewModel? produto)
+    {
+        if (produto is not null)
+            NavManager.NavigateTo($"vender-produto?id={produto.Id}");
     }
 }

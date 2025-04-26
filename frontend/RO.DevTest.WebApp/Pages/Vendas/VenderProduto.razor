@@ -1,0 +1,8 @@
+﻿@page "/vender-produto"
+<h3>VenderProduto</h3>
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "id")]
+    public Guid Id { get; set; }
+}
