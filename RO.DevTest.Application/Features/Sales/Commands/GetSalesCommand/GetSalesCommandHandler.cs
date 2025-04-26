@@ -15,7 +15,14 @@ public class GetSalesCommandHandler(ISaleRepository saleRepository) : IRequestHa
 		{
 			Page = page,
 			Size = sales.Count,
-			Sales = sales
+			Sales = sales.Select(s => new SaleItem()
+			{
+				SaleId = s.Id, 
+				Descount = s.Descount, 
+				Observation = s.Observation, 
+				Price = s.Price, 
+				ProductsName = s.Itens!.Select(i => i.Product!.Name).ToList()!
+			}).ToList()
 		};
 	}
 }

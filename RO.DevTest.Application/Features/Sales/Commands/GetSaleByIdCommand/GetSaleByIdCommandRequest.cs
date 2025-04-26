@@ -1,6 +1,10 @@
-﻿namespace RO.DevTest.Application.Features.Sales.Commands.GetSaleByIdCommand;
+﻿using System.Text.Json.Serialization;
+using MediatR;
 
-public class GetSaleByIdCommandRequest
+namespace RO.DevTest.Application.Features.Sales.Commands.GetSaleByIdCommand;
+
+public class GetSaleByIdCommandRequest : IRequest<GetSaleByIdCommandResponse>
 {
-    
+    [JsonPropertyName("id")]
+    public Guid Id { get; set; }
 }
