@@ -11,7 +11,7 @@ public class GetProductsCommandHandler(IProductsRepository productsRepository) :
 
         return new GetProductsResult
         {
-            Products = products,
+            Products = products.Select(p => new ProductsSimpleResult() {  Id = p.Id, Name = p.Name, Price = p.Price, Stock = p.Stock }).ToList(),
             Page = request.Page,
             Size = products.Count
         };

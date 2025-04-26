@@ -1,0 +1,33 @@
+﻿@using RO.DevTest.FrontEnd.ViewModels.Features.Product
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-text">
+            @Product?.Name
+        </h5>
+    </div>
+    <div class="card-body">
+        <h6>
+            @Product?.Price.ToString("C")
+        </h6>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex flex-row justify-content-between align-content-center">
+            <button type="button" class="btn btn-primary btn-sm" @onclick=@(() => OnSelected?.Invoke(Product))>Editar</button>
+            <button type="button" class="btn btn-secondary btn-sm" @onclidk="@(() => OnVendaSelected?.Invoke(Product))">Vender</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+@code {
+    [Parameter] public ProductSimpleViewModel? Product { get; set; }
+
+    [Parameter] public Action<ProductSimpleViewModel?>? OnSelected { get; set; }
+
+    [Parameter] public Action<ProductSimpleViewModel?>? OnVendaSelected { get; set; }
+
+
+}

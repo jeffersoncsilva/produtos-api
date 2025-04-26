@@ -29,10 +29,8 @@ public class UpdateProductCommandHandler(IProductsRepository productRepository) 
         entitie.ModifiedBy = request.ModifiedBy;
 
         productRepository.Update(entitie);
+        await productRepository.SaveChangesAsync(ct);
 
-        return new UpdateProductResult()
-        {
-            Id = entitie.Id
-        };
+        return new UpdateProductResult(entitie.Id);
     }
 }

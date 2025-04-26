@@ -21,7 +21,7 @@ public static class PersistenceDependencyInjector {
         var connectionString = Environment.GetEnvironmentVariable("RO_DEV_TEST_CONNECTION_STRING");
         if (string.IsNullOrWhiteSpace(connectionString))
             connectionString = "Server=localhost;port=5432;Database=rodevtest;User Id=postgres;Password=root;";
-        services.AddDbContext<DefaultContext>(options => options.UseNpgsql(connectionString));
+        services.AddDbContext<DefaultContext>(options => options.UseNpgsql(connectionString), ServiceLifetime.Scoped);
         services.AddScoped<IProductsRepository, ProductRepository>();
         services.AddScoped<ISaleRepository, SaleRepository>();
         return services;

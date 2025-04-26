@@ -34,4 +34,6 @@ public interface IBaseRepository<T> where T : class {
     /// </summary>
     /// <param name="entity"> The entity to be deleted </param>
     void Delete(T entity);
+
+    ValueTask SaveChangesAsync(CancellationToken ct);
 }

@@ -25,6 +25,15 @@ public class Program {
             );
         });
 
+        builder.Services.AddCors(op =>
+        {
+            op.AddPolicy("LocalPolyce", policy =>
+            {
+                policy.WithOrigins("http://localhost:*").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                policy.WithOrigins("https://localhost:*").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+            });
+        });
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -33,9 +42,10 @@ public class Program {
             app.UseSwaggerUI();
         }
 
-        app.UseHttpsRedirection();
+		app.UseHttpsRedirection();
 
-        app.UseAuthorization();
+		app.UseCors("LocalPolyce");
+		app.UseAuthorization();
 
         app.MapControllers();
 
