@@ -12,8 +12,9 @@
         </h6>
     </div>
     <div class="card-footer">
-        <div class="d-flex flex-row justify-content-end align-content-center">
+        <div class="d-flex flex-row justify-content-between align-content-center">
             <button type="button" class="btn btn-primary btn-sm" @onclick=@(() => OnSelected?.Invoke(Product))>Editar</button>
+            <button type="button" class="btn btn-secondary btn-sm" @onclidk="@(() => OnVendaSelected?.Invoke(Product))">Vender</button>
         </div>
     </div>
 </div>
@@ -25,6 +26,8 @@
     [Parameter] public ProductSimpleViewModel? Product { get; set; }
 
     [Parameter] public Action<ProductSimpleViewModel?>? OnSelected { get; set; }
+
+    [Parameter] public Action<ProductSimpleViewModel?>? OnVendaSelected { get; set; }
 
 
 }
