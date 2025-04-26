@@ -121,19 +121,19 @@
         {
             var resultado = await Mediator.Send(request!);
             if (resultado.Id != Guid.Empty)
-                NavManager.NavigateTo($"/produto-detalhe?id={resultado.Id}");
+                NavManager.NavigateTo($"/detalhes-produto?id={resultado.Id}");
             else
                 NavManager.NavigateTo("/produtos");
         }
         catch(BadRequestException bre)
         {
             Console.WriteLine($"Erro ao fazer a requisição no servidor. Requisição mal formada. MESSAGE: {bre.Message}");
-            MostrarPopUp(bre.Message);
+            await MostrarPopUp(bre.Message);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Erro desconhecido encontrado ao enviar dados para servidor. MESSAGE: {ex.Message}");
-            MostrarPopUp(ex.Message);
+            await MostrarPopUp(ex.Message);
         }
     }
 
