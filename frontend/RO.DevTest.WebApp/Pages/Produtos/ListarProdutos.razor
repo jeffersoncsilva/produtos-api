@@ -51,6 +51,6 @@ else
     private void VenderProduto(ProductSimpleViewModel? produto)
     {
         if (produto is not null)
-            NavManager.NavigateTo($"vender-produto?id={produto.Id}");
+            NavManager.NavigateTo($"vender-produto?id={produto.Id}&nome-produto={produto.Name}&stock={produto.Stock}");
     }
 }

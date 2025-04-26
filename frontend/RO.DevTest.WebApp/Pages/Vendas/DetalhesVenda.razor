@@ -1,0 +1,65 @@
+﻿@page "/vendas-detalhes"
+@using RO.DevTest.FronEnd.Application.Features.Sales.GetSaleByIdCommand
+
+@inject IMediator Mediator
+
+<h3>Detalhes da Venda</h3>
+
+@if(response is not null)
+{
+    <div class="form-group row my-2">
+        <label class="form-label col-md-3 my-auto text-end">Observação:</label>
+        <div class="col-md-6">
+            <input type="text" class="form-control desabled" value="NomeProduto" disabled />
+        </div>
+    </div>
+
+    <div class="form-group row my-2">
+        <label class="form-label col-md-3 my-auto text-end">Descrição</label>
+        <div class="col-md-6">
+            <input type="text" class="form-control desabled" value="@response.Observatin" disabled />
+        </div>
+    </div>
+
+    <div class="form-group row my-2">
+        <label class="form-label col-md-3 my-auto text-end">Quantidade de itens:</label>
+        <div class="col-md-6">
+            <input type="text" class="form-control desabled" value="@response.Itens.Count" disabled />
+        </div>
+    </div>
+
+    <div class="form-group row my-2">
+        <label class="form-label col-md-3 my-auto text-end">Valor</label>
+        <div class="col-md-6">
+            <input type="text" class="form-control desabled" value="@response.Price.ToString("C")" disabled />
+        </div>
+    </div>
+
+    <div class="form-group row my-2">
+        <label class="form-label col-md-3 my-auto text-end">Desconto:</label>
+        <div class="col-md-6">
+            <input type="text" class="form-control desabled" value="@response.Descount.ToString("C")" disabled />
+        </div>
+    </div>
+
+    <div class="d-flex flex-row justify-content-evenly align-items-center">
+        @foreach(var item in response.Itens)
+        {
+            <ProdutoItem Item="item" />
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "id")]
+    public Guid Id { get; set; }
+
+    private GetSaleDetailByIdResponse? response;
+
+    protected override async Task OnInitializedAsync()
+    {
+        response = await Mediator.Send(new GetSaleDetailByIdRequest(Id));
+        await base.OnInitializedAsync();
+    }
+}
