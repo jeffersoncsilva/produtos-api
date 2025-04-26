@@ -11,11 +11,20 @@
             @Product?.Price.ToString("C")
         </h6>
     </div>
+    <div class="card-footer">
+        <div class="d-flex flex-row justify-content-end align-content-center">
+            <button type="button" class="btn btn-primary btn-sm" @onclick=@(() => OnSelected?.Invoke(Product))>Editar</button>
+        </div>
+    </div>
 </div>
-<h3></h3>
+
 
 
 
 @code {
     [Parameter] public ProductSimpleViewModel? Product { get; set; }
+
+    [Parameter] public Action<ProductSimpleViewModel?>? OnSelected { get; set; }
+
+
 }
