@@ -17,7 +17,7 @@ public class BaseRepository<T>(DefaultContext defaultContext) : IBaseRepository<
 
     public async void Update(T entity) {
         Context.Set<T>().Update(entity);
-        await Context.SaveChangesAsync();
+		//await Context.SaveChangesAsync();
     }
 
     public async void Delete(T entity) {
@@ -28,21 +28,23 @@ public class BaseRepository<T>(DefaultContext defaultContext) : IBaseRepository<
     public T? Get(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
     => GetQueryWithIncludes(predicate, includes).FirstOrDefault();
 
-    /// <summary>
-    /// Generates a filtered <see cref="IQueryable{T}"/>, based on its
-    /// <paramref name="predicate"/> and <paramref name="includes"/>, including
-    /// the data requested
-    /// </summary>
-    /// <param name="predicate">
-    /// The <see cref="Expression"/> to use as filter
-    /// </param>
-    /// <param name="includes">
-    /// The <see cref="Expression"/> to use as include
-    /// </param>
-    /// <returns>
-    /// The generated <see cref="IQueryable{T}"/>
-    /// </returns>
-    private IQueryable<T> GetQueryWithIncludes(
+    public async ValueTask SaveChangesAsync(CancellationToken ct) => await Context.SaveChangesAsync(ct);
+
+	/// <summary>
+	/// Generates a filtered <see cref="IQueryable{T}"/>, based on its
+	/// <paramref name="predicate"/> and <paramref name="includes"/>, including
+	/// the data requested
+	/// </summary>
+	/// <param name="predicate">
+	/// The <see cref="Expression"/> to use as filter
+	/// </param>
+	/// <param name="includes">
+	/// The <see cref="Expression"/> to use as include
+	/// </param>
+	/// <returns>
+	/// The generated <see cref="IQueryable{T}"/>
+	/// </returns>
+	private IQueryable<T> GetQueryWithIncludes(
         Expression<Func<T, bool>> predicate,
         params Expression<Func<T, object>>[] includes
     ) {
