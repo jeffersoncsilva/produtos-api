@@ -13,7 +13,7 @@ public class GetSaleDetailByIdHandler(IHttpClientFactory httpFactory) : IRequest
 		{
 			var httpClient = httpFactory.CreateClient(HttpConfiguration.HttpClientName);
 
-			var result = await httpClient.GetAsync($"api/sales?id={request.Id}", ct);
+			var result = await httpClient.GetAsync($"api/sales/{request.Id}", ct);
 
 			result.EnsureSuccessStatusCode();
 
