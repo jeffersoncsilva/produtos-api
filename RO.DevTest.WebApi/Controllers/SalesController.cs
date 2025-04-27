@@ -5,6 +5,7 @@ using NSwag.Annotations;
 using RO.DevTest.Application.Features.Sales.Commands.CreateSaleCommand;
 using RO.DevTest.Application.Features.Sales.Commands.GetSalesCommand;
 using System.ComponentModel;
+using RO.DevTest.Application.Features.Sales.Commands.DeleteSaleCommand;
 using RO.DevTest.Application.Features.Sales.Commands.GetSaleByIdCommand;
 using RO.DevTest.Application.Features.Sales.Commands.UpdateSaleCommand;
 
@@ -64,6 +65,20 @@ public class SalesController(IMediator mediator) : Controller
     {
         var resutlado = await mediator.Send(request);
         if (resutlado is null)
+            return NotFound();
+        return Ok(resutlado);
+    }
+    
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(typeof(DeleteSaleCommandResponse), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(DeleteSaleCommandResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(DeleteSaleCommandResponse), StatusCodes.Status404NotFound)]
+    [EndpointName("Deleta uma venda.")]
+    [EndpointSummary("Deleta todos os itens de uma venda pelo informado.")]
+    public async Task<IActionResult> DeleteVendaById([FromRoute] Guid id)
+    {
+        var resutlado = await mediator.Send(new DeleteSaleCommandRequest(id));
+        if (resutlado is null || !resutlado.Success)
             return NotFound();
         return Ok(resutlado);
     }
