@@ -22,7 +22,7 @@ public class BaseRepository<T>(DefaultContext defaultContext) : IBaseRepository<
 
     public async void Delete(T entity) {
         Context.Set<T>().Remove(entity);
-        await Context.SaveChangesAsync();
+        //await Context.SaveChangesAsync();
     }
 
     public T? Get(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
