@@ -3,8 +3,7 @@ using MediatR;
 
 namespace RO.DevTest.Application.Features.Sales.Commands.GetSaleByIdCommand;
 
-public class GetSaleByIdCommandRequest : IRequest<GetSaleByIdCommandResponse>
+public class GetSaleByIdCommandRequest(Guid id) : IRequest<GetSaleByIdCommandResponse?>
 {
-    [JsonPropertyName("id")]
-    public Guid Id { get; set; }
+    [JsonPropertyName("id")] public Guid Id { get; init; } = id;
 }

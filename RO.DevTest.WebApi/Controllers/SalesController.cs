@@ -5,6 +5,8 @@ using NSwag.Annotations;
 using RO.DevTest.Application.Features.Sales.Commands.CreateSaleCommand;
 using RO.DevTest.Application.Features.Sales.Commands.GetSalesCommand;
 using System.ComponentModel;
+using RO.DevTest.Application.Features.Sales.Commands.GetSaleByIdCommand;
+using RO.DevTest.Application.Features.Sales.Commands.UpdateSaleCommand;
 
 namespace RO.DevTest.WebApi.Controllers;
 
@@ -34,5 +36,35 @@ public class SalesController(IMediator mediator) : Controller
     {
         var response = await mediator.Send(new GetSalesCommandRequest(page, pageSize));
         return Ok(response);
+    }
+
+
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(GetSaleByIdCommandResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetSaleByIdCommandResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(GetSaleByIdCommandResponse), StatusCodes.Status404NotFound)]
+    [EndpointName("Obtem venda por Id.")]
+    [EndpointSummary("Obtem uma venda informando o Id.")]
+    public async Task<IActionResult> GetVendaById([FromRoute] Guid id)
+    {
+        var resutlado = await mediator.Send(new GetSaleByIdCommandRequest(id));
+        if (resutlado is null)
+            return NotFound();
+        return Ok(resutlado);
+    }
+    
+    
+    [HttpPut]
+    [ProducesResponseType(typeof(UpdateSaleCommandReponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(UpdateSaleCommandReponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(UpdateSaleCommandReponse), StatusCodes.Status404NotFound)]
+    [EndpointName("Atualiza uma venda.")]
+    [EndpointSummary("Atualiza todos os itens de uma venda pelo informado.")]
+    public async Task<IActionResult> UpdateVendaById([FromBody] UpdateSaleCommandRequest request)
+    {
+        var resutlado = await mediator.Send(request);
+        if (resutlado is null)
+            return NotFound();
+        return Ok(resutlado);
     }
 }
