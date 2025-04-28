@@ -178,7 +178,7 @@ namespace RO.DevTest.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RO.DevTest.Domain.Entities.Product", b =>
+            modelBuilder.Entity("BE.Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -230,7 +230,7 @@ namespace RO.DevTest.Persistence.Migrations
                     b.ToTable("Products", (string)null);
                 });
 
-            modelBuilder.Entity("RO.DevTest.Domain.Entities.Sale", b =>
+            modelBuilder.Entity("BE.Domain.Entities.Sale", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -256,7 +256,7 @@ namespace RO.DevTest.Persistence.Migrations
                     b.ToTable("Sales", (string)null);
                 });
 
-            modelBuilder.Entity("RO.DevTest.Domain.Entities.SaleItem", b =>
+            modelBuilder.Entity("BE.Domain.Entities.SaleItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -289,7 +289,7 @@ namespace RO.DevTest.Persistence.Migrations
                     b.ToTable("SaleItens", (string)null);
                 });
 
-            modelBuilder.Entity("RO.DevTest.Domain.Entities.User", b =>
+            modelBuilder.Entity("BE.Domain.Entities.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -368,7 +368,7 @@ namespace RO.DevTest.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("RO.DevTest.Domain.Entities.User", null)
+                    b.HasOne("BE.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -377,7 +377,7 @@ namespace RO.DevTest.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("RO.DevTest.Domain.Entities.User", null)
+                    b.HasOne("BE.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -392,7 +392,7 @@ namespace RO.DevTest.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RO.DevTest.Domain.Entities.User", null)
+                    b.HasOne("BE.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -401,22 +401,22 @@ namespace RO.DevTest.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("RO.DevTest.Domain.Entities.User", null)
+                    b.HasOne("BE.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RO.DevTest.Domain.Entities.SaleItem", b =>
+            modelBuilder.Entity("BE.Domain.Entities.SaleItem", b =>
                 {
-                    b.HasOne("RO.DevTest.Domain.Entities.Product", "Product")
+                    b.HasOne("BE.Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RO.DevTest.Domain.Entities.Sale", "Sale")
+                    b.HasOne("BE.Domain.Entities.Sale", "Sale")
                         .WithMany("Itens")
                         .HasForeignKey("SaleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -427,7 +427,7 @@ namespace RO.DevTest.Persistence.Migrations
                     b.Navigation("Sale");
                 });
 
-            modelBuilder.Entity("RO.DevTest.Domain.Entities.Sale", b =>
+            modelBuilder.Entity("BE.Domain.Entities.Sale", b =>
                 {
                     b.Navigation("Itens");
                 });

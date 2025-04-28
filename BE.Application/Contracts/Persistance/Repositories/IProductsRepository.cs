@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using RO.DevTest.Domain.Entities;
+using BE.Domain.Entities;
 
 namespace BE.Application.Contracts.Persistance.Repositories;
 

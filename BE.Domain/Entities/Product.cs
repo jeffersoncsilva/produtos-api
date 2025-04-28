@@ -1,6 +1,6 @@
-﻿using RO.DevTest.Domain.Abstract;
+﻿using BE.Domain.Abstract;
 
-namespace RO.DevTest.Domain.Entities;
+namespace BE.Domain.Entities;
 
 public class Product : BaseEntity
 {

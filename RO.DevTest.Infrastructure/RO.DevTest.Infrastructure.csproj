@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BE.Application\BE.Application.csproj" />
-    <ProjectReference Include="..\RO.DevTest.Domain\RO.DevTest.Domain.csproj" />
+    <ProjectReference Include="..\BE.Domain\BE.Domain.csproj" />
     <ProjectReference Include="..\RO.DevTest.Persistence\RO.DevTest.Persistence.csproj" />
   </ItemGroup>
 

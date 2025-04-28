@@ -22,7 +22,7 @@ public record CreateUserResult {
     
     public CreateUserResult () { }
 
-    public CreateUserResult(RO.DevTest.Domain.Entities.User user) { 
+    public CreateUserResult(Domain.Entities.User user) { 
         Id = user.Id;
         UserName = user.UserName!;
         Email = user.Email!;

@@ -2,9 +2,9 @@
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using RO.DevTest.Domain.Entities;
-using RO.DevTest.Domain.Enums;
-using RO.DevTest.Domain.Exception;
+using BE.Domain.Entities;
+using BE.Domain.Enums;
+using BE.Domain.Exception;
 
 namespace BE.Application.Features.User.Commands.CreateUserCommand;
 
@@ -22,7 +22,7 @@ public class CreateUserCommandHandler(IIdentityAbstractor identityAbstractor) : 
             throw new BadRequestException(validationResult);
         }
 
-        RO.DevTest.Domain.Entities.User newUser = request.AssignTo();
+        Domain.Entities.User newUser = request.AssignTo();
         IdentityResult userCreationResult = await _identityAbstractor.CreateUserAsync(newUser, request.Password);
         if(!userCreationResult.Succeeded) {
             throw new BadRequestException(userCreationResult);

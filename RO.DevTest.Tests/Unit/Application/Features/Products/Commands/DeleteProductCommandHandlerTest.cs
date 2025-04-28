@@ -2,7 +2,7 @@
 using BE.Application.Features.Products.Commands.DeleteProductCommand;
 using FluentAssertions;
 using Moq;
-using RO.DevTest.Domain.Entities;
+using BE.Domain.Entities;
 
 namespace RO.DevTest.Tests.Unit.Application.Features.Products.Commands;
 

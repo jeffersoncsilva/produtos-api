@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using MediatR;
-using RO.DevTest.Domain.Enums;
+using BE.Domain.Enums;
 
 namespace BE.Application.Features.User.Commands.CreateUserCommand;
 
@@ -22,8 +22,8 @@ public class CreateUserCommand : IRequest<CreateUserResult> {
 
     [JsonPropertyName("user_role")] public UserRoles? Role { get; set; }
 
-    public RO.DevTest.Domain.Entities.User AssignTo() {
-        return new RO.DevTest.Domain.Entities.User {
+    public Domain.Entities.User AssignTo() {
+        return new Domain.Entities.User {
             UserName = UserName,
             Email = Email,
             Name = Name,

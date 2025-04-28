@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BE.Application\BE.Application.csproj" />
-    <ProjectReference Include="..\RO.DevTest.Domain\RO.DevTest.Domain.csproj" />
+    <ProjectReference Include="..\BE.Domain\BE.Domain.csproj" />
   </ItemGroup>
 
 </Project>

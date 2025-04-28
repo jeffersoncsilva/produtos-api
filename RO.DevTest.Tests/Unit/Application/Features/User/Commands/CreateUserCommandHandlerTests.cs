@@ -2,7 +2,7 @@
 using BE.Application.Features.User.Commands.CreateUserCommand;
 using FluentAssertions;
 using Moq;
-using RO.DevTest.Domain.Exception;
+using BE.Domain.Exception;
 
 namespace RO.DevTest.Tests.Unit.Application.Features.User.Commands;
 

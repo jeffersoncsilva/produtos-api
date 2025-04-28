@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace RO.DevTest.Domain.Enums;
+namespace BE.Domain.Enums;
 public enum UserRoles {
     [Description("Admin")]
     Admin = 0,

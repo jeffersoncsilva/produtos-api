@@ -2,7 +2,7 @@
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 
-namespace RO.DevTest.Domain.Exception;
+namespace BE.Domain.Exception;
 
 // [TODO] Standardize requests
 // [TODO] Display a semantic error message to the client

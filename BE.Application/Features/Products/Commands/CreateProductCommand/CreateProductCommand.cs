@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using RO.DevTest.Domain.Entities;
+using BE.Domain.Entities;
 
 namespace BE.Application.Features.Products.Commands.CreateProductCommand;
 

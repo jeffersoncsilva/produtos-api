@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 
-namespace RO.DevTest.Domain.Exception;
+namespace BE.Domain.Exception;
 
 public abstract class ApiException : System.Exception {
     /// <summary>

@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RO.DevTest.Domain.Entities;
+using BE.Domain.Entities;
 
 namespace RO.DevTest.Persistence.EntitiesConfigurations;
 

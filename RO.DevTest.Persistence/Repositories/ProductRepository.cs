@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using BE.Application.Contracts.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
-using RO.DevTest.Domain.Entities;
+using BE.Domain.Entities;
 
 namespace RO.DevTest.Persistence.Repositories;
 

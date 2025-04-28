@@ -1,7 +1,7 @@
 ﻿using BE.Application.Contracts.Persistance.Repositories;
 using MediatR;
-using RO.DevTest.Domain.Entities;
-using RO.DevTest.Domain.Exception;
+using BE.Domain.Entities;
+using BE.Domain.Exception;
 
 namespace BE.Application.Features.Sales.Commands.CreateSaleCommand;
 

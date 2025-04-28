@@ -1,7 +1,7 @@
 ﻿using BE.Application.Contracts.Persistance.Repositories;
 using FluentValidation.Results;
 using MediatR;
-using RO.DevTest.Domain.Exception;
+using BE.Domain.Exception;
 
 namespace BE.Application.Features.Products.Commands.CreateProductCommand;
 

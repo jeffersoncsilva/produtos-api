@@ -2,8 +2,8 @@
 using BE.Application.Features.Products.Commands.CreateProductCommand;
 using FluentAssertions;
 using Moq;
-using RO.DevTest.Domain.Entities;
-using RO.DevTest.Domain.Exception;
+using BE.Domain.Entities;
+using BE.Domain.Exception;
 
 namespace RO.DevTest.Tests.Unit.Application.Features.Products.Commands;
 

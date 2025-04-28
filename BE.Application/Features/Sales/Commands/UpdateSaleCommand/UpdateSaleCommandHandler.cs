@@ -1,6 +1,6 @@
 ﻿using BE.Application.Contracts.Persistance.Repositories;
 using MediatR;
-using RO.DevTest.Domain.Exception;
+using BE.Domain.Exception;
 
 namespace BE.Application.Features.Sales.Commands.UpdateSaleCommand;
 

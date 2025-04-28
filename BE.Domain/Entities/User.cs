@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace RO.DevTest.Domain.Entities;
+namespace BE.Domain.Entities;
 
 /// <summary>
 /// Represents a <see cref="IdentityUser"/> int the API
