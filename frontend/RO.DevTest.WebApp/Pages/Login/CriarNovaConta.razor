@@ -40,6 +40,15 @@ else
                                         <InputText type="email" id="email" class="form-control form-control-lg" @bind-Value="_novaConta!.Email" />
                                         <ValidationMessage For="() => _novaConta!.Email" />
                                     </div>
+                                    
+                                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                                        <label class="form-label" for="email">Tipo de Usuário:</label>
+                                        <InputSelect @bind-Value="_novaConta.Role" class="form-control">
+                                            <option value="@UserRoles.Admin">Administrador</option>
+                                            <option value="@UserRoles.Customer">Consumidor</option>
+                                        </InputSelect>
+                                        
+                                    </div>
 
                                     <div data-mdb-input-init class="form-outline form-white mb-4">
                                         <label class="form-label" for="typePasswordX">Senha</label>
