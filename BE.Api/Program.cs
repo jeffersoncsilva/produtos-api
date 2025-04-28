@@ -3,7 +3,7 @@ using BE.Persistence.IoC;
 using System.Text.Json.Serialization;
 using BE.Application;
 
-namespace RO.DevTest.WebApi;
+namespace BE.Api;
 
 public class Program {
     public static void Main(string[] args) {

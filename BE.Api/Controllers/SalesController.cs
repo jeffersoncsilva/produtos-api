@@ -10,7 +10,7 @@ using BE.Application.Features.Sales.Commands.GetSalesCommand;
 using BE.Application.Features.Sales.Commands.UpdateSaleCommand;
 using Microsoft.AspNetCore.Authorization;
 
-namespace RO.DevTest.WebApi.Controllers;
+namespace BE.Api.Controllers;
 
 [Route("api/[controller]")]
 [OpenApiTags("Sales")]

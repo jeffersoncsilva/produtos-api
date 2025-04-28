@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
-namespace RO.DevTest.WebApi.Controllers;
+namespace BE.Api.Controllers;
 
 [Route("api/user")]
 [OpenApiTags("Users")]

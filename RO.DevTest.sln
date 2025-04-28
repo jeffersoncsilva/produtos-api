@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RO.DevTest.WebApi", "RO.DevTest.WebApi\RO.DevTest.WebApi.csproj", "{36A91738-EDA6-4AB9-AB77-CD4F629CD608}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BE.Api", "BE.Api\BE.Api.csproj", "{36A91738-EDA6-4AB9-AB77-CD4F629CD608}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BE.Domain", "BE.Domain\BE.Domain.csproj", "{DD1B7AB0-5235-4C7C-B59C-1F68E6A14F9B}"
 EndProject

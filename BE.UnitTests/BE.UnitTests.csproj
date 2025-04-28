@@ -39,7 +39,7 @@
     <ProjectReference Include="..\BE.Domain\BE.Domain.csproj" />
     <ProjectReference Include="..\BE.Infrastructure\BE.Infrastructure.csproj" />
     <ProjectReference Include="..\BE.Persistence\BE.Persistence.csproj" />
-    <ProjectReference Include="..\RO.DevTest.WebApi\RO.DevTest.WebApi.csproj" />
+    <ProjectReference Include="..\BE.Api\BE.Api.csproj" />
   </ItemGroup>
 
 </Project>

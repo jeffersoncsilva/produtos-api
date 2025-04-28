@@ -9,7 +9,7 @@ using BE.Application.Features.Products.Commands.GetProductsCommand;
 using BE.Application.Features.Products.Commands.UpdateProductCommand;
 using Microsoft.AspNetCore.Authorization;
 
-namespace RO.DevTest.WebApi.Controllers;
+namespace BE.Api.Controllers;
 
 [Route("api/[controller]")]
 [OpenApiTags("Products")]
