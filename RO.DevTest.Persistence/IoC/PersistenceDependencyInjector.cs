@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BE.Application.Contracts.Persistance.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using RO.DevTest.Application.Contracts.Persistance.Repositories;
-using RO.DevTest.Application.Features.Sales.Commands.GetSalesCommand;
 using RO.DevTest.Persistence.Repositories;
 
 namespace RO.DevTest.Persistence.IoC;

@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
-using RO.DevTest.Application.Features.Sales.Commands.CreateSaleCommand;
-using RO.DevTest.Application.Features.Sales.Commands.GetSalesCommand;
 using System.ComponentModel;
+using BE.Application.Features.Sales.Commands.CreateSaleCommand;
+using BE.Application.Features.Sales.Commands.DeleteSaleCommand;
+using BE.Application.Features.Sales.Commands.GetSaleByIdCommand;
+using BE.Application.Features.Sales.Commands.GetSalesCommand;
+using BE.Application.Features.Sales.Commands.UpdateSaleCommand;
 using Microsoft.AspNetCore.Authorization;
-using RO.DevTest.Application.Features.Sales.Commands.DeleteSaleCommand;
-using RO.DevTest.Application.Features.Sales.Commands.GetSaleByIdCommand;
-using RO.DevTest.Application.Features.Sales.Commands.UpdateSaleCommand;
 
 namespace RO.DevTest.WebApi.Controllers;
 

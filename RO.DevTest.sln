@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RO.DevTest.Domain", "RO.Dev
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RO.DevTest.Persistence", "RO.DevTest.Persistence\RO.DevTest.Persistence.csproj", "{89C919CE-B775-449A-8DCB-136B93B5A2A5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RO.DevTest.Application", "RO.DevTest.Application\RO.DevTest.Application.csproj", "{CB08814D-0D62-46BE-AB23-E5C96CB3B45A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BE.Application", "BE.Application\BE.Application.csproj", "{CB08814D-0D62-46BE-AB23-E5C96CB3B45A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RO.DevTest.Infrastructure", "RO.DevTest.Infrastructure\RO.DevTest.Infrastructure.csproj", "{0ED67042-94B8-4ABC-859C-A388DE7A3B20}"
 EndProject

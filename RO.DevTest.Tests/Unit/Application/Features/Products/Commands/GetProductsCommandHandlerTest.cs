@@ -1,8 +1,8 @@
-﻿using Bogus;
+﻿using BE.Application.Contracts.Persistance.Repositories;
+using BE.Application.Features.Products.Commands.GetProductsCommand;
+using Bogus;
 using FluentAssertions;
 using Moq;
-using RO.DevTest.Application.Contracts.Persistance.Repositories;
-using RO.DevTest.Application.Features.Products.Commands.GetProductsCommand;
 using RO.DevTest.Domain.Entities;
 
 namespace RO.DevTest.Tests.Unit.Application.Features.Products.Commands;

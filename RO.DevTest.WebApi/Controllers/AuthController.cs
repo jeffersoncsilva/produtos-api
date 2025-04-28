@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
+using BE.Application.Features.Auth.Commands.LoginCommand;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
-using RO.DevTest.Application.Features.Auth.Commands.LoginCommand;
 
 namespace RO.DevTest.WebApi.Controllers;
 

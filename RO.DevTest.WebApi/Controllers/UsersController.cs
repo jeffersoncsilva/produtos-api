@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿using BE.Application.Features.User.Commands.CreateUserCommand;
+using MediatR;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
-using RO.DevTest.Application.Features.User.Commands.CreateUserCommand;
 
 namespace RO.DevTest.WebApi.Controllers;
 

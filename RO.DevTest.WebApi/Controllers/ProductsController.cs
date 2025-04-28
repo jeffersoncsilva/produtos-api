@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
-using RO.DevTest.Application.Features.Products.Commands.CreateProductCommand;
-using RO.DevTest.Application.Features.Products.Commands.DeleteProductCommand;
-using RO.DevTest.Application.Features.Products.Commands.GetProductByIdCommand;
-using RO.DevTest.Application.Features.Products.Commands.GetProductsCommand;
-using RO.DevTest.Application.Features.Products.Commands.UpdateProductCommand;
 using System.ComponentModel;
+using BE.Application.Features.Products.Commands.CreateProductCommand;
+using BE.Application.Features.Products.Commands.DeleteProductCommand;
+using BE.Application.Features.Products.Commands.GetProductByIdCommand;
+using BE.Application.Features.Products.Commands.GetProductsCommand;
+using BE.Application.Features.Products.Commands.UpdateProductCommand;
 using Microsoft.AspNetCore.Authorization;
 
 namespace RO.DevTest.WebApi.Controllers;
