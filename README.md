@@ -24,7 +24,7 @@ Algumas características desse template (projeto como um todo) são:
 - Exclusão de produtos
 - Exclusão de venda
 
-## FrondEnd
+## FrontEnd
 - O FrontEnd foi desenvolvido usando BlazorWebAssembly.
 
 ## Funcionalidades que serão implementadas (não necessáriamente nessa ordem):
