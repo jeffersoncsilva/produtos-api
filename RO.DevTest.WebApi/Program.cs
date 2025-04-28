@@ -14,7 +14,7 @@ public class Program {
         builder.Services.AddSwaggerGen();
 
         builder.Services.InjectPersistenceDependencies()
-            .InjectInfrastructureDependencies();
+            .InjectInfrastructureDependencies(builder.Configuration);
 
         // Add Mediatr to program
         builder.Services.AddMediatR(cfg =>
@@ -45,8 +45,9 @@ public class Program {
 		app.UseHttpsRedirection();
 
 		app.UseCors("LocalPolyce");
-		app.UseAuthorization();
-
+        app.UseAuthentication();
+        app.UseAuthorization();
+        
         app.MapControllers();
 
         app.Run();
