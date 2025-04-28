@@ -37,7 +37,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BE.Application\BE.Application.csproj" />
     <ProjectReference Include="..\BE.Domain\BE.Domain.csproj" />
-    <ProjectReference Include="..\RO.DevTest.Infrastructure\RO.DevTest.Infrastructure.csproj" />
+    <ProjectReference Include="..\BE.Infrastructure\BE.Infrastructure.csproj" />
     <ProjectReference Include="..\RO.DevTest.Persistence\RO.DevTest.Persistence.csproj" />
     <ProjectReference Include="..\RO.DevTest.WebApi\RO.DevTest.WebApi.csproj" />
   </ItemGroup>

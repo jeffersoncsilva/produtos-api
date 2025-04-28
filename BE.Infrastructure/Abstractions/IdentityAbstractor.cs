@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using BE.Domain.Entities;
 using BE.Domain.Enums;
 
-namespace RO.DevTest.Infrastructure.Abstractions;
+namespace BE.Infrastructure.Abstractions;
 
 
 /// <summary>

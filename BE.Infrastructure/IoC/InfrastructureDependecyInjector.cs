@@ -6,10 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using BE.Domain.Entities;
-using RO.DevTest.Infrastructure.Abstractions;
+using BE.Infrastructure.Abstractions;
 using RO.DevTest.Persistence;
 
-namespace RO.DevTest.Infrastructure.IoC;
+namespace BE.Infrastructure.IoC;
 
 public static class InfrastructureDependecyInjector {
     /// <summary>

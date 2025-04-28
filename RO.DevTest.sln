@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RO.DevTest.Persistence", "R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BE.Application", "BE.Application\BE.Application.csproj", "{CB08814D-0D62-46BE-AB23-E5C96CB3B45A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RO.DevTest.Infrastructure", "RO.DevTest.Infrastructure\RO.DevTest.Infrastructure.csproj", "{0ED67042-94B8-4ABC-859C-A388DE7A3B20}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE.Infrastructure", "BE.Infrastructure\BE.Infrastructure.csproj", "{0ED67042-94B8-4ABC-859C-A388DE7A3B20}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RO.DevTest.Tests", "RO.DevTest.Tests\RO.DevTest.Tests.csproj", "{22F1E7F5-23E4-4C81-A37E-EB08946770D1}"
 EndProject
