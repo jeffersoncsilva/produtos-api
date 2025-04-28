@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RO.DevTest.FronEnd.Application\RO.DevTest.FronEnd.Application.csproj" />
+    <ProjectReference Include="..\FE.Application\FE.Application.csproj" />
   </ItemGroup>
 
 </Project>

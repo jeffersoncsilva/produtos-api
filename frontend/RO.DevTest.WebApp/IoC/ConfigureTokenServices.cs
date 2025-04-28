@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
-using RO.DevTest.FronEnd.Application.Contracts;
+using FE.Application.Contracts;
 using RO.DevTest.WebApp.Services;
 
 namespace RO.DevTest.WebApp.IoC;

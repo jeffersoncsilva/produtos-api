@@ -1,5 +1,5 @@
 ﻿using Blazored.LocalStorage;
-using RO.DevTest.FronEnd.Application.Contracts;
+using FE.Application.Contracts;
 
 namespace RO.DevTest.WebApp.Services;
 

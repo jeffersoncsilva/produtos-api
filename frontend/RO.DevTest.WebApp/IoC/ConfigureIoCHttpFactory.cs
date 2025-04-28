@@ -1,4 +1,4 @@
-﻿using RO.DevTest.FronEnd.Application;
+﻿using FE.Application;
 
 namespace RO.DevTest.WebApp.IoC;
 

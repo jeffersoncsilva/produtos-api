@@ -26,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frontend", "frontend", "{19
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RO.DevTest.WebApp", "frontend\RO.DevTest.WebApp\RO.DevTest.WebApp.csproj", "{B50EE720-5E7D-4558-8C0C-0F8E18B0F895}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RO.DevTest.FronEnd.Application", "frontend\RO.DevTest.FronEnd.Application\RO.DevTest.FronEnd.Application.csproj", "{CA1BDDA3-5307-44BC-BD03-2DAE2FF38377}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FE.Application", "frontend\FE.Application\FE.Application.csproj", "{CA1BDDA3-5307-44BC-BD03-2DAE2FF38377}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RO.DevTest.FrontEnd.ViewModels", "frontend\RO.DevTest.FrontEnd.ViewModels\RO.DevTest.FrontEnd.ViewModels.csproj", "{3F29DDAE-E44C-4288-B55A-5B3E41B0E592}"
 EndProject
