@@ -7,12 +7,14 @@ using RO.DevTest.Application.Features.Products.Commands.GetProductByIdCommand;
 using RO.DevTest.Application.Features.Products.Commands.GetProductsCommand;
 using RO.DevTest.Application.Features.Products.Commands.UpdateProductCommand;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RO.DevTest.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [OpenApiTags("Products")]
 [ApiController]
+[Authorize]
 public class ProductsController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
