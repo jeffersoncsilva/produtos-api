@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using FE.Application.Contracts;
-using RO.DevTest.WebApp.Services;
+using FE.WebApp.Services;
 
-namespace RO.DevTest.WebApp.IoC;
+namespace FE.WebApp.IoC;
 
 public static class ConfigureTokenServices
 {

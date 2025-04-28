@@ -3,7 +3,7 @@ using System.Text.Json;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 
-namespace RO.DevTest.WebApp;
+namespace FE.WebApp;
 
 public class ApiAuthenticationStateProvider(ILocalStorageService localStorage) : AuthenticationStateProvider
 {

@@ -1,6 +1,6 @@
 ﻿using FE.Application;
 
-namespace RO.DevTest.WebApp.IoC;
+namespace FE.WebApp.IoC;
 
 public static class ConfigureIoCHttpFactory
 {

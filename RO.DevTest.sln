@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{43CD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frontend", "frontend", "{19DC731E-6BA0-4A6C-9666-7B2343E23035}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RO.DevTest.WebApp", "frontend\RO.DevTest.WebApp\RO.DevTest.WebApp.csproj", "{B50EE720-5E7D-4558-8C0C-0F8E18B0F895}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FE.WebApp", "frontend\FE.WebApp\FE.WebApp.csproj", "{B50EE720-5E7D-4558-8C0C-0F8E18B0F895}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FE.Application", "frontend\FE.Application\FE.Application.csproj", "{CA1BDDA3-5307-44BC-BD03-2DAE2FF38377}"
 EndProject

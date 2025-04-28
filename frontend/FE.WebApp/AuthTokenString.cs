@@ -1,4 +1,4 @@
-﻿namespace RO.DevTest.WebApp;
+﻿namespace FE.WebApp;
 
 public static class AuthTokenString
 {

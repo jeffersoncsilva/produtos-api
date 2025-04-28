@@ -1,7 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using FE.Application.Contracts;
 
-namespace RO.DevTest.WebApp.Services;
+namespace FE.WebApp.Services;
 
 public class AuthenticationTokenService(ILocalStorageService localStorage) : IAuthenticationTokenService
 {

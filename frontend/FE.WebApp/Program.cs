@@ -1,9 +1,9 @@
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using RO.DevTest.WebApp;
-using RO.DevTest.WebApp.IoC;
-using RO.DevTest.WebApp.Services;
+using FE.WebApp;
+using FE.WebApp.IoC;
+using FE.WebApp.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
