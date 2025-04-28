@@ -1,0 +1,66 @@
+﻿@page "/vendas"
+@using FE.Application.Features.Sales.DeleteSaleCommand
+@using FE.Application.Features.Sales.GetSalesCommand
+@inject IMediator Mediator
+@inject NavigationManager NavManager
+@inject ConfirmationService ConfirmationService
+
+
+<h3 class="fs-3 text-center">Vendas já realizadas</h3>
+
+@if(vendasRealizadas is not null && !vendasRealizadas.Sales.Any())
+{
+    <h4>Nenhum venda foi encontrada!</h4>
+}
+else if(vendasRealizadas is not null)
+{
+    <div class="d-flex flex-wrap flex-row justify-content-evenly align-items-center">
+        @foreach(var venda in vendasRealizadas.Sales)
+        {
+            <VendaComponent Venda="venda" OnEditarVenda="EditarVenda" OnRemoverVenda="RemoverVenda"/>
+        }
+    </div>
+}
+else
+{
+    <h4>Tentando obter vendas. Aguarde...</h4>
+}
+
+@code {
+    private GetSalesResponse? vendasRealizadas;
+
+    private int paginaAtual = 0;
+    private int tamanhoPagina = 10;
+
+    protected override async Task OnInitializedAsync()
+    {
+        vendasRealizadas = await Mediator.Send(new GetSalesRequest(paginaAtual, tamanhoPagina));
+        await base.OnInitializedAsync();
+    }
+
+    private void EditarVenda(SaleItem? item)
+    {
+        if (item is null)
+            return;
+        NavManager.NavigateTo($"editar-venda?id={item.SaleId}");
+    }
+
+    private async void RemoverVenda(SaleItem? item)
+    {
+        var confirmacao = await ConfirmationService.Show("Deletar Venda", "Deseja realmente apagar essa venda?", "Deletar", "Cancelar");
+        if (confirmacao)
+        {
+            Console.WriteLine($"Confirmada a deleção da venda de Id {item.SaleId}");
+            var resultado = await Mediator.Send(new DeleteSaleRequest(item.SaleId));
+            if(resultado is not null && resultado.Success)
+            {
+                vendasRealizadas = await Mediator.Send(new GetSalesRequest(paginaAtual, tamanhoPagina));
+                StateHasChanged();
+            }
+        }
+        else
+        {
+            Console.WriteLine("não irá deletar a venda.");
+        }
+    }
+}

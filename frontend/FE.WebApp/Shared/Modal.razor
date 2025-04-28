@@ -1,0 +1,69 @@
+﻿@implements IDisposable
+@inject ConfirmationService ConfirmationService
+
+@if (ShowModal)
+{
+    <div class="modal fade show" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-modal="true" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">@Title</h5>
+                    <button type="button" class="btn-close" @onclick="Cancel"></button>
+                </div>
+                <div class="modal-body">
+                    @Message
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="Cancel">@CancelText</button>
+                    <button type="button" class="btn btn-primary" @onclick="Confirm">@ConfirmText</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    private string Title { get; set; } = "Confirmação";
+    private string Message { get; set; } = "Você tem certeza?";
+    private string ConfirmText { get; set; } = "Confirmar";
+    private string CancelText { get; set; } = "Cancelar";
+    private TaskCompletionSource<bool> _taskCompletionSource;
+    private bool ShowModal { get; set; } = false;
+
+    protected override void OnInitialized()
+    {
+        ConfirmationService.OnConfirmationRequest += ShowModalInternal;
+    }
+
+    public void Dispose()
+    {
+        ConfirmationService.OnConfirmationRequest -= ShowModalInternal;
+    }
+
+    private async Task<bool> ShowModalInternal(string title, string message, string confirmText, string cancelText)
+    {
+        Title = title;
+        Message = message;
+        ConfirmText = confirmText;
+        CancelText = cancelText;
+        ShowModal = true;
+        _taskCompletionSource = new TaskCompletionSource<bool>();
+        StateHasChanged();
+        return await _taskCompletionSource.Task;
+    }
+
+    private void Confirm()
+    {
+        ShowModal = false;
+        _taskCompletionSource.SetResult(true);
+        StateHasChanged();
+    }
+
+    private void Cancel()
+    {
+        ShowModal = false;
+        _taskCompletionSource.SetResult(false);
+        StateHasChanged();
+    }
+}

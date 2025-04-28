@@ -1,0 +1,47 @@
+﻿@using FE.Application.Features.Sales.GetSalesCommand
+<div class="card col-md-4 m-1">
+    <div class="card-header">
+        <h5 class="card-text">
+            @Venda?.SaleId.ToString().Substring(0, 15)
+        </h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Preço</th>
+                    <th scope ="col">Desconto</th>
+                    <th scope="col">Observação</th>
+                    <th scope="col">Nomes dos Produtos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Venda?.Price.ToString("C")</td>
+                    <td>@Venda?.Descount.ToString("C")</td>
+                    <td>@Venda?.Observation</td>
+                    <td>@(string.Join(", ", Venda?.ProductsName ?? []))</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex flex-row justify-content-between align-content-center">
+            <AuthorizeView Roles="Admin">
+                <button type="button" class="btn btn-primary btn-sm" @onclick=@(() => OnEditarVenda?.Invoke(Venda))>Editar</button>
+                <button type="button" class="btn btn-secondary btn-sm" @onclick="@(() => OnRemoverVenda?.Invoke(Venda))">Remover</button>
+            </AuthorizeView>
+        </div>
+    </div>
+</div>
+
+
+
+
+@code {
+    [Parameter] public SaleItem? Venda { get; set; }
+
+    [Parameter] public Action<SaleItem?>? OnEditarVenda { get; set; }
+
+    [Parameter] public Action<SaleItem?>? OnRemoverVenda { get; set; }
+}

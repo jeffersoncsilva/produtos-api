@@ -1,21 +1,50 @@
-# Rota das Oficinas Tecnical Test
-This project is the template to be used to create a basic e-commerce Web API.
-It already contains the basic structure of a API, that must be followed when adding more features.
+# Aplicação desenvolvida pra teste.
 
-Some caracteristics of this template that  are:
+O projeto base usa um template de API RESTful, que já possui a estrutura básica de uma API,
+com o padrão CQRS e Repository Pattern.
 
-- Built using .NET 8.0
-- Uses EntityFramework Core as it's ORM
-- Follows the [CQRS Pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs) and [Repository Pattern](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)
-- Uses PostgreSql as it's database engine
-- Uses Xunit, Bogus and FluentAssertions to create tests
+Algumas características desse template (projeto como um todo) são:
+- Construido usando o .NET 8.0
+- Utiliza o EntityFramework Core como ORM
+- Seque o [CQRS Pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs) e [Repository Pattern](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design)
+- Utiliza o PostgreSQL como banco de dados.
+- Utiliza o FluentValidation para validação de dados
+- Utiliza o MediatR para implementar o padrão CQRS
+- Utiliza XUnit, Bogus e FluentAssertions para criar os testes
 
-## To Dos in the Project
-In the template there are some left unfinnished features that you must do to correctly create the API. Search **[TODO]**  to find theses features.
+## Funcionalidades implementadas no projeto:
+- Cadastro de usuários
+- Login de usuários
+- Cadastro de produtos
+- Cadastro de venda (a partir de produtos somente por usuários logados e com função específica)
+- Listagem de produtos
+- Listagem de vendas
+- Alteração de produtos
+- Alteração de venda
+- Exclusão de produtos
+- Exclusão de venda
 
-## Feel Free to Optimize or Refactor
-If you find some code that you think can be enhanced, feel free to refactor it. But the refactor should follow the patterns of the project. Also the refactor should be separeted onn it's own commit.
+## FrontEnd
+- O FrontEnd foi desenvolvido usando BlazorWebAssembly.
 
-## Creating a FrontEnd
-When creating the frontend you can choose any framework you want, but your application must connect with the Web API via HTTP requests, and it's code must be in the same repository as the Web API.
+## Funcionalidades que serão implementadas (não necessáriamente nessa ordem):
+- [ ] Adicionar novas funcionalidades para criaçao de usuários (adição de cargos)
+- [ ] Remover do cadastro a opção de escolha de cargo no cadastro.
+- [ ] Implementar um pré-cadastro, onde um usuário autenticado possa iniciar o cadastro de um novo usuário, inserindo o seu e-mail e este recebendo um link para continuar o seu cadastro com o restante de suas informações.
+- [ ] Adicionar autenticação multifator (MFA) para login de usuários.
+- [ ] Adicionar a opção de recuperação de senha, onde o usuário solicita um link para redefinição de senha enviado para o e-mail cadastrado.
+- [ ] Implementar exclusão lógica de usuários e dados de produtos e vendas.
+- [ ] Implementar o cancelamento de uma venda.
+- [ ] implementar um sistema de entregas, onde dado o endereço a venda será entregue no endereço cadastrado.
+- [ ] Criar a opção de carrinho de compra, fazendo com que o usuário logado possa escolher mais de um produto para venda.
+- [ ] Criar a opção de pagamento, onde o usuário logado possa escolher a forma de pagamento (cartão, dinheiro, etc)
+- [ ] Criar a opção de relatório de vendas, onde o usuário logado possa ver as vendas que ele realizou e possa filtrar por período.
+- [ ] Criar a opção de relatório de produtos, onde o usuário logado possa ver os produtos cadastrados, podendo filtrar por período, categoria e os produtos que ele mesmo cadastrou.
+- [ ] Criar a opção de relatório de usuários, onde o usuário logado possa ver os usuários cadastrados em um determinado período, filtrar por quantidade de compras.
+- [ ] Criar a opção de relatório de vendas por usuário, onde o usuário logado possa ver as vendas realizadas por ele em um determinado período
+- [ ] Criar a opção de relatório de vendas por produto, onde o usuário logado possa ver as vendas realizadas por produto em um determinado período
+- [ ] Criar a opção de relatório de vendas por forma de pagamento, onde o usuário logado possa ver as vendas realizadas por forma de pagamento em um determinado período
+
+
+
 

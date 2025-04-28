@@ -1,0 +1,56 @@
+﻿@page "/produtos"
+@using FE.Application.Features.Products.GetProductsCommand
+@using FE.ViewModels.Features.Product
+@inject IMediator Mediator
+@inject NavigationManager NavManager
+
+<h3 class="fs-3 text-center">Produtos Cadastrados</h3>
+
+@if (!_products?.Any() ?? false)
+{
+    <h4 class="fs-4 text-center">Nenhum produto encontrado!</h4>
+}
+else
+{
+    <div class="d-flex flex-wrap flex-row justify-content-around align-items-center">
+        @foreach(var product in _products ?? [])
+        {
+            <ProdutoComponent Product="@product" OnSelected="EditarProduto" OnVendaSelected="VenderProduto" />
+        }
+    </div>
+}
+
+<button type="button" @onclick="NavegaPaginaNovoProduto" class="btn btn-primary btn-sm m-2">
+    Novo Produto
+</button>
+
+@code {
+    private int page = 0;
+    private int size = 5;
+    private IEnumerable<ProductSimpleViewModel>? _products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var resultado = await Mediator.Send(new GetProductCommandRequest(page, size));
+        _products = resultado.Products;
+        page = resultado.Page;
+        size = resultado.Size;
+    }
+
+    private void NavegaPaginaNovoProduto()
+    {
+        NavManager.NavigateTo("novo-produto");
+    }
+
+    private void EditarProduto(ProductSimpleViewModel? produto)
+    {
+        if (produto is not null)
+            NavManager.NavigateTo($"editar-produto?id={produto.Id}");
+    }
+
+    private void VenderProduto(ProductSimpleViewModel? produto)
+    {
+        if (produto is not null)
+            NavManager.NavigateTo($"vender-produto?id={produto.Id}&nome-produto={produto.Name}&stock={produto.Stock}");
+    }
+}

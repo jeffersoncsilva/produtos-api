@@ -1,0 +1,125 @@
+﻿@page "/nova-conta"
+@using FE.Application.Features.Login.CriarContaCommand
+@layout LoginLayout
+@inject IMediator Mediator
+@inject NavigationManager NavManager
+
+
+@if (_editContext is null)
+{
+
+}
+else
+{
+
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body px-5 text-center">
+
+                            <div class="mb-md-5 mt-md-4 pb-5">
+                                <h2 class="fw-bold mb-2 text-uppercase">Nova Conta</h2>
+                                <p class="text-white-50 mb-5">Criando nova conta. Insira os dados abaixo para criar uma nova conta.</p>
+                                <EditForm EditContext="_editContext" OnValidSubmit="CriarConta">
+                                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                                        <label class="form-label" for="userName">Nome de Usuário:</label>
+                                        <InputText type="text" id="userName" class="form-control form-control-lg" @bind-Value="_novaConta!.UserName" />
+                                        <ValidationMessage For="() => _novaConta!.UserName" />
+                                    </div>
+                                    
+                                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                                        <label class="form-label" for="nome">Nome:</label>
+                                        <InputText type="text" id="nome" class="form-control form-control-lg" @bind-Value="_novaConta!.Name" />
+                                        <ValidationMessage For="() => _novaConta!.Name" />
+                                    </div>
+                                    
+                                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                                        <label class="form-label" for="email">Email:</label>
+                                        <InputText type="email" id="email" class="form-control form-control-lg" @bind-Value="_novaConta!.Email" />
+                                        <ValidationMessage For="() => _novaConta!.Email" />
+                                    </div>
+                                    
+                                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                                        <label class="form-label" for="email">Tipo de Usuário:</label>
+                                        <InputSelect @bind-Value="_novaConta.Role" class="form-control">
+                                            <option value="@UserRoles.Admin">Administrador</option>
+                                            <option value="@UserRoles.Customer">Consumidor</option>
+                                        </InputSelect>
+                                        
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                                        <label class="form-label" for="typePasswordX">Senha</label>
+                                        <InputText type="password" id="typePasswordX" class="form-control form-control-ls" @bind-Value="_novaConta!.Password" />
+                                        <ValidationMessage For="() => _novaConta!.Password" />
+                                    </div>
+                                    
+                                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                                        <label class="form-label" for="typePasswordX">Confirme a Senha:</label>
+                                        <InputText type="password" id="typePasswordX" class="form-control form-control-ls" @bind-Value="_novaConta!.PasswordConfirmation" />
+                                        <ValidationMessage For="() => _novaConta!.PasswordConfirmation" />
+                                    </div>
+
+                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Cadastrar</button>
+                                </EditForm>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+@code {
+    private NovaContaRequest? _novaConta;
+    private EditContext? _editContext;
+    private ValidationMessageStore? _messageStore;
+
+    protected override void OnInitialized()
+    {
+        _novaConta = new();
+        _editContext = new(_novaConta);
+        _editContext.OnValidationRequested += HandleValidationRequested;
+        _messageStore = new(_editContext);
+        base.OnInitialized();
+    }
+
+    private void HandleValidationRequested(object? sender, ValidationRequestedEventArgs args)
+    {
+        _messageStore?.Clear();
+
+        if(string.IsNullOrWhiteSpace(_novaConta?.UserName))
+            _messageStore?.Add(() => _novaConta!.Email, "O nome de usuário e obrigatório.");
+
+        if (string.IsNullOrWhiteSpace(_novaConta?.Name))
+            _messageStore?.Add(() => _novaConta!.Name, "Nome é obrigatória.");
+
+        if (string.IsNullOrWhiteSpace(_novaConta?.Email))
+            _messageStore?.Add(() => _novaConta!.Email, "E-mail e obrigatório.");
+
+        if(string.IsNullOrWhiteSpace(_novaConta?.Password))
+            _messageStore?.Add(() => _novaConta!.Password, "Senha é obrigatório.");
+
+        if(string.IsNullOrWhiteSpace(_novaConta?.PasswordConfirmation))
+            _messageStore?.Add(()=> _novaConta!.PasswordConfirmation, "Confirmação de senha é obrigatório");
+
+        if (String.CompareOrdinal(_novaConta?.Password, _novaConta?.PasswordConfirmation) != 0)
+        {
+            _messageStore?.Add(() => _novaConta!.PasswordConfirmation, "Contas não conferem.");
+        }
+    }
+
+
+    private async Task CriarConta()
+    {
+        var resultado = await Mediator.Send(_novaConta!);
+        if (resultado is not null && resultado.Success)
+        {
+            NavManager.NavigateTo("login");
+        }
+    }
+}
