@@ -4,6 +4,7 @@
 @inject IMediator Mediator
 @inject NavigationManager NavManager
 @implements IDisposable
+@attribute [Authorize(Roles = "Admin")]
 
 <h3>Edição do produto: @updateProduct?.Name</h3>
 @if (_editContext is not null)

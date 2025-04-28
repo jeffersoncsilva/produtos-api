@@ -1,12 +1,15 @@
-﻿using MediatR;
+﻿using System.Net.Http.Headers;
+using MediatR;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Text;
+using RO.DevTest.FronEnd.Application.Contracts;
 using RO.DevTest.FrontEnd.ViewModels.Exceptions;
+using static RO.DevTest.FronEnd.Application.JsonOptionsSerialize;
 
 namespace RO.DevTest.FronEnd.Application.Features.Products.CreateProductCommand;
 
-public sealed class CreateProductCommandHandler(IHttpClientFactory httpFactory) : IRequestHandler<CreateProductCommandRequest, CreateProductCommandResponse?>
+public sealed class CreateProductCommandHandler(IHttpClientFactory httpFactory, IAuthenticationTokenService tokenService) : IRequestHandler<CreateProductCommandRequest, CreateProductCommandResponse?>
 {
 	public async Task<CreateProductCommandResponse?> Handle(CreateProductCommandRequest request, CancellationToken ct)
 	{
@@ -14,13 +17,14 @@ public sealed class CreateProductCommandHandler(IHttpClientFactory httpFactory) 
 		{
 			var httpClient = httpFactory.CreateClient(HttpConfiguration.HttpClientName);
 
-			using StringContent jsonContent = new(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
-
+			using StringContent jsonContent = new(JsonSerializer.Serialize(request, JsonOptions), Encoding.UTF8, "application/json");
+			var token = await tokenService.GetTokenAsync(ct);
+			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 			var result = await httpClient.PostAsync("api/products", jsonContent, ct);
 
 			if (result.StatusCode == System.Net.HttpStatusCode.BadRequest)
 			{
-				var msg = await result.Content.ReadAsStringAsync();
+				var msg = await result.Content.ReadAsStringAsync(ct);
 				throw new BadRequestException(result.StatusCode, msg);
 			}
 			else if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
@@ -32,12 +36,7 @@ public sealed class CreateProductCommandHandler(IHttpClientFactory httpFactory) 
 
 			}
 
-			JsonSerializerOptions op = new()
-			{
-				ReferenceHandler = ReferenceHandler.Preserve
-			};
-
-			var obj = await JsonSerializer.DeserializeAsync<CreateProductCommandResponse>(await result.Content.ReadAsStreamAsync(), op, cancellationToken: ct);
+			var obj = await JsonSerializer.DeserializeAsync<CreateProductCommandResponse>(await result.Content.ReadAsStreamAsync(ct), JsonOptions, cancellationToken: ct);
 			return obj;
 		}
 		catch (Exception ex)

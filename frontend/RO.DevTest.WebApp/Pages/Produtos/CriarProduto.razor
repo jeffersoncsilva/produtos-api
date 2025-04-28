@@ -6,6 +6,7 @@
 @inject IJSRuntime jSRuntime 
 @implements  IDisposable
 @implements IAsyncDisposable
+@attribute [Authorize(Roles = "Admin")]
 
 
 <h3 class="fs-3 text-center">Novo Produto</h3>

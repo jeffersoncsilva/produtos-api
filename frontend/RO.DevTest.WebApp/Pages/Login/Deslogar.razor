@@ -1,0 +1,21 @@
+﻿@page "/sair"
+@using RO.DevTest.FronEnd.Application.Contracts
+
+@inject  AuthenticationStateProvider AuthProvider
+@inject NavigationManager NavManager
+@inject IAuthenticationTokenService TokenService
+
+
+<h3>Saindo...</h3>
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        await TokenService.RemoveTokenAsync();
+        ((ApiAuthenticationStateProvider)AuthProvider).MarkUserAsLoggedOUt();
+        NavManager.NavigateTo("login");
+        await base.OnInitializedAsync();
+    }
+
+}

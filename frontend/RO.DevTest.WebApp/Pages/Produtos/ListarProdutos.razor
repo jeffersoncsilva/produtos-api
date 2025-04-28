@@ -4,15 +4,15 @@
 @inject IMediator Mediator
 @inject NavigationManager NavManager
 
-<h3>Produtos</h3>
+<h3 class="fs-3 text-center">Produtos Cadastrados</h3>
 
 @if (!_products?.Any() ?? false)
 {
-    <h4>Nenhum produto encontrado!</h4>
+    <h4 class="fs-4 text-center">Nenhum produto encontrado!</h4>
 }
 else
 {
-    <div class="d-flex flex-row justify-content-evenly align-items-center">
+    <div class="d-flex flex-wrap flex-row justify-content-around align-items-center">
         @foreach(var product in _products ?? [])
         {
             <ProdutoComponent Product="@product" OnSelected="EditarProduto" OnVendaSelected="VenderProduto" />
