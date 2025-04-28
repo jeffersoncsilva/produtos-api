@@ -5,7 +5,7 @@ using Moq;
 using BE.Domain.Entities;
 using BE.Domain.Exception;
 
-namespace RO.DevTest.Tests.Unit.Application.Features.Products.Commands;
+namespace BE.UnitTests.Unit.Application.Features.Products.Commands;
 
 public class CreateProductCommandHandlerTest
 {

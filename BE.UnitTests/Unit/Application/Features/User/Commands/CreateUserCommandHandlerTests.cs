@@ -4,7 +4,7 @@ using FluentAssertions;
 using Moq;
 using BE.Domain.Exception;
 
-namespace RO.DevTest.Tests.Unit.Application.Features.User.Commands;
+namespace BE.UnitTests.Unit.Application.Features.User.Commands;
 
 public class CreateUserCommandHandlerTests {
     private readonly Mock<IIdentityAbstractor> _identityAbstractorMock = new();

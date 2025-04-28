@@ -5,7 +5,7 @@ using FluentAssertions;
 using Moq;
 using BE.Domain.Entities;
 
-namespace RO.DevTest.Tests.Unit.Application.Features.Products.Commands;
+namespace BE.UnitTests.Unit.Application.Features.Products.Commands;
 
 public class UpdateProductCommandHandlerTest
 {
