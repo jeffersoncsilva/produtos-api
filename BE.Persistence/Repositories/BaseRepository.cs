@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using BE.Application.Contracts.Persistance.Repositories;
 
-namespace RO.DevTest.Persistence.Repositories;
+namespace BE.Persistence.Repositories;
 
 public class BaseRepository<T>(DefaultContext defaultContext) : IBaseRepository<T> where T : class {
     private readonly DefaultContext _defaultContext = defaultContext;

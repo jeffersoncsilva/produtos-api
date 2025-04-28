@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace RO.DevTest.Persistence.Migrations
+namespace BE.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class AddBaseRoles : Migration

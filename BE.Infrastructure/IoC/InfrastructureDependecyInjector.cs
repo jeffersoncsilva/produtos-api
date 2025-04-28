@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using BE.Domain.Entities;
 using BE.Infrastructure.Abstractions;
-using RO.DevTest.Persistence;
+using BE.Persistence;
 
 namespace BE.Infrastructure.IoC;
 

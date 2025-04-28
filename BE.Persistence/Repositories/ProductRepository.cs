@@ -3,7 +3,7 @@ using BE.Application.Contracts.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
 using BE.Domain.Entities;
 
-namespace RO.DevTest.Persistence.Repositories;
+namespace BE.Persistence.Repositories;
 
 internal class ProductRepository(DefaultContext db) : BaseRepository<Product>(db), IProductsRepository
 {

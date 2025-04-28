@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using RO.DevTest.Persistence;
+using BE.Persistence;
 
 #nullable disable
 
-namespace RO.DevTest.Persistence.Migrations
+namespace BE.Persistence.Migrations
 {
     [DbContext(typeof(DefaultContext))]
     [Migration("20250428121752_AddBaseRoles")]

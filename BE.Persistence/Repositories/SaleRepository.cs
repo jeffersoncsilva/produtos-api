@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using BE.Domain.Entities;
 
-namespace RO.DevTest.Persistence.Repositories;
+namespace BE.Persistence.Repositories;
 
 public class SaleRepository(DefaultContext db) : BaseRepository<Sale>(db),ISaleRepository
 {

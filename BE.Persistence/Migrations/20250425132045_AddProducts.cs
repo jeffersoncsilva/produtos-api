@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace RO.DevTest.Persistence.Migrations
+namespace BE.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class AddProducts : Migration

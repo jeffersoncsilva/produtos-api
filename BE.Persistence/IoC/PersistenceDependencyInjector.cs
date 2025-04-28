@@ -1,9 +1,9 @@
 ﻿using BE.Application.Contracts.Persistance.Repositories;
+using BE.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using RO.DevTest.Persistence.Repositories;
 
-namespace RO.DevTest.Persistence.IoC;
+namespace BE.Persistence.IoC;
 
 public static class PersistenceDependencyInjector {
     /// <summary>

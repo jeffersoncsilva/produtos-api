@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using BE.Domain.Entities;
 
-namespace RO.DevTest.Persistence.EntitiesConfigurations;
+namespace BE.Persistence.EntitiesConfigurations;
 
 public sealed class SaleItemComfiguration : IEntityTypeConfiguration<SaleItem>
 {

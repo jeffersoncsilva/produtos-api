@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using BE.Domain.Entities;
 
-namespace RO.DevTest.Persistence;
+namespace BE.Persistence;
 
 public class DefaultContext : IdentityDbContext<User> {
 
