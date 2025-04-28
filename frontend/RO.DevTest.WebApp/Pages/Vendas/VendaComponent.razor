@@ -27,8 +27,10 @@
     </div>
     <div class="card-footer">
         <div class="d-flex flex-row justify-content-between align-content-center">
-            <button type="button" class="btn btn-primary btn-sm" @onclick=@(() => OnEditarVenda?.Invoke(Venda))>Editar</button>
-            <button type="button" class="btn btn-secondary btn-sm" @onclick="@(() => OnRemoverVenda?.Invoke(Venda))">Remover</button>
+            <AuthorizeView Roles="Admin">
+                <button type="button" class="btn btn-primary btn-sm" @onclick=@(() => OnEditarVenda?.Invoke(Venda))>Editar</button>
+                <button type="button" class="btn btn-secondary btn-sm" @onclick="@(() => OnRemoverVenda?.Invoke(Venda))">Remover</button>
+            </AuthorizeView>
         </div>
     </div>
 </div>

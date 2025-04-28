@@ -1,5 +1,4 @@
 using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using RO.DevTest.WebApp;
@@ -14,8 +13,7 @@ builder.Services.AddSingleton<ConfirmationService>();
 builder.Services.AddMediatRService();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddAuthorizationCore();
-builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
-
+builder.Services.AddTokenServices();
 builder.Services.ConfigureHttpFactory(builder.Configuration);
 
 await builder.Build().RunAsync();

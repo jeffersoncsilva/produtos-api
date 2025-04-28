@@ -1,10 +1,12 @@
-﻿using MediatR;
-using System.Text.Json.Serialization;
+﻿using System.Net.Http.Headers;
+using MediatR;
 using System.Text.Json;
+using RO.DevTest.FronEnd.Application.Contracts;
+using static RO.DevTest.FronEnd.Application.JsonOptionsSerialize;
 
 namespace RO.DevTest.FronEnd.Application.Features.Sales.GetSalesCommand;
 
-public class GetSalesHandler(IHttpClientFactory factory) : IRequestHandler<GetSalesRequest, GetSalesResponse?>
+public class GetSalesHandler(IHttpClientFactory factory, IAuthenticationTokenService tokenService) : IRequestHandler<GetSalesRequest, GetSalesResponse?>
 {
 	public async Task<GetSalesResponse?> Handle(GetSalesRequest request, CancellationToken ct)
 	{
@@ -12,13 +14,11 @@ public class GetSalesHandler(IHttpClientFactory factory) : IRequestHandler<GetSa
 		{
 			var uri = $"api/sales?page={request.Page}&pageSize={request.Size}";
 			var httpClient = factory.CreateClient(HttpConfiguration.HttpClientName);
-			var resultado = await httpClient.GetAsync(uri);
+			var token = await tokenService.GetTokenAsync(ct);
+			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token); 
+			var resultado = await httpClient.GetAsync(uri, ct);
 			resultado.EnsureSuccessStatusCode();
-			JsonSerializerOptions op = new()
-			{
-				ReferenceHandler = ReferenceHandler.Preserve
-			};
-			var obj = await JsonSerializer.DeserializeAsync<GetSalesResponse>(await resultado.Content.ReadAsStreamAsync(), op);
+			var obj = await JsonSerializer.DeserializeAsync<GetSalesResponse>(await resultado.Content.ReadAsStreamAsync(ct), JsonOptions, ct);
 			return obj;
 		}
 		catch (Exception ex)

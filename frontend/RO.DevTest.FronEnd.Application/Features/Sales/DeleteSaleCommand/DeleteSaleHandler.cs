@@ -1,28 +1,26 @@
-﻿using MediatR;
-using System.Text.Json.Serialization;
+﻿using System.Net.Http.Headers;
+using MediatR;
 using System.Text.Json;
+using RO.DevTest.FronEnd.Application.Contracts;
 using RO.DevTest.FrontEnd.ViewModels.Exceptions;
+using static RO.DevTest.FronEnd.Application.JsonOptionsSerialize;
 
 namespace RO.DevTest.FronEnd.Application.Features.Sales.DeleteSaleCommand;
 
-public sealed class DeleteSaleHandler(IHttpClientFactory httpFactory) : IRequestHandler<DeleteSaleRequest, DeleteSaleResponse?>
+public sealed class DeleteSaleHandler(IHttpClientFactory httpFactory, IAuthenticationTokenService tokenService) : IRequestHandler<DeleteSaleRequest, DeleteSaleResponse?>
 {
 	public async Task<DeleteSaleResponse?> Handle(DeleteSaleRequest request, CancellationToken ct)
 	{
 		try
 		{
 			var httpClient = httpFactory.CreateClient(HttpConfiguration.HttpClientName);
-
+			var token = await tokenService.GetTokenAsync(ct);
+			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 			var result = await httpClient.DeleteAsync($"api/sales/{request.Id}", ct);
 
 			result.EnsureSuccessStatusCode();
 
-			JsonSerializerOptions op = new()
-			{
-				ReferenceHandler = ReferenceHandler.Preserve
-			};
-
-			var obj = await JsonSerializer.DeserializeAsync<DeleteSaleResponse>(await result.Content.ReadAsStreamAsync(), op, cancellationToken: ct);
+			var obj = await JsonSerializer.DeserializeAsync<DeleteSaleResponse>(await result.Content.ReadAsStreamAsync(ct), JsonOptions, cancellationToken: ct);
 			return obj;
 		}
 		catch (Exception ex)

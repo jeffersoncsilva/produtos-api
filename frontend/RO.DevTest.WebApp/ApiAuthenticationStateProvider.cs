@@ -1,34 +1,25 @@
-﻿using System.Net;
-using System.Net.Http.Headers;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Text.Json;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 
 namespace RO.DevTest.WebApp;
 
-public class ApiAuthenticationStateProvider(HttpClient _httpClient, ILocalStorageService _localStorage) : AuthenticationStateProvider
+public class ApiAuthenticationStateProvider(ILocalStorageService localStorage) : AuthenticationStateProvider
 {
 
 	public override async Task<AuthenticationState> GetAuthenticationStateAsync()
 	{
-		var savedToken = await _localStorage.GetItemAsync<string>("authToken");
+		var savedToken = await localStorage.GetItemAsync<string>(AuthTokenString.TokenName);
 		if (string.IsNullOrWhiteSpace(savedToken))
-		{
 			return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
-		}
-
-		_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", savedToken);
 
 		return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(ParseClaimsFromJwt(savedToken), "jwt")));
 	}
 
-	public void MarkUserAsAuthenticated(string email)
+	public void MarkUserAsAuthenticated(string token)
 	{
-		var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(new[]
-		{
-			new Claim(ClaimTypes.Name, email)
-		}, "apiauth"));
+		var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(ParseClaimsFromJwt(token), "jwt"));
 		var authState = Task.FromResult(new AuthenticationState(authenticatedUser));
 		NotifyAuthenticationStateChanged(authState);
 	}

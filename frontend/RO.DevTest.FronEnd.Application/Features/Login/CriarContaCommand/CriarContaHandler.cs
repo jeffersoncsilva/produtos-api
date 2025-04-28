@@ -14,6 +14,7 @@ public class CriarContaHandler(IHttpClientFactory httpFactory) : IRequestHandler
 
 		try
 		{
+			request.Role = UserRoles.Admin;
 			using StringContent jsonContent = new(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
 			var httpClient = httpFactory.CreateClient("ApiDevTest");
 			var resultado = await httpClient.PostAsync("api/user", jsonContent, ct);

@@ -3,6 +3,7 @@
 @implements IDisposable
 @inject IMediator Mediator
 @inject NavigationManager NavManager
+@attribute [Authorize(Roles = "Admin")]
 
 
 <h3>Insira os dados de venda do produto:</h3>

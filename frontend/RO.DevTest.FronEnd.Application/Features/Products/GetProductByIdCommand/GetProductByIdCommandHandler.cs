@@ -1,30 +1,27 @@
-﻿using MediatR;
-using RO.DevTest.FronEnd.Application.Features.Products.CreateProductCommand;
-using System.Text.Json.Serialization;
+﻿using System.Net.Http.Headers;
+using MediatR;
 using System.Text.Json;
-using System.Text;
+using RO.DevTest.FronEnd.Application.Contracts;
 using RO.DevTest.FrontEnd.ViewModels.Exceptions;
+using static RO.DevTest.FronEnd.Application.JsonOptionsSerialize;
 
 namespace RO.DevTest.FronEnd.Application.Features.Products.GetProductByIdCommand;
 
-public class GetProductByIdCommandHandler(IHttpClientFactory httpFactory) : IRequestHandler<GetProductByIdCommandRequest, GetProductByIdResponse?>
+public class GetProductByIdCommandHandler(IHttpClientFactory httpFactory, IAuthenticationTokenService tokenService) : IRequestHandler<GetProductByIdCommandRequest, GetProductByIdResponse?>
 {
 	public async Task<GetProductByIdResponse?> Handle(GetProductByIdCommandRequest request, CancellationToken ct)
 	{
 		try
 		{
 			var httpClient = httpFactory.CreateClient(HttpConfiguration.HttpClientName);
+			var token = await tokenService.GetTokenAsync(ct);
 			var uri = $"api/products/{request.Id}";
+			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 			var result = await httpClient.GetAsync(uri, ct);
 
 			result.EnsureSuccessStatusCode();
 
-			JsonSerializerOptions op = new()
-			{
-				ReferenceHandler = ReferenceHandler.Preserve
-			};
-
-			var obj = await JsonSerializer.DeserializeAsync<GetProductByIdResponse>(await result.Content.ReadAsStreamAsync(), op, cancellationToken: ct);
+			var obj = await JsonSerializer.DeserializeAsync<GetProductByIdResponse>(await result.Content.ReadAsStreamAsync(ct), JsonOptions, cancellationToken: ct);
 			return obj;
 		}
 		catch(Exception ex)

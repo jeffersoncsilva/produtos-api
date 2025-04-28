@@ -2,10 +2,12 @@
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Text;
+using RO.DevTest.FronEnd.Application.Contracts;
+using static RO.DevTest.FronEnd.Application.JsonOptionsSerialize;
 
 namespace RO.DevTest.FronEnd.Application.Features.Login.RealizarLoginCommand;
 
-public class LoginHandler(IHttpClientFactory httpFactory) : IRequestHandler<LoginRequest, LoginResponse?>
+public class LoginHandler(IHttpClientFactory httpFactory, IAuthenticationTokenService authService) : IRequestHandler<LoginRequest, LoginResponse?>
 {
 	public async Task<LoginResponse?> Handle(LoginRequest? request, CancellationToken ct)
 	{
@@ -14,20 +16,16 @@ public class LoginHandler(IHttpClientFactory httpFactory) : IRequestHandler<Logi
 
 		try
 		{
-			using StringContent jsonContent = new(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+			using StringContent jsonContent = new(JsonSerializer.Serialize(request, JsonOptions), Encoding.UTF8, "application/json");
 
-			var httpClient = httpFactory.CreateClient("ApiDevTest");
+			var httpClient = httpFactory.CreateClient(HttpConfiguration.HttpClientName);
 			var resultado = await httpClient.PostAsync("api/auth", jsonContent, ct);
 			resultado.EnsureSuccessStatusCode();
-			JsonSerializerOptions op = new()
-			{
-				ReferenceHandler = ReferenceHandler.Preserve
-			};
-			var obj = await JsonSerializer.DeserializeAsync<LoginResponse>(await resultado.Content.ReadAsStreamAsync(ct), op, ct);
+			var obj = await JsonSerializer.DeserializeAsync<LoginResponse>(await resultado.Content.ReadAsStreamAsync(ct), JsonOptions, ct);
 			
-			if (obj?.Success ?? false)
+			if ((obj?.Success ?? false) && !string.IsNullOrWhiteSpace(obj.AccessToken))
 			{
-				// TODO: salvar token de autenticação para requisições posteriores
+				await authService.SetTokenAsync(obj.AccessToken, ct);
 			}
 
 			return obj;

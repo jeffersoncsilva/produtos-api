@@ -5,7 +5,6 @@
 @inject IMediator Mediator
 @inject NavigationManager NavManager
 @inject AuthenticationStateProvider AuthProvider
-@inject ILocalStorageService LocalStorage
 
 @if (_editContext is null)
 {
@@ -86,11 +85,10 @@ else
 
     private async Task RealizaLogin()
     {
-        var resultado = await Mediator.Send(_login);
+        var resultado = await Mediator.Send(_login!);
         if (resultado is not null && resultado.Success)
         {
-            await LocalStorage.SetItemAsync("authToken", resultado.AccessToken);
-            ((ApiAuthenticationStateProvider)AuthProvider).MarkUserAsAuthenticated(_login.Email);
+            ((ApiAuthenticationStateProvider)AuthProvider).MarkUserAsAuthenticated(resultado.AccessToken!);
             NavManager.NavigateTo("vendas");
         }
     }
