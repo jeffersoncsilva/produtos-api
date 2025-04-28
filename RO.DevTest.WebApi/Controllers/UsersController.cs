@@ -8,7 +8,8 @@ namespace RO.DevTest.WebApi.Controllers;
 
 [Route("api/user")]
 [OpenApiTags("Users")]
-public class UsersController(IMediator mediator) : Controller {
+[ApiController]
+public class UsersController(IMediator mediator) : ControllerBase {
     private readonly IMediator _mediator = mediator;
 
     [HttpPost]

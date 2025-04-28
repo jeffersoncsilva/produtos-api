@@ -7,12 +7,14 @@ using RO.DevTest.Application.Features.Products.Commands.GetProductByIdCommand;
 using RO.DevTest.Application.Features.Products.Commands.GetProductsCommand;
 using RO.DevTest.Application.Features.Products.Commands.UpdateProductCommand;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RO.DevTest.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [OpenApiTags("Products")]
 [ApiController]
+[Authorize]
 public class ProductsController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
@@ -40,6 +42,7 @@ public class ProductsController(IMediator mediator) : ControllerBase
     }
     
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status401Unauthorized)]
@@ -52,6 +55,7 @@ public class ProductsController(IMediator mediator) : ControllerBase
     }
     
     [HttpPut]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status401Unauthorized)]
@@ -64,6 +68,7 @@ public class ProductsController(IMediator mediator) : ControllerBase
     }
     
     [HttpDelete("{id:guid}")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status401Unauthorized)]

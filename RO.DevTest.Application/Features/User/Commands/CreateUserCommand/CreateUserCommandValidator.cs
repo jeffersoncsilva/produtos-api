@@ -19,5 +19,10 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>{
         RuleFor(cpau => cpau.PasswordConfirmation)
             .Matches(cpau => cpau.Password)
             .WithMessage("O campo de confirmação de senha deve ser igual ao campo senha");
+
+        RuleFor(c => c.Role)
+            .NotNull()
+            .WithMessage("O campo de Role não pode ser nulo.");
+        
     }
 }
