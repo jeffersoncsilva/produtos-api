@@ -46,8 +46,8 @@ public class LoginCommandHandler(IIdentityAbstractor identityAbstractor, IConfig
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:JwtSecurityKey"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var token = new JwtSecurityToken(
-            issuer: config["Jwt:Issuer"],
-            audience: config["Jwt:Audience"],
+            issuer: config["Jwt:JwtIssuer"],
+            audience: config["Jwt:JwtAudience"],
             expires: expiry,
             signingCredentials: creds
         );
