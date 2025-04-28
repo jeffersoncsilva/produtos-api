@@ -1,4 +1,6 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager NavManager
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -6,7 +8,7 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+
         </div>
 
         <article class="content px-4">
@@ -14,3 +16,22 @@
         </article>
     </main>
 </div>
+
+@code
+{
+    [CascadingParameter] protected Task<AuthenticationState>? AuthStat { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        if (AuthStat is not null)
+        {
+            var user = (await AuthStat).User;
+            if(user.Identity is { IsAuthenticated: false })
+            {
+                Console.WriteLine("Usuário não está autenticado. Redirecionando para login.");
+                NavManager.NavigateTo("login");
+            }
+        }
+    }
+}

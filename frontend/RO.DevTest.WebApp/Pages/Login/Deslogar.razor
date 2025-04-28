@@ -1,0 +1,20 @@
+﻿@page "/sair"
+@using Blazored.LocalStorage
+
+@inject  AuthenticationStateProvider AuthProvider
+@inject NavigationManager NavManager
+@inject ILocalStorageService LocalStorage 
+
+<h3>Saindo...</h3>
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LocalStorage.RemoveItemAsync("authToken");
+        ((ApiAuthenticationStateProvider)AuthProvider).MarkUserAsLoggedOUt();
+        NavManager.NavigateTo("login");
+        await base.OnInitializedAsync();
+    }
+
+}
