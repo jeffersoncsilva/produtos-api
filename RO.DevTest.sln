@@ -28,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RO.DevTest.WebApp", "fronte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FE.Application", "frontend\FE.Application\FE.Application.csproj", "{CA1BDDA3-5307-44BC-BD03-2DAE2FF38377}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RO.DevTest.FrontEnd.ViewModels", "frontend\RO.DevTest.FrontEnd.ViewModels\RO.DevTest.FrontEnd.ViewModels.csproj", "{3F29DDAE-E44C-4288-B55A-5B3E41B0E592}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FE.ViewModels", "frontend\FE.ViewModels\FE.ViewModels.csproj", "{3F29DDAE-E44C-4288-B55A-5B3E41B0E592}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

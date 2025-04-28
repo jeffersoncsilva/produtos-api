@@ -3,7 +3,7 @@ using MediatR;
 using System.Text.Json;
 using System.Text;
 using FE.Application.Contracts;
-using RO.DevTest.FrontEnd.ViewModels.Exceptions;
+using FE.ViewModels.Exceptions;
 using static FE.Application.JsonOptionsSerialize;
 
 namespace FE.Application.Features.Sales.UpdateSaleCommand;

@@ -1,4 +1,4 @@
-﻿using RO.DevTest.FrontEnd.ViewModels.Features.Product;
+﻿using FE.ViewModels.Features.Product;
 using System.Text.Json.Serialization;
 
 namespace FE.Application.Features.Products.GetProductsCommand;

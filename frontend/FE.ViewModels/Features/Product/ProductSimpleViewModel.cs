@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace RO.DevTest.FrontEnd.ViewModels.Features.Product;
+namespace FE.ViewModels.Features.Product;
 
 public class ProductSimpleViewModel
 {

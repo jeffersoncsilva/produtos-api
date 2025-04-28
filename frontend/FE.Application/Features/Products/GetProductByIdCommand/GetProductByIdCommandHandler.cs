@@ -2,7 +2,7 @@
 using MediatR;
 using System.Text.Json;
 using FE.Application.Contracts;
-using RO.DevTest.FrontEnd.ViewModels.Exceptions;
+using FE.ViewModels.Exceptions;
 using static FE.Application.JsonOptionsSerialize;
 
 namespace FE.Application.Features.Products.GetProductByIdCommand;

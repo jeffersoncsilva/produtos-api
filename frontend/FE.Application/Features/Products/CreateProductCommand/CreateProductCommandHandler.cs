@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Text;
 using FE.Application.Contracts;
-using RO.DevTest.FrontEnd.ViewModels.Exceptions;
+using FE.ViewModels.Exceptions;
 using static FE.Application.JsonOptionsSerialize;
 
 namespace FE.Application.Features.Products.CreateProductCommand;
