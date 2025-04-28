@@ -5,6 +5,7 @@ using NSwag.Annotations;
 using RO.DevTest.Application.Features.Sales.Commands.CreateSaleCommand;
 using RO.DevTest.Application.Features.Sales.Commands.GetSalesCommand;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Authorization;
 using RO.DevTest.Application.Features.Sales.Commands.DeleteSaleCommand;
 using RO.DevTest.Application.Features.Sales.Commands.GetSaleByIdCommand;
 using RO.DevTest.Application.Features.Sales.Commands.UpdateSaleCommand;
@@ -17,6 +18,7 @@ namespace RO.DevTest.WebApi.Controllers;
 public class SalesController(IMediator mediator) : Controller
 {
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(CreateSaleResult), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(CreateSaleResult), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(CreateSaleResult), StatusCodes.Status401Unauthorized)]
@@ -56,6 +58,7 @@ public class SalesController(IMediator mediator) : Controller
     
     
     [HttpPut]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(UpdateSaleCommandReponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(UpdateSaleCommandReponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(UpdateSaleCommandReponse), StatusCodes.Status404NotFound)]
@@ -70,6 +73,7 @@ public class SalesController(IMediator mediator) : Controller
     }
     
     [HttpDelete("{id:guid}")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(DeleteSaleCommandResponse), StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(DeleteSaleCommandResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(DeleteSaleCommandResponse), StatusCodes.Status404NotFound)]

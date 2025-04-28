@@ -19,9 +19,8 @@ public class CreateUserCommand : IRequest<CreateUserResult> {
     
     [JsonPropertyName("password_confirmation")]
     public string PasswordConfirmation { get; set; } = string.Empty;
-    
-    [JsonPropertyName("user_role")]
-    public UserRoles Role { get; set; }
+
+    [JsonPropertyName("user_role")] public UserRoles? Role { get; set; }
 
     public Domain.Entities.User AssignTo() {
         return new Domain.Entities.User {

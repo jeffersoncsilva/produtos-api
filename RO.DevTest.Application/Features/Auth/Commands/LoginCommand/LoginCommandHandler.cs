@@ -1,6 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using MediatR;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RO.DevTest.Application.Contracts.Infrastructure;
@@ -23,10 +25,15 @@ public class LoginCommandHandler(IIdentityAbstractor identityAbstractor, IConfig
             {
                 var expiry = DateTime.Now.AddDays(Convert.ToInt32(config["Jwt:JwtExpiryInDays"]));
                 var roles = await identityAbstractor.GetUserRolesAsync(user);
+                var claims = new List<Claim>();
+                claims.Add(new Claim(ClaimTypes.Email, request.Username));
+                foreach (var role in roles)
+                    claims.Add(new Claim(ClaimTypes.Role, role));
+                
                 return new LoginResponse()
                 {
                     Success = true,
-                    AccessToken = GerarTokenAutenticacao(expiry),
+                    AccessToken = GerarTokenAutenticacao(expiry, claims),
                     ExpirationDate = expiry,
                     IssuedAt = DateTime.Now,
                     Roles = roles
@@ -41,13 +48,14 @@ public class LoginCommandHandler(IIdentityAbstractor identityAbstractor, IConfig
         }
     }
 
-    private string GerarTokenAutenticacao(DateTime expiry)
+    private string GerarTokenAutenticacao(DateTime expiry, List<Claim> claims)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:JwtSecurityKey"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var token = new JwtSecurityToken(
             issuer: config["Jwt:JwtIssuer"],
             audience: config["Jwt:JwtAudience"],
+            claims: claims,
             expires: expiry,
             signingCredentials: creds
         );

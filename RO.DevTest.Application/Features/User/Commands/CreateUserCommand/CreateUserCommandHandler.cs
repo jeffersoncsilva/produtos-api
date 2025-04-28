@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using RO.DevTest.Application.Contracts.Infrastructure;
+using RO.DevTest.Domain.Enums;
 using RO.DevTest.Domain.Exception;
 
 namespace RO.DevTest.Application.Features.User.Commands.CreateUserCommand;
@@ -26,7 +27,7 @@ public class CreateUserCommandHandler(IIdentityAbstractor identityAbstractor) : 
             throw new BadRequestException(userCreationResult);
         }
 
-        IdentityResult userRoleResult = await _identityAbstractor.AddToRoleAsync(newUser, request.Role);
+        IdentityResult userRoleResult = await _identityAbstractor.AddToRoleAsync(newUser, (UserRoles)request.Role!);
         if(!userRoleResult.Succeeded) {
             throw new BadRequestException(userRoleResult);
         }

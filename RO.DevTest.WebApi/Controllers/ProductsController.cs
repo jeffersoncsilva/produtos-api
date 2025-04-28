@@ -42,6 +42,7 @@ public class ProductsController(IMediator mediator) : ControllerBase
     }
     
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status401Unauthorized)]
@@ -54,6 +55,7 @@ public class ProductsController(IMediator mediator) : ControllerBase
     }
     
     [HttpPut]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status401Unauthorized)]
@@ -66,6 +68,7 @@ public class ProductsController(IMediator mediator) : ControllerBase
     }
     
     [HttpDelete("{id:guid}")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status401Unauthorized)]
