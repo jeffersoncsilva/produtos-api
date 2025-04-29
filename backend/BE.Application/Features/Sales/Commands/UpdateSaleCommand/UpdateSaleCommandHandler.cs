@@ -12,6 +12,7 @@ public sealed class UpdateSaleCommandHandler(ISaleRepository saleRepository): IR
         if (sale is null)
             throw new BadRequestException("Venda não encontrada");
 
+        sale.Name = request.Name; 
         sale.Descount = request.Descount;
         sale.Observation = request.Observatin ?? "";
         sale.Price = request.Price;

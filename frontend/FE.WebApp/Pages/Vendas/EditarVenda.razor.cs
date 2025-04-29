@@ -52,9 +52,10 @@ public partial class EditarVenda : IDisposable
 		{
 			Id = venda.Id,
 			Observation = venda.Observatin,
+			Name = venda.Name,
 			Descount = venda.Descount,
 			Price = venda.Price,
-			Itens = venda.Itens.Select(i => new SaleItemUpdate() { Id = i.ProductId, Quantity = i.Quantity, ProductName = i.ProductName, ProductPrice = i.ProductPrice }).ToList()
+			Itens = venda.Itens.Select(i => new SaleItemUpdate { Id = i.ProductId, Quantity = i.Quantity, ProductName = i.ProductName, ProductPrice = i.ProductPrice }).ToList()
 		};
 		_editContext = new EditContext(_request);
 		_editContext.OnValidationRequested += HandleValidation;

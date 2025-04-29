@@ -6,10 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Features\Sales\**" />
-    <EmbeddedResource Remove="Features\Sales\**" />
-    <None Remove="Features\Sales\**" />
-  </ItemGroup>
-
 </Project>

@@ -1,6 +1,8 @@
 ﻿using FE.Application.Features.Products.GetProductsCommand;
 using FE.ViewModels;
 using FE.ViewModels.Features.Product;
+using FE.ViewModels.Features.Sales;
+using FE.WebApp.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 
@@ -10,7 +12,7 @@ public partial class ListarProdutos
 {
 	[Inject] public IMediator Mediator { get; set; } = default!;
 	[Inject] public NavigationManager NavManager { get; set; } = default!;
-
+	[Inject] public ICarrinhoCompraServico CarrinhoDeCompra { get; set; } = default!;
 
 	private int _page = 0;
 	private int _size = 5;
@@ -54,9 +56,12 @@ public partial class ListarProdutos
 			NavManager.NavigateTo($"editar-produto?id={produto.Id}");
 	}
 
-	private void VenderProduto(ProductSimpleViewModel? produto)
+	private void AdicionarCarrinhoCompra(ProductSimpleViewModel? produto)
 	{
 		if (produto is not null)
-			NavManager.NavigateTo($"vender-produto?id={produto.Id}&nome-produto={produto.Name}&stock={produto.Stock}");
+		{
+			var item = new CarrinhoItem(produto, 1);
+			CarrinhoDeCompra.AdicionaItemNoCarrinho(item);
+		}
 	}
 }

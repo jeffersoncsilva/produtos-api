@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using System.Security.Claims
+@inherits LayoutComponentBase
 @inject NavigationManager NavManager
 
 <div class="page">
@@ -7,8 +8,15 @@
     </div>
 
     <main>
-        <div class="top-row px-4">
-
+        <div class="top-row px-4 d-flex align-content-center">
+            <AuthorizeView Roles="Admin">
+                <div class="align-self-end my-auto me-5">
+                    <BotaoCarrinhoCompra />
+                </div>
+            </AuthorizeView>
+            <AuthorizeView>
+                <span class="align-self-center my-auto">@_user?.Identity?.Name</span>
+            </AuthorizeView>
         </div>
 
         <article class="content px-4">
@@ -20,14 +28,15 @@
 @code
 {
     [CascadingParameter] protected Task<AuthenticationState>? AuthStat { get; set; }
+    private ClaimsPrincipal? _user;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         if (AuthStat is not null)
         {
-            var user = (await AuthStat).User;
-            if(user.Identity is { IsAuthenticated: false })
+            _user = (await AuthStat).User;
+            if(_user.Identity is { IsAuthenticated: false })
             {
                 Console.WriteLine("Usuário não está autenticado. Redirecionando para login.");
                 NavManager.NavigateTo("login");

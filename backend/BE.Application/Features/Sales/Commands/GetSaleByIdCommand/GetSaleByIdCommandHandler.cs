@@ -16,6 +16,7 @@ public class GetSaleByIdCommandHandler(ISaleRepository saleRepository) : IReques
             return new GetSaleByIdCommandResponse()
             {
                 Id = sale.Id,
+                Name = sale.Name,
                 Observatin = sale.Observation,
                 Price = sale.Price,
                 Descount = sale.Descount,

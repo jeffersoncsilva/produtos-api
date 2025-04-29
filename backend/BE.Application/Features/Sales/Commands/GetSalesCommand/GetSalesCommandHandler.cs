@@ -18,6 +18,7 @@ public class GetSalesCommandHandler(ISaleRepository saleRepository) : IRequestHa
 			Sales = sales.Select(s => new SaleItem()
 			{
 				SaleId = s.Id, 
+				Name = s.Name,
 				Descount = s.Descount, 
 				Observation = s.Observation, 
 				Price = s.Price, 

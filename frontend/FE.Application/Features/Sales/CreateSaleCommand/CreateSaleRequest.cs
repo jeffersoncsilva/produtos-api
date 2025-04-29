@@ -6,8 +6,8 @@ namespace FE.Application.Features.Sales.CreateSaleCommand;
 
 public class CreateSaleRequest : IRequest<BaseResponse<CreateSaleResponse?>>
 {
-	[JsonPropertyName("name")]
-	public string? Name { get; set; }
+	[JsonPropertyName("name")] 
+	public string Name { get; set; } = string.Empty;
 
 	[JsonPropertyName("observations")]
 	public string Observation { get; set; } = string.Empty;
@@ -28,5 +28,16 @@ public sealed class ProductsSale
 	public Guid Id { get; set; }
 	[JsonPropertyName("quantity")]
 	public int Quantity { get; set; }
+
+	public ProductsSale()
+	{
+		
+	}
+
+	public ProductsSale(Guid id, int qtd)
+	{
+		Id = id;
+		Quantity = qtd;
+	}
 }
 
