@@ -9,6 +9,9 @@ public class UpdateSaleRequest : IRequest<BaseResponse<UpdateSaleResult?>>
 	[JsonPropertyName("sale_id")]
 	public Guid Id { get; set; }
 
+	[JsonPropertyName("name")]
+	public string Name { get; set; } = string.Empty;
+
 	[JsonPropertyName("observation")]
 	public string? Observation { get; set; }
 
@@ -20,6 +23,9 @@ public class UpdateSaleRequest : IRequest<BaseResponse<UpdateSaleResult?>>
 
 	[JsonPropertyName("product_itens")]
 	public List<SaleItemUpdate> Itens { get; set; } = new();
+
+	[JsonPropertyName("modified_by")]
+	public string? ModifiedBy { get; set; }
 }
 
 

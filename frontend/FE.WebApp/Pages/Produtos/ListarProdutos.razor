@@ -24,7 +24,7 @@ else
             <div class="d-flex align-content-start flex-wrap">
                 @foreach (var product in _products ?? [])
                 {
-                    <ProdutoComponent Product="@product" OnSelected="EditarProduto" OnVendaSelected="VenderProduto"/>
+                    <ProdutoComponent Product="@product" OnSelected="EditarProduto" OnAdicionaCarrinhoCompra="AdicionarCarrinhoCompra" OnInfoSelected="MostraInformacoesProduto" />
                 }
             </div>
         }

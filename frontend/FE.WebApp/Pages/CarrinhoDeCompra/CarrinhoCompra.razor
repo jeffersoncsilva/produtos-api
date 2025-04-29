@@ -1,0 +1,109 @@
+﻿@page "/carrinho-compra"
+@attribute [Authorize(Roles = "Admin")]
+
+@if (_cadastrandoVenda)
+{
+    <Carregando Tipo="Carregando.ECarregandoTipo.Primary" EstaCarregando="_cadastrandoVenda" />
+}
+else if (_erroCadastarVenda)
+{
+    <Alerta Tipo="Alerta.TipoAlerta.Erro" Mensagem="@_messageErroCadastrarVenda" />
+}
+
+@if (CarrinhoDeCompra.Produtos.Count == 0)
+{
+    <Alerta Tipo="Alerta.TipoAlerta.Aviso" Mensagem="Carrinho de Compras está vazio. Adicione um produto para poder cadastar uma venda."/> 
+}
+else
+{
+    <h4 class="fs-4 text-center my-4">Insira os dados da venda:</h4>
+
+    <EditForm EditContext="_editContext" OnValidSubmit="CadastrarVenda">
+        <AntiforgeryToken />
+
+        <div class="form-group row my-2">
+            <label class="form-label col-md-3 my-auto text-end">Nome da Venda:</label>
+            <div class="col-md-6">
+                <InputText @bind-Value="_request!.Name" class="form-control" maxlength="128" />
+                <ValidationMessage For="() => _request.Name" />
+            </div>
+        </div>
+
+        <div class="form-group row my-2">
+            <label class="form-label col-md-3 my-auto text-end">Observação da Venda:</label>
+            <div class="col-md-6">
+                <InputTextArea @bind-Value="_request!.Observation" class="form-control" maxlength="2048" />
+                <ValidationMessage For="() => _request.Observation" />
+            </div>
+        </div>
+
+        <div class="form-group row my-2">
+            <label class="form-label col-md-3 my-auto text-end">Quantidade Produtos:</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" value="@CarrinhoDeCompra.QuantidadeProdutos()" disabled />
+            </div>
+        </div>
+
+        <div class="form-group row my-2">
+            <label class="form-label col-md-3 my-auto text-end">Valor total:</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" value="@CarrinhoDeCompra.ValorTotalCarrinho().ToString("C")" disabled />
+            </div>
+        </div>
+
+        <div class="form-group row my-2">
+            <label class="form-label col-md-3 my-auto text-end">Desconto:</label>
+            <div class="col-md-6">
+                <InputNumber TValue="decimal" @bind-Value="_request.Descount" class="form-control" />
+                <ValidationMessage For="() => _request.Descount" />
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-text">Produtos</span>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Nome Produto</th>
+                        <th>Descrição Produto</th>
+                        <th>Quantidade Produto</th>
+                        <th>Valor Total</th>
+                        <th>Adicionar/Remover Item</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in CarrinhoDeCompra.Produtos)
+                    {
+                        <tr>
+                            <td>@item.Produto?.Name</td>
+                            <td>@item.Produto?.Description</td>
+                            <td>@item.Quantidade</td>
+                            <td>@(item.ValorTotalItem.ToString("C"))</td>
+                            <td>
+                                <button type="button" class="btn" @onclick="@(() => AdicionarUnidadeItem(item))"><i class="bi bi-plus-circle" style="font-size: 1.5rem"></i></button>
+                                    <button type="button" class="btn" @onclick="@(() => RemoverUnidadeItem(item))"><i class="bi bi-dash-circle" style="font-size: 1.5rem"></i></button>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+                    <tr class="my-auto">
+                        <th scope="row">Quantidade total de itens:</th>
+                        <td class="text-center">@CarrinhoDeCompra.QuantidadeItens()</td>
+                        <th scope="row" class="text-center">Valor Total Compra:</th>
+                        <td class="text-end">@CarrinhoDeCompra.ValorTotalCarrinho().ToString("C")</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row my-4 justify-content-center align-content-center">
+            <button type="submit" class="btn btn-sm btn-primary" disabled="@(_cadastrandoVenda)"><i class="bi bi-floppy me-2"></i>Cadastrar Venda</button>
+        </div>
+    </EditForm>
+}

@@ -1,0 +1,35 @@
+﻿@using FE.WebApp.Services.Interfaces
+@implements IDisposable
+@inject NavigationManager NavManager
+@inject ICarrinhoCompraServico CarrinhoCompra
+
+
+<div class="position-relative" style="display: inline-block;">
+    <i class="bi bi-cart-check" style="font-size: 2rem; display: block; cursor: pointer;" @onclick="OnCarrinhoItemClick"></i>
+    @if (CarrinhoCompra.Produtos.Count > 0)
+    {
+        <span class="position-absolute top-0 start-100 mt-3 ms-3 translate-middle badge rounded-pill bg-info">@CarrinhoCompra.QuantidadeItens()</span>
+    }
+</div>
+
+
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        CarrinhoCompra.OnCarrinhoChanged += StateHasChanged;
+        base.OnInitialized();
+    }
+
+    private void OnCarrinhoItemClick()
+    {
+        NavManager.NavigateTo("carrinho-compra");
+    }
+
+    public void Dispose()
+    {
+        CarrinhoCompra.OnCarrinhoChanged -= StateHasChanged;
+    }
+
+}

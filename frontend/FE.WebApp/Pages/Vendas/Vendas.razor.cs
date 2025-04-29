@@ -75,4 +75,10 @@ public partial class Vendas
 			StateHasChanged();
 		}
 	}
+
+	private void InformacoesVenda(SaleItem? item)
+	{
+		if (item is not null) 
+			NavManager.NavigateTo($"vendas-detalhes?id={item.SaleId}");
+	}
 }

@@ -7,6 +7,9 @@ public class GetSaleDetailByIdResponse
 	[JsonPropertyName("sale_id")]
 	public Guid Id { get; set; }
 
+	[JsonPropertyName("name")]
+	public string Name { get; set; } = string.Empty;
+
 	[JsonPropertyName("observation")]
 	public string? Observatin { get; set; }
 

@@ -79,16 +79,8 @@ else if (_erroAoSalvarProduto)
         </div>
     </div>
 
-    <div class="form-group row my-2">
-        <label class="form-label col-md-3 my-auto text-end">Criado por:</label>
-        <div class="col-md-6">
-            <InputText @bind-Value="_request.CreatedBy" class="form-control" />
-            <ValidationMessage For="() => _request.CreatedBy" />
-        </div>
-    </div>
-
     <div class="d-flex flex-row justify-content-center align-content-center">
-        <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-floppy"></i>Salvar</button>
+        <button type="submit" class="btn btn-primary"><i class="bi bi-floppy me-2"></i>Salvar</button>
     </div>
 </EditForm>
 

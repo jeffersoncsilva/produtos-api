@@ -1,8 +1,10 @@
-﻿using FE.Application.Features.Products.GetProductByIdCommand;
+﻿using System.Security.Claims;
+using FE.Application.Features.Products.GetProductByIdCommand;
 using FE.Application.Features.Products.UpdateProductCommand;
 using FE.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 
 namespace FE.WebApp.Pages.Produtos;
@@ -11,6 +13,7 @@ public partial class EditarProduto : IDisposable
 {
 	[Inject] public IMediator Mediator { get; set; } = default!;
 	[Inject] public NavigationManager NavManager { get; set; } = default!;
+	[Inject] public AuthenticationStateProvider AuthApi { get; set; } = default!;
 
 
 	[Parameter]
@@ -86,14 +89,14 @@ public partial class EditarProduto : IDisposable
 			_messageStore?.Add(() => _updateProduct!.Brand!, "A Marca e Obrigatório.");
 		if (_updateProduct!.Stock < 0)
 			_messageStore?.Add(() => _updateProduct.Stock, "A quantidade deve ser maior ou igual a 1.");
-		if (string.IsNullOrWhiteSpace(_updateProduct?.ModifiedBy))
-			_messageStore?.Add(() => _updateProduct!.ModifiedBy!, "O nome de quem criou o produto e Obrigatório.");
 	}
 
 	private async Task AtualizarDadosFormulario()
 	{
 		_ocorreuErro = false;
 		_carregando = true;
+		var user = await ((ApiAuthenticationStateProvider)AuthApi).GetAuthenticationStateAsync();
+		_updateProduct.ModifiedBy = user?.User?.FindFirst(f => f.Type == ClaimTypes.Email)?.Value ?? string.Empty;
 		var resultadoAlteracao = await Mediator.Send(_updateProduct!);
 		if (resultadoAlteracao is { Status: EStatusResponse.Ok, Dado: not null } && resultadoAlteracao.Dado.Id != Guid.Empty)
 		{

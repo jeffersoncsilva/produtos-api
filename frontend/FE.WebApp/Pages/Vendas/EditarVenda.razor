@@ -22,10 +22,19 @@ else
         <Alerta Tipo="Alerta.TipoAlerta.Erro" Mensagem="Não foi possível atualizar a venda. Revise os dados e tente novamente."></Alerta>
     }
 
-    <h4 class="fs-4 text-center">Editando dados da venda: @Id</h4>
+    <h4 class="fs-4 text-center">Editando dados da venda: @_request.Name</h4>
 
     <EditForm EditContext="_editContext" OnValidSubmit="EnviarVenda">
         <AntiforgeryToken />
+        
+        <div class="form-group row my-2">
+            <label class="form-label col-md-3 my-auto text-end">Descrição</label>
+            <div class="col-md-6">
+                <InputText @bind-Value="_request!.Name" class="form-control" />
+                <ValidationMessage For="() => _request.Name" />
+            </div>
+        </div>
+
         <div class="form-group row my-2">
             <label class="form-label col-md-3 my-auto text-end">Descrição</label>
             <div class="col-md-6">

@@ -24,7 +24,7 @@ public class SalesController(IMediator mediator) : Controller
     [ProducesResponseType(typeof(CreateSaleResult), StatusCodes.Status401Unauthorized)]
     [EndpointName("Cria uma venda.")]
 	[EndpointSummary("Cria uma venda com os produtos informados.")]
-	public async Task<IActionResult> CreateVenda(CreateSaleCommand request)
+	public async Task<IActionResult> CreateVenda(CreateSaleRequest request)
     {
         CreateSaleResult response = await mediator.Send(request);
         return Created(HttpContext.Request.GetDisplayUrl(), response);

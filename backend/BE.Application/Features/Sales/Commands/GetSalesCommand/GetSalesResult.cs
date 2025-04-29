@@ -13,6 +13,9 @@ public class GetSalesResult
 
 public class SaleItem
 {
+	[JsonPropertyName("name")] 
+	public string Name { get; set; } = string.Empty;
+	
 	[JsonPropertyName("sale_id")]
 	public Guid SaleId { get; set; }
 	

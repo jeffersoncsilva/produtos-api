@@ -10,6 +10,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddSingleton<ConfirmationService>();
+builder.Services.AddCarrinhoCompraSingleton();
 builder.Services.AddMediatRService();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddAuthorizationCore();
