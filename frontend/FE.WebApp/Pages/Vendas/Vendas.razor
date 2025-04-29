@@ -31,7 +31,7 @@ else
         <div class="d-flex align-content-start flex-wrap">
             @foreach(var venda in _vendasRealizadas.Sales)
             {
-                <VendaComponent Venda="venda" OnEditarVenda="EditarVenda" OnRemoverVenda="RemoverVenda" />
+                <VendaComponent Venda="venda" OnEditarVenda="EditarVenda" OnRemoverVenda="RemoverVenda" OnInfoVenda="InformacoesVenda" />
             }
         </div>
     }

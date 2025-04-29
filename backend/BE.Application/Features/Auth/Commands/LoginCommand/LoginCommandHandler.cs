@@ -24,11 +24,14 @@ public class LoginCommandHandler(IIdentityAbstractor identityAbstractor, IConfig
             {
                 var expiry = DateTime.Now.AddDays(Convert.ToInt32(config["Jwt:JwtExpiryInDays"]));
                 var roles = await identityAbstractor.GetUserRolesAsync(user);
-                var claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.Email, request.Username));
-                foreach (var role in roles)
-                    claims.Add(new Claim(ClaimTypes.Role, role));
-                
+                var claims = new List<Claim>
+                {
+	                new(ClaimTypes.Name, user.Name),
+	                new(ClaimTypes.Email, request.Username)
+                };
+
+                claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
                 return new LoginResponse()
                 {
                     Success = true,

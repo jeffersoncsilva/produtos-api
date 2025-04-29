@@ -1,9 +1,11 @@
 ﻿@using FE.Application.Features.Sales.GetSalesCommand
 <div class="card col-md-4 m-1">
-    <div class="card-header">
-        <h5 class="card-text">
-            @Venda?.Name
-        </h5>
+    <div class="card-header d-flex justify-content-between">
+        <span class="card-text my-auto">@Venda?.Name</span>
+        @if (OnInfoVenda is not null)
+        {
+            <i class="bi bi-info-circle" style="font-size: 1.7rem;  cursor: pointer;" @onclick="InfoVenda"></i>
+        }
     </div>
     <div class="card-body">
         <table class="table table-striped">
@@ -44,6 +46,9 @@
 
     [Parameter, EditorRequired] public EventCallback<SaleItem?> OnRemoverVenda { get; set; }
 
+    [Parameter] public Action<SaleItem?>? OnInfoVenda { get; set; }
+
+    private void InfoVenda() => OnInfoVenda?.Invoke(Venda);
     private async Task EditarVenda() => await OnEditarVenda.InvokeAsync(Venda);
     private async Task RemoverVenda() => await OnRemoverVenda.InvokeAsync(Venda);
 }

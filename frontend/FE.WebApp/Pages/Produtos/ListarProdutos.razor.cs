@@ -64,4 +64,10 @@ public partial class ListarProdutos
 			CarrinhoDeCompra.AdicionaItemNoCarrinho(item);
 		}
 	}
+
+	private void MostraInformacoesProduto(ProductSimpleViewModel? produto)
+	{
+		if (produto is not null)
+			NavManager.NavigateTo($"detalhes-produto?id={produto.Id}");
+	}
 }

@@ -2,10 +2,10 @@
 
 <div class="card col-md-3 m-2">
     <div class="card-header d-flex justify-content-between">
-        <span class="card-text">@Product?.Name</span>
-        @if (OnInforSelected is not null)
+        <span class="card-text my-auto">@Product?.Name</span>
+        @if (OnInfoSelected is not null)
         {
-            <button type="button" class="btn" @onclick="@(() => OnInforSelected?.Invoke(Product))"><i class="bi bi-info-circle"></i></button>
+            <i class="bi bi-info-circle" style="font-size: 1.7rem;  cursor: pointer;" @onclick="@(() => OnInfoSelected?.Invoke(Product))"></i>
         }
     </div>
     <div class="card-body">
@@ -48,5 +48,5 @@
     [Parameter] public ProductSimpleViewModel? Product { get; set; }
     [Parameter] public Action<ProductSimpleViewModel?>? OnSelected { get; set; }
     [Parameter] public Action<ProductSimpleViewModel?>? OnAdicionaCarrinhoCompra { get; set; }
-    [Parameter] public Action<ProductSimpleViewModel?>? OnInforSelected { get; set; }
+    [Parameter] public Action<ProductSimpleViewModel?>? OnInfoSelected { get; set; }
 }

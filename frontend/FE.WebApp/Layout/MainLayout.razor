@@ -1,5 +1,6 @@
 ﻿@using System.Security.Claims
 @inherits LayoutComponentBase
+@implements  IDisposable
 @inject NavigationManager NavManager
 
 <div class="page">
@@ -8,15 +9,16 @@
     </div>
 
     <main>
-        <div class="top-row px-4 d-flex align-content-center">
+        <div class="top-row p-0 m-0 d-flex align-content-center justify-content-between" style="background: #07173D;">
             <AuthorizeView Roles="Admin">
-                <div class="align-self-end my-auto me-5">
+                <div class="my-auto me-5">
                     <BotaoCarrinhoCompra />
                 </div>
             </AuthorizeView>
             <AuthorizeView>
-                <span class="align-self-center my-auto">@_user?.Identity?.Name</span>
+                <span class="my-auto text-white fs-4">@_user?.Identity?.Name</span>
             </AuthorizeView>
+            <span class="mx-auto my-auto text-white fs-6">@_currentTime</span>
         </div>
 
         <article class="content px-4">
@@ -30,6 +32,9 @@
     [CascadingParameter] protected Task<AuthenticationState>? AuthStat { get; set; }
     private ClaimsPrincipal? _user;
 
+    private Timer? _timer;
+    private DateTime _currentTime = DateTime.Now;
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -42,5 +47,16 @@
                 NavManager.NavigateTo("login");
             }
         }
+
+        _timer = new Timer(async (_) =>
+        {
+            _currentTime = DateTime.Now;
+            await InvokeAsync(StateHasChanged);
+        }, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+    }
+
+    public void Dispose()
+    { 
+        _timer?.Dispose();
     }
 }
