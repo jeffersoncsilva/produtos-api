@@ -1,66 +1,38 @@
 ﻿@page "/vendas"
-@using FE.Application.Features.Sales.DeleteSaleCommand
-@using FE.Application.Features.Sales.GetSalesCommand
-@inject IMediator Mediator
-@inject NavigationManager NavManager
-@inject ConfirmationService ConfirmationService
 
-
-<h3 class="fs-3 text-center">Vendas já realizadas</h3>
-
-@if(vendasRealizadas is not null && !vendasRealizadas.Sales.Any())
+@if (_carregando)
 {
-    <h4>Nenhum venda foi encontrada!</h4>
+    <Carregando Tipo="Carregando.ECarregandoTipo.Primary" EstaCarregando="_carregando" />
 }
-else if(vendasRealizadas is not null)
+else if (_erroAoCarregarItens)
 {
-    <div class="d-flex align-content-start flex-wrap">
-        @foreach(var venda in vendasRealizadas.Sales)
-        {
-            <VendaComponent Venda="venda" OnEditarVenda="EditarVenda" OnRemoverVenda="RemoverVenda"/>
-        }
-    </div>
+    <Alerta Tipo="Alerta.TipoAlerta.Erro" Mensagem="Não foi possível carregar os itens. Tente novamente."></Alerta>
+    <BotaoTentarNovamente TentarNovamente="@(async () => await CarregarVendas())" />
 }
 else
 {
-    <h4>Tentando obter vendas. Aguarde...</h4>
-}
-
-@code {
-    private GetSalesResponse? vendasRealizadas;
-
-    private int paginaAtual = 0;
-    private int tamanhoPagina = 10;
-
-    protected override async Task OnInitializedAsync()
+    @if (_removendoItem)
     {
-        vendasRealizadas = await Mediator.Send(new GetSalesRequest(paginaAtual, tamanhoPagina));
-        await base.OnInitializedAsync();
+        <Carregando Tipo="Carregando.ECarregandoTipo.Secondary" EstaCarregando="_removendoItem" />
     }
-
-    private void EditarVenda(SaleItem? item)
+    else if (_erroAoRemoverItem)
     {
-        if (item is null)
-            return;
-        NavManager.NavigateTo($"editar-venda?id={item.SaleId}");
+        <Alerta Tipo="Alerta.TipoAlerta.Erro" Mensagem="Não foi possível remover o item."/>
     }
-
-    private async void RemoverVenda(SaleItem? item)
+    
+    @if(_vendasRealizadas is null || _vendasRealizadas.Sales.Count == 0)
     {
-        var confirmacao = await ConfirmationService.Show("Deletar Venda", "Deseja realmente apagar essa venda?", "Deletar", "Cancelar");
-        if (confirmacao)
-        {
-            Console.WriteLine($"Confirmada a deleção da venda de Id {item.SaleId}");
-            var resultado = await Mediator.Send(new DeleteSaleRequest(item.SaleId));
-            if(resultado is not null && resultado.Success)
+        <h3 class="fs-3 text-center">Nenhum venda foi encontrada!</h3>
+    }
+    else
+    {
+        <h3 class="fs-3 text-center">Vendas já realizadas</h3>
+
+        <div class="d-flex align-content-start flex-wrap">
+            @foreach(var venda in _vendasRealizadas.Sales)
             {
-                vendasRealizadas = await Mediator.Send(new GetSalesRequest(paginaAtual, tamanhoPagina));
-                StateHasChanged();
+                <VendaComponent Venda="venda" OnEditarVenda="EditarVenda" OnRemoverVenda="RemoverVenda" />
             }
-        }
-        else
-        {
-            Console.WriteLine("não irá deletar a venda.");
-        }
+        </div>
     }
 }

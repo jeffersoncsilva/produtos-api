@@ -8,19 +8,13 @@
 
     private string Css()
     {
-        switch (Tipo)
+        return Tipo switch
         {
-            case TipoAlerta.Aviso:
-                return "alert alert-primary";
-            case TipoAlerta.Erro:
-                return "alert alert-danger";
-            case TipoAlerta.Sucesso:
-                return "alert alert-warning";
-            case TipoAlerta.Informacao:
-                return "alert alert-info";
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+            TipoAlerta.Aviso => "alert alert-primary my-4",
+            TipoAlerta.Erro => "alert alert-danger my-4",
+            TipoAlerta.Sucesso => "alert alert-warning my-4",
+            _ => "alert alert-info my-4"
+        };
     }
 
     public enum TipoAlerta

@@ -10,7 +10,7 @@ public class UpdateSaleRequest : IRequest<BaseResponse<UpdateSaleResult?>>
 	public Guid Id { get; set; }
 
 	[JsonPropertyName("observation")]
-	public string? Observatin { get; set; }
+	public string? Observation { get; set; }
 
 	[JsonPropertyName("price")]
 	public decimal Price { get; set; }

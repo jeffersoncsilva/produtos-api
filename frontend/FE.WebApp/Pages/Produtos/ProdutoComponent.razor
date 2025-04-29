@@ -1,23 +1,38 @@
 ﻿@using FE.ViewModels.Features.Product
 
 <div class="card col-md-3 m-2">
-    <div class="card-header">
-        <h5 class="card-text">
-            @Product?.Name
-        </h5>
+    <div class="card-header d-flex justify-content-between">
+        <span class="card-text">@Product?.Name</span>
+        @if (OnInforSelected is not null)
+        {
+            <button type="button" class="btn" @onclick="@(() => OnInforSelected?.Invoke(Product))"><i class="bi bi-info-circle"></i></button>
+        }
     </div>
     <div class="card-body">
-        <h6>
-            @Product?.Price.ToString("C")
-        </h6>
+        <table class="table" style="width: 90% !important;">
+            <thead>
+                <tr>
+                    <th style="width: 80%;">Descrição</th>
+                    <th style="width: 20%;">Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Product?.Description
+                    </td>
+                    <td class="text-end">
+                        @Product?.Price.ToString("C")
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <AuthorizeView Roles="Admin">
         <div class="card-footer">
-            <div class="d-flex flex-row align-content-start flex-wrap">
-
+            <div class="d-flex flex-row justify-content-between">
                 <button type="button" class="btn btn-primary btn-sm" @onclick=@(() => OnSelected?.Invoke(Product))>Editar</button>
                 <button type="button" class="btn btn-secondary btn-sm" @onclick="@(() => OnVendaSelected?.Invoke(Product))">Vender</button>
-
             </div>
         </div>
     </AuthorizeView>
@@ -28,10 +43,7 @@
 
 @code {
     [Parameter] public ProductSimpleViewModel? Product { get; set; }
-
     [Parameter] public Action<ProductSimpleViewModel?>? OnSelected { get; set; }
-
     [Parameter] public Action<ProductSimpleViewModel?>? OnVendaSelected { get; set; }
-
-
+    [Parameter] public Action<ProductSimpleViewModel?>? OnInforSelected { get; set; }
 }

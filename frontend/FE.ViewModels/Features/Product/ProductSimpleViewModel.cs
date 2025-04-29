@@ -12,4 +12,6 @@ public class ProductSimpleViewModel
 	public decimal Price { get; init; }
 	[JsonPropertyName("stock_quantity")]
 	public int Stock { get; init; }
+	[JsonPropertyName("description")]
+	public string? Description { get; set; }
 }
