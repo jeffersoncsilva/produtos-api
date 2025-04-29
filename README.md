@@ -28,15 +28,15 @@ Algumas características desse template (projeto como um todo) são:
 - O FrontEnd foi desenvolvido usando BlazorWebAssembly.
 
 ## Funcionalidades que serão implementadas (não necessáriamente nessa ordem):
+- [X] Implementar exclusão lógica de usuários e dados de produtos e vendas.
+- [X] Implementar o cancelamento de uma venda.
+- [ ] Criar a opção de carrinho de compra, fazendo com que o usuário logado possa escolher mais de um produto para venda.
 - [ ] Adicionar novas funcionalidades para criaçao de usuários (adição de cargos)
 - [ ] Remover do cadastro a opção de escolha de cargo no cadastro.
 - [ ] Implementar um pré-cadastro, onde um usuário autenticado possa iniciar o cadastro de um novo usuário, inserindo o seu e-mail e este recebendo um link para continuar o seu cadastro com o restante de suas informações.
 - [ ] Adicionar autenticação multifator (MFA) para login de usuários.
 - [ ] Adicionar a opção de recuperação de senha, onde o usuário solicita um link para redefinição de senha enviado para o e-mail cadastrado.
-- [ ] Implementar exclusão lógica de usuários e dados de produtos e vendas.
-- [ ] Implementar o cancelamento de uma venda.
 - [ ] implementar um sistema de entregas, onde dado o endereço a venda será entregue no endereço cadastrado.
-- [ ] Criar a opção de carrinho de compra, fazendo com que o usuário logado possa escolher mais de um produto para venda.
 - [ ] Criar a opção de pagamento, onde o usuário logado possa escolher a forma de pagamento (cartão, dinheiro, etc)
 - [ ] Criar a opção de relatório de vendas, onde o usuário logado possa ver as vendas que ele realizou e possa filtrar por período.
 - [ ] Criar a opção de relatório de produtos, onde o usuário logado possa ver os produtos cadastrados, podendo filtrar por período, categoria e os produtos que ele mesmo cadastrou.
