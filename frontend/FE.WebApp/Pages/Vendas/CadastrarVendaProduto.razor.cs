@@ -1,4 +1,5 @@
-﻿using FE.Application.Features.Sales.CreateSaleCommand;
+﻿using System.Diagnostics.CodeAnalysis;
+using FE.Application.Features.Sales.CreateSaleCommand;
 using FE.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Components;
@@ -30,6 +31,7 @@ public partial class CadastrarVendaProduto : IDisposable
 
 	private bool _cadastrandoVenda;
 	private bool _erroCadastarVenda;
+	private string _messageErroCadastrarVenda = string.Empty;
 
 	protected override void OnInitialized()
 	{
@@ -49,10 +51,16 @@ public partial class CadastrarVendaProduto : IDisposable
 
 		_request.Itens.Add(new ProductsSale() { Id = Id, Quantity = _quantidade });
 		var resultado = await Mediator.Send(_request);
-		if (resultado is { Status: EStatusResponse.Ok, Dado: not null } && resultado.Dado.Id != Guid.Empty)
-			NavManager.NavigateTo($"vendas-detalhes?id={resultado.Dado.Id}");
+		if (resultado is { Status: EStatusResponse.Ok, Dado.Success: true } && resultado.Dado.SaleId != Guid.Empty)
+			NavManager.NavigateTo($"vendas-detalhes?id={resultado.Dado.SaleId}");
 		else
+		{
 			_erroCadastarVenda = true;
+			_messageErroCadastrarVenda = string.Join(", ", resultado.Dado?.Errors ?? []);
+			if (string.IsNullOrWhiteSpace(_messageErroCadastrarVenda))
+				_messageErroCadastrarVenda = "Ocorreu um erro ao cadastrar a venda. Tente novamente.";
+		}
+			
 
 		_cadastrandoVenda = false;
 		StateHasChanged();

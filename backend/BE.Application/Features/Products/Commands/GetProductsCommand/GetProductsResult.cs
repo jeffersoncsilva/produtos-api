@@ -30,5 +30,8 @@ public class ProductsSimpleResult
     
     [JsonPropertyName("description")]
 	public string? Description { get; set; }
+	
+	[JsonPropertyName("is_active")]
+	public bool IsActive { get; set; }
 }
 

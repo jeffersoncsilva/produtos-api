@@ -17,7 +17,8 @@ public class GetProductsCommandHandler(IProductsRepository productsRepository) :
                     Name = p.Name, 
                     Price = p.Price, 
                     Stock = p.Stock,
-                    Description = p.Description
+                    Description = p.Description,
+                    IsActive = p.IsActive
                 }).ToList(),
             Page = request.Page,
             Size = products.Count

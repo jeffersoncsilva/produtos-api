@@ -11,6 +11,6 @@ public sealed class CreateProductRequest : IRequest<BaseResponse<CreateProductRe
 	public string? Category { get; set; }
 	public string? Brand { get; set; }
 	public int Stock { get; set; }
-	public bool IsActive { get; set; }
+	public bool IsActive { get; set; } = true;
 	public string? CreatedBy { get; set; }
 }

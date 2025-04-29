@@ -7,7 +7,7 @@
     <Carregando Tipo="Carregando.ECarregandoTipo.Primary" EstaCarregando="_cadastrandoVenda" />
 }else if (_erroCadastarVenda)
 {
-    <Alerta Tipo="Alerta.TipoAlerta.Erro" Mensagem="Ocorreu um erro ao cadastrar a venda. Tente novamente." />
+    <Alerta Tipo="Alerta.TipoAlerta.Erro" Mensagem="@_messageErroCadastrarVenda" />
 }
 
 @if (_editContext is not null)
@@ -17,9 +17,9 @@
     <EditForm EditContext="_editContext" OnValidSubmit="EnviarVenda">
         <AntiforgeryToken />
         <div class="form-group row my-2">
-            <label class="form-label col-md-3 my-auto text-end">Observação:</label>
+            <label class="form-label col-md-3 my-auto text-end">Nome do Produto:</label>
             <div class="col-md-6">
-                <input type="text" class="form-control desabled" value="NomeProduto" disabled />
+                <input type="text" class="form-control desabled" value="@NomeProduto" disabled />
             </div>
         </div>
 
