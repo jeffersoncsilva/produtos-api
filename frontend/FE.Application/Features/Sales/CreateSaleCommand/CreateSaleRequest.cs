@@ -6,12 +6,18 @@ namespace FE.Application.Features.Sales.CreateSaleCommand;
 
 public class CreateSaleRequest : IRequest<BaseResponse<CreateSaleResponse?>>
 {
+	[JsonPropertyName("name")]
+	public string? Name { get; set; }
+
 	[JsonPropertyName("observations")]
 	public string Observation { get; set; } = string.Empty;
+	
 	[JsonPropertyName("price")]
 	public decimal Price { get; set; }
+	
 	[JsonPropertyName("descount")]
 	public decimal Descount { get; set; }
+	
 	[JsonPropertyName("itens")]
 	public ICollection<ProductsSale> Itens { get; set; } = [];
 }

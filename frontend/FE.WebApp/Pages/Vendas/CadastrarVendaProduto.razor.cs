@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using FE.Application.Features.Sales.CreateSaleCommand;
+﻿using FE.Application.Features.Sales.CreateSaleCommand;
 using FE.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Components;
@@ -83,5 +82,17 @@ public partial class CadastrarVendaProduto : IDisposable
 
 		if (_request?.Descount < 0.0M)
 			_messageStore?.Add(() => _request.Descount, "Valor de desconto não pode ser menor que zero.");
+
+		if(string.IsNullOrWhiteSpace(_request.Observation))
+			_messageStore?.Add(() => _request.Observation, "Observação não pode ser vazia.");
+
+		if (_request?.Observation.Length > 2048)
+			_messageStore?.Add(() => _request.Observation, "Observação não pode ter mais de 2048 caracteres.");
+
+		if (string.IsNullOrWhiteSpace(_request?.Name))
+			_messageStore?.Add(() => _request.Name, "Nome da venda não pode ser vazio.");
+
+		if (_request?.Name?.Length > 128)
+			_messageStore?.Add(() => _request.Name, "Nome não pode ter mais de 128 caracteres.");
 	}
 }

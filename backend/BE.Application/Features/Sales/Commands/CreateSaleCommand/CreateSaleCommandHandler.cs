@@ -74,7 +74,8 @@ public class CreateSaleCommandHandler(IProductsRepository productRepository, ISa
 		return new Sale()
 		{
 			Observation = request.Observation,
-			Price = request.Price
+			Price = request.Price,
+			Name = request.Name ?? string.Empty
 		};
 	}
 }

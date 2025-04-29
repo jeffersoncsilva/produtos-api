@@ -11,9 +11,11 @@ public class DeleteSaleCommandHandler(ISaleRepository saleRepository) : IRequest
 
         if (sale is null)
             return new DeleteSaleCommandResponse(){ Success = true };
-        
-        saleRepository.Delete(sale);
+
+        sale.IsCanceled = true;
+        saleRepository.Update(sale);
         await saleRepository.SaveChangesAsync(ct);
+        
         return new DeleteSaleCommandResponse() { Success = true };
     }
 }

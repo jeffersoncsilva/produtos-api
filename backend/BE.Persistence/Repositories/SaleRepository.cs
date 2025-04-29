@@ -10,6 +10,7 @@ public class SaleRepository(DefaultContext db) : BaseRepository<Sale>(db),ISaleR
     {
         return await db.Sales
             .AsNoTracking()
+            .Where(s => !s.IsCanceled)
             .Distinct()
             .OrderBy(s => s.Id)
             .Skip(page * size)

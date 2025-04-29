@@ -23,6 +23,14 @@ public class SalesConfiguration : IEntityTypeConfiguration<Sale>
 			.IsRequired()
 			.HasColumnType("money");
 
+		b.Property(s => s.Name)
+			.IsRequired()
+			.HasColumnType("varchar(128)");
+
+		b.Property(s => s.IsCanceled)
+			.IsRequired()
+			.HasDefaultValue(false);
+
 		b.HasMany(s => s.Itens)
 			.WithOne(e => e.Sale)
 			.HasForeignKey(i => i.SaleId)
