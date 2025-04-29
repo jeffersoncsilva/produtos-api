@@ -1,31 +1,27 @@
-﻿using System.Net.Http.Headers;
-using MediatR;
-using System.Text.Json;
+﻿using MediatR;
 using FE.Application.Contracts;
-using FE.ViewModels.Exceptions;
-using static FE.Application.JsonOptionsSerialize;
+using FE.ViewModels;
 
 namespace FE.Application.Features.Sales.DeleteSaleCommand;
 
-public sealed class DeleteSaleHandler(IHttpClientFactory httpFactory, IAuthenticationTokenService tokenService) : IRequestHandler<DeleteSaleRequest, DeleteSaleResponse?>
+public sealed class DeleteSaleHandler(IHttpClientFactory httpFactory, IAuthenticationTokenService tokenService) : BaseHandler(httpFactory, tokenService), IRequestHandler<DeleteSaleRequest, BaseResponse<DeleteSaleResponse?>>
 {
-	public async Task<DeleteSaleResponse?> Handle(DeleteSaleRequest request, CancellationToken ct)
+	public async Task<BaseResponse<DeleteSaleResponse?>> Handle(DeleteSaleRequest request, CancellationToken ct)
 	{
 		try
 		{
-			var httpClient = httpFactory.CreateClient(HttpConfiguration.HttpClientName);
-			var token = await tokenService.GetTokenAsync(ct);
-			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-			var result = await httpClient.DeleteAsync($"api/sales/{request.Id}", ct);
-
-			result.EnsureSuccessStatusCode();
-
-			var obj = await JsonSerializer.DeserializeAsync<DeleteSaleResponse>(await result.Content.ReadAsStreamAsync(ct), JsonOptions, cancellationToken: ct);
-			return obj;
+			var uri = $"api/sales/{request.Id}";
+			var result = await SendRequestAsync(HttpMethod.Delete, uri, null, ct);
+			return await HandleResponseAsync<DeleteSaleResponse>(result, ct);
 		}
 		catch (Exception ex)
 		{
-			throw new BadRequestException(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+			Console.WriteLine($"Erro não previsto. MESSAGE: {ex.Message}");
+			return new BaseResponse<DeleteSaleResponse?>()
+			{
+				Dado = null,
+				Status = EStatusResponse.ErroNaoIdentificado
+			};
 		}
 	}
 }

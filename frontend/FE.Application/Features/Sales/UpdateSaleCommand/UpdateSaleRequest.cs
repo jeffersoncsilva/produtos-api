@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using FE.ViewModels;
 
 namespace FE.Application.Features.Sales.UpdateSaleCommand;
 
-public class UpdateSaleRequest : IRequest<UpdateSaleResult?>
+public class UpdateSaleRequest : IRequest<BaseResponse<UpdateSaleResult?>>
 {
 	[JsonPropertyName("sale_id")]
 	public Guid Id { get; set; }

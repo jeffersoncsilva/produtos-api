@@ -1,34 +1,31 @@
-﻿using System.Net.Http.Headers;
-using MediatR;
-using System.Text.Json;
-using System.Text;
+﻿using MediatR;
 using FE.Application.Contracts;
-using FE.ViewModels.Exceptions;
-using static FE.Application.JsonOptionsSerialize;
+using FE.ViewModels;
+
 
 namespace FE.Application.Features.Sales.CreateSaleCommand;
 
-public class CreateSaleHandler(IHttpClientFactory httpFactory, IAuthenticationTokenService tokenService) : IRequestHandler<CreateSaleRequest, CreateSaleResponse>
+public class CreateSaleHandler(IHttpClientFactory httpFactory, IAuthenticationTokenService tokenService) : BaseHandler(httpFactory, tokenService), IRequestHandler<CreateSaleRequest, BaseResponse<CreateSaleResponse?>>
 {
-	public async Task<CreateSaleResponse> Handle(CreateSaleRequest request, CancellationToken ct)
+	public async Task<BaseResponse<CreateSaleResponse?>> Handle(CreateSaleRequest request, CancellationToken ct)
 	{
 		try
 		{
-			var httpClient = httpFactory.CreateClient(HttpConfiguration.HttpClientName);
 
-			using StringContent jsonContent = new(JsonSerializer.Serialize(request, JsonOptions), Encoding.UTF8, "application/json");
-			var token = await tokenService.GetTokenAsync(ct);
-			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-			var result = await httpClient.PostAsync("api/sales", jsonContent, ct);
-
-			result.EnsureSuccessStatusCode();
-
-			var obj = await JsonSerializer.DeserializeAsync<CreateSaleResponse>(await result.Content.ReadAsStreamAsync(ct), JsonOptions, cancellationToken: ct);
-			return obj;
+			var content = Serialize(request);
+			var uri = "api/sales";
+			var result = await SendRequestAsync(HttpMethod.Post, uri, content, ct);
+			return await HandleResponseAsync<CreateSaleResponse>(result, ct);
 		}
 		catch (Exception ex)
 		{
-			throw new BadRequestException(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+			Console.WriteLine($"Erro não previsto. MESSAGE: {ex.Message}");
+			return new BaseResponse<CreateSaleResponse?>()
+			{
+				Dado = null,
+				Status = EStatusResponse.ErroNaoIdentificado
+			};
+
 		}
 	}
 }

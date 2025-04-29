@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
+using FE.ViewModels;
 
 namespace FE.Application.Features.Sales.CreateSaleCommand;
 
-public class CreateSaleRequest : IRequest<CreateSaleResponse>
+public class CreateSaleRequest : IRequest<BaseResponse<CreateSaleResponse?>>
 {
 	[JsonPropertyName("observations")]
 	public string Observation { get; set; } = string.Empty;

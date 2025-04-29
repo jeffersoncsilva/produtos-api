@@ -1,9 +1,10 @@
 ﻿using System.Text.Json.Serialization;
+using FE.ViewModels;
 using MediatR;
 
 namespace FE.Application.Features.Login.CriarContaCommand;
 
-public class NovaContaRequest : IRequest<NovaContaResponse?>
+public class NovaContaRequest : IRequest<BaseResponse<NovaContaResponse?>>
 {
 	[JsonPropertyName("user_name")]
 	public string UserName { get; set; } = string.Empty;

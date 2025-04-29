@@ -1,38 +1,37 @@
 ﻿using MediatR;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-using System.Text;
 using FE.Application.Contracts;
-using static FE.Application.JsonOptionsSerialize;
+using FE.ViewModels;
 
 namespace FE.Application.Features.Login.RealizarLoginCommand;
 
-public class LoginHandler(IHttpClientFactory httpFactory, IAuthenticationTokenService authService) : IRequestHandler<LoginRequest, LoginResponse?>
+public class LoginHandler(IHttpClientFactory httpFactory, IAuthenticationTokenService authService) : BaseHandler(httpFactory, authService), IRequestHandler<LoginRequest, BaseResponse<LoginResponse?>>
 {
-	public async Task<LoginResponse?> Handle(LoginRequest? request, CancellationToken ct)
-	{
-		if (request is null)
-			return null;
+	private readonly IAuthenticationTokenService _authService = authService;
 
+	public async Task<BaseResponse<LoginResponse?>> Handle(LoginRequest request, CancellationToken ct)
+	{
 		try
 		{
-			using StringContent jsonContent = new(JsonSerializer.Serialize(request, JsonOptions), Encoding.UTF8, "application/json");
 
-			var httpClient = httpFactory.CreateClient(HttpConfiguration.HttpClientName);
-			var resultado = await httpClient.PostAsync("api/auth", jsonContent, ct);
-			resultado.EnsureSuccessStatusCode();
-			var obj = await JsonSerializer.DeserializeAsync<LoginResponse>(await resultado.Content.ReadAsStreamAsync(ct), JsonOptions, ct);
-			
-			if ((obj?.Success ?? false) && !string.IsNullOrWhiteSpace(obj.AccessToken))
+			var content = Serialize(request);
+			var uri = "api/auth";
+			var response = await SendRequestAsync(HttpMethod.Post, uri, content, ct);
+			var resultado = await HandleResponseAsync<LoginResponse>(response, ct);
+			if (resultado is { Status: EStatusResponse.Ok, Dado.Success: true })
 			{
-				await authService.SetTokenAsync(obj.AccessToken, ct);
+				await _authService.SetTokenAsync(resultado.Dado.AccessToken!, ct);
 			}
 
-			return obj;
+			return resultado;
 		}
 		catch (Exception ex)
 		{
-			return null;
+			Console.WriteLine($"Erro não previsto. MESSAGE: {ex.Message}");
+			return new BaseResponse<LoginResponse?>
+			{
+				Dado = null,
+				Status = EStatusResponse.ErroNaoIdentificado
+			};
 		}
 	}
 }
