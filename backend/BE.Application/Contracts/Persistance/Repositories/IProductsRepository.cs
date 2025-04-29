@@ -7,4 +7,5 @@ public interface IProductsRepository : IBaseRepository<Product>
 {
     Task<IReadOnlyList<Product>> GetPagedProducts(int page, int pageSize, CancellationToken ct);
     Task<Product?> GetProductAsync(Expression<Func<Product, bool>> predicate, CancellationToken ct);
+    Task<int> GetTotalProducts(CancellationToken ct);
 }

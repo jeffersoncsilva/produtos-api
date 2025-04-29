@@ -1,0 +1,33 @@
+﻿@PageContent
+<div class="d-flex flex-row justify-content-center align-content-center my-4">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link @(PaginaAtual == 0 ? "disabled" : "")" @onclick="PaginaAnterior" style="cursor: pointer;">
+                <i class="bi bi-arrow-left me-2"></i> @PaginaAtual
+            </a>
+        </li>
+        <li class="page-item active">
+            <a class="page-link">
+                @(PaginaAtual + 1)
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link @(PaginaAtual == NumeroDePaginas ? "disabled" : "")" @onclick="ProximaPagina" style="cursor: pointer;">
+                <i class="bi bi-arrow-right me-2"></i> @($"{PaginaAtual + 2}")
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+@code {
+        [Parameter, EditorRequired] public RenderFragment? PageContent { get; set; }
+        [Parameter, EditorRequired] public int PaginaAtual { get; set; }
+        [Parameter, EditorRequired] public int ItensPorPagina { get; set; }
+        [Parameter, EditorRequired] public int TotalDeItens { get; set; }
+
+        [Parameter, EditorRequired] public EventCallback ProximaPagina { get; set; }
+        [Parameter, EditorRequired] public EventCallback PaginaAnterior { get; set; }
+
+    private int NumeroDePaginas => (int)Math.Ceiling(TotalDeItens / (double)ItensPorPagina) + 1;
+}

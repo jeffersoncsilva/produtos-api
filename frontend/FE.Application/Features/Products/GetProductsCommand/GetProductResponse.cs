@@ -7,8 +7,13 @@ public class GetProductResponse
 {
 	[JsonPropertyName("page")]
 	public int Page { get; init; }
+	
 	[JsonPropertyName("size")]
 	public int Size { get; init; }
+	
 	[JsonPropertyName("products")]
-	public IEnumerable<ProductSimpleViewModel> Products { get; init; }
+	public IEnumerable<ProductSimpleViewModel>? Products { get; init; }
+
+	[JsonPropertyName("total_products")]
+	public int TotalProducts { get; init; }
 }

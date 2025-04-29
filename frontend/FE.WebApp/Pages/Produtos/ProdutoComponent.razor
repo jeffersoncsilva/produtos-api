@@ -1,6 +1,6 @@
 ﻿@using FE.ViewModels.Features.Product
 
-<div class="card col-md-3 m-2">
+<div class="card col-sm-2 col-md-3 m-2">
     <div class="card-header d-flex justify-content-between">
         <span class="card-text my-auto">@Product?.Name</span>
         @if (OnInfoSelected is not null)
@@ -18,7 +18,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>
+                    <td class="limit-tables-lines">
                         @Product?.Description
                     </td>
                     <td class="text-end">

@@ -23,4 +23,6 @@ internal class ProductRepository(DefaultContext db) : BaseRepository<Product>(db
     {
         return await Context.Products.Where(predicate).FirstOrDefaultAsync(ct);
     }
+
+    public async Task<int> GetTotalProducts(CancellationToken ct) => await Context.Products.AsNoTracking().CountAsync(ct);
 }

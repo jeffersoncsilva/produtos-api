@@ -5,7 +5,7 @@
 
 
 <div class="position-relative" style="display: inline-block;">
-    <i class="bi bi-cart-check" style="font-size: 2rem; display: block; cursor: pointer;" @onclick="OnCarrinhoItemClick"></i>
+    <i class="bi bi-cart-check text-info" style="font-size: 2rem; display: block; cursor: pointer;" @onclick="OnCarrinhoItemClick"></i>
     @if (CarrinhoCompra.Produtos.Count > 0)
     {
         <span class="position-absolute top-0 start-100 mt-3 ms-3 translate-middle badge rounded-pill bg-info">@CarrinhoCompra.QuantidadeItens()</span>
