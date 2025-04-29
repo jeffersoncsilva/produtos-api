@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace FE.Application.Features.Products.GetProductsCommand;
 
-public class GetProductCommandResponse
+public class GetProductResponse
 {
 	[JsonPropertyName("page")]
 	public int Page { get; init; }

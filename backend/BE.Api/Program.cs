@@ -29,8 +29,9 @@ public class Program {
         {
             op.AddPolicy("LocalPolyce", policy =>
             {
-                policy.WithOrigins("http://localhost:*").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
-                policy.WithOrigins("https://localhost:*").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                policy.WithOrigins("http://localhost").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                policy.WithOrigins("https://localhost").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
             });
         });
 

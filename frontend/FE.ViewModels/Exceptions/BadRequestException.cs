@@ -1,7 +1,17 @@
-﻿using System.Net;
+﻿
+using System.Net;
 
 namespace FE.ViewModels.Exceptions;
-public sealed class BadRequestException(HttpStatusCode statusCode, string message) : Exception(message)
+
+public sealed class BadRequestException : Exception
 {
-	public HttpStatusCode StatusCode { get; init; } = statusCode;
+	public BadRequestException(HttpStatusCode code, string message) : base(message)
+	{
+		
+	}
+
+	public BadRequestException(string message) : base(message)
+	{
+		
+	}
 }

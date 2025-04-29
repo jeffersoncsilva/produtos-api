@@ -1,0 +1,33 @@
+﻿<div class="@Css()" role="alert">
+    @Mensagem
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string Mensagem { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public TipoAlerta Tipo { get; set; }
+
+    private string Css()
+    {
+        switch (Tipo)
+        {
+            case TipoAlerta.Aviso:
+                return "alert alert-primary";
+            case TipoAlerta.Erro:
+                return "alert alert-danger";
+            case TipoAlerta.Sucesso:
+                return "alert alert-warning";
+            case TipoAlerta.Informacao:
+                return "alert alert-info";
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    public enum TipoAlerta
+    {
+        Aviso,
+        Erro,
+        Sucesso,
+        Informacao
+    }
+}

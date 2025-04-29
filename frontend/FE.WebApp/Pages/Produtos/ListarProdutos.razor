@@ -1,40 +1,61 @@
 ﻿@page "/produtos"
 @using FE.Application.Features.Products.GetProductsCommand
+@using FE.ViewModels
 @using FE.ViewModels.Features.Product
 @inject IMediator Mediator
 @inject NavigationManager NavManager
 
 <h3 class="fs-3 text-center">Produtos Cadastrados</h3>
 
-@if (!_products?.Any() ?? false)
+@if (_exibeMensagemErro)
 {
-    <h4 class="fs-4 text-center">Nenhum produto encontrado!</h4>
+    <Alerta Mensagem="Não foi possível recuperar os dados." Tipo="Alerta.TipoAlerta.Erro"/>
 }
 else
 {
-    <div class="d-flex flex-wrap flex-row justify-content-around align-items-center">
-        @foreach(var product in _products ?? [])
-        {
-            <ProdutoComponent Product="@product" OnSelected="EditarProduto" OnVendaSelected="VenderProduto" />
-        }
-    </div>
+    @if (!_products?.Any() ?? false)
+    {
+        <h4 class="fs-4 text-center">Nenhum produto encontrado!</h4>
+    }
+    else
+    {
+        <div class="d-flex flex-wrap flex-row justify-content-around align-items-center">
+            @foreach (var product in _products ?? [])
+            {
+                <ProdutoComponent Product="@product" OnSelected="EditarProduto" OnVendaSelected="VenderProduto"/>
+            }
+        </div>
+    }
+
+    <AuthorizeView Roles="Admin">
+        <button type="button" @onclick="NavegaPaginaNovoProduto" class="btn btn-primary btn-sm m-2">
+            <i class="bi bi-plus-circle"></i> Novo Produto
+        </button>
+    </AuthorizeView>
 }
 
-<button type="button" @onclick="NavegaPaginaNovoProduto" class="btn btn-primary btn-sm m-2">
-    Novo Produto
-</button>
-
 @code {
-    private int page = 0;
-    private int size = 5;
+    private int _page = 0;
+    private int _size = 5;
     private IEnumerable<ProductSimpleViewModel>? _products;
+    private bool _exibeMensagemErro = false;
 
     protected override async Task OnInitializedAsync()
     {
-        var resultado = await Mediator.Send(new GetProductCommandRequest(page, size));
-        _products = resultado.Products;
-        page = resultado.Page;
-        size = resultado.Size;
+        var resultado = await Mediator.Send(new GetProductRequest(_page, _size));
+        if (resultado is { Status: EStatusResponse.Ok, Dado: not null })
+        {
+            var dados = resultado.Dado;
+            _products = dados.Products;
+            _page = dados.Page;
+            _size = dados.Size;
+        }
+        else
+        {
+            _exibeMensagemErro = true;
+        }
+
+        await base.OnInitializedAsync();
     }
 
     private void NavegaPaginaNovoProduto()
