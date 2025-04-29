@@ -7,7 +7,7 @@ using static FE.Application.JsonOptionsSerialize;
 
 namespace FE.Application.Features.Products.GetProductByIdCommand;
 
-public class GetProductByIdCommandHandler(IHttpClientFactory httpFactory, IAuthenticationTokenService tokenService) : IRequestHandler<GetProductByIdCommandRequest, GetProductByIdResponse?>
+public class GetProductByIdHandler(IHttpClientFactory httpFactory, IAuthenticationTokenService tokenService) : IRequestHandler<GetProductByIdCommandRequest, GetProductByIdResponse?>
 {
 	public async Task<GetProductByIdResponse?> Handle(GetProductByIdCommandRequest request, CancellationToken ct)
 	{
