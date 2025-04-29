@@ -2,7 +2,7 @@
 
 namespace FE.Application.Features.Products.UpdateProductCommand;
 
-public class UpdateProductCommandResponse
+public class UpdateProductResponse
 {
 	[JsonPropertyName("id")]
 	public Guid Id { get; set; }

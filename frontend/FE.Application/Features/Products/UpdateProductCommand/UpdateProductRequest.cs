@@ -1,9 +1,10 @@
-﻿using MediatR;
+﻿using FE.ViewModels;
+using MediatR;
 using System.Text.Json.Serialization;
 
 namespace FE.Application.Features.Products.UpdateProductCommand;
 
-public class UpdateProductCommandRequest : IRequest<UpdateProductCommandResponse>
+public class UpdateProductRequest : IRequest<BaseResponse<UpdateProductResponse?>>
 {
 	[JsonPropertyName("id")]
 	public Guid Id { get; set; }
