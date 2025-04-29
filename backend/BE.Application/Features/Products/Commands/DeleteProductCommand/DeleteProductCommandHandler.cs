@@ -11,8 +11,10 @@ public class DeleteProductCommandHandler(IProductsRepository repository) : IRequ
         var product = await repository.GetProductAsync(p => p.Id == request.Id, ct);
         if (product is null)
             throw new BadRequestException("Id do produto não encontrado.");
-
-        repository.Delete(product);
+        product.IsRemovedFromStock = true;
+        
+        repository.Update(product);
+        await repository.SaveChangesAsync(ct);
 
         return new DeleteProductResult();
     }

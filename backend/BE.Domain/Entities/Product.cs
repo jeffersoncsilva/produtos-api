@@ -14,4 +14,5 @@ public class Product : BaseEntity
     public bool IsActive { get; set; }
     public string? CreatedBy { get; set; }
     public string? ModifiedBy { get; set; }
+    public bool IsRemovedFromStock { get; set; } = false;
 }

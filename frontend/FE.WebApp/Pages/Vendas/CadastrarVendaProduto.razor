@@ -22,6 +22,14 @@
                 <input type="text" class="form-control desabled" value="@NomeProduto" disabled />
             </div>
         </div>
+        
+        <div class="form-group row my-2">
+            <label class="form-label col-md-3 my-auto text-end">Nome da Venda:</label>
+            <div class="col-md-6">
+                <InputTextArea @bind-Value="_request!.Name" class="form-control" />
+                <ValidationMessage For="() => _request.Name" />
+            </div>
+        </div>
 
         <div class="form-group row my-2">
             <label class="form-label col-md-3 my-auto text-end">Descrição</label>

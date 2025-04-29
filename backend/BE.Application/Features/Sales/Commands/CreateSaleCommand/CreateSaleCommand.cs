@@ -5,6 +5,9 @@ namespace BE.Application.Features.Sales.Commands.CreateSaleCommand;
 
 public class CreateSaleCommand : IRequest<CreateSaleResult>
 {
+	[JsonPropertyName("name")]
+	public string? Name { get; set; }
+	
 	[JsonPropertyName("observations")]
 	public string Observation { get; set; } = string.Empty;
 	

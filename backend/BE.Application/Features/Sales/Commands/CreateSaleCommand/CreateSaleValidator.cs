@@ -6,6 +6,16 @@ public class CreateSaleValidator : AbstractValidator<CreateSaleCommand>
 {
     public CreateSaleValidator()
     {
+        RuleFor(s => s.Name)
+            .NotEmpty()
+            .WithMessage("O nome de uma venda não pode ser vazio.")
+            .MaximumLength(128)
+            .WithMessage("O nome não pode ser maior que 128 caracteres.");
+
+        RuleFor(s => s.Observation)
+            .MaximumLength(2048)
+            .WithMessage("Observação não pode ter mais de 2048 caracteres.");
+        
         RuleFor(s => s.Descount)
             .GreaterThanOrEqualTo(0M)
             .WithMessage("Desconto não pode ser menor que R$ 0,00.");

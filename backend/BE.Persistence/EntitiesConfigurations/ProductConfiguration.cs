@@ -42,5 +42,9 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         b.Property(p => p.ModifiedBy)
             .IsRequired(false)
             .HasColumnType("varchar(100)");
+
+        b.Property(p => p.IsRemovedFromStock)
+            .IsRequired()
+            .HasDefaultValue(false);
     }
 }
