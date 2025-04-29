@@ -1,112 +1,95 @@
 ﻿@page "/detalhes-produto"
-@using FE.Application.Features.Products.GetProductByIdCommand
-@using FE.ViewModels.Features.Product
-@inject IMediator Mediator
 
-
-<h3>Detalhes do Produto: @product?.Name</h3>
-
-@if (product is not null)
+@if (_carregando)
 {
+    <Carregando Tipo="Carregando.ECarregandoTipo.Primary" EstaCarregando="_carregando" />
+}
+else if (_erroAoCarregarProduto)
+{
+    <Alerta
+        Tipo="Alerta.TipoAlerta.Erro"
+        Mensagem="Não foi possível carregar o produto."/>
+
+    <BotaoTentarNovamente TentarNovamente="@(async () => await CarregaDadosProduto())" />
+}
+else
+{
+    <h4 class="fs-4 text-center my-4">Detalhes do Produto: @_product?.Name</h4>
+
     <div class="form-group row my-2">
         <label class="form-label col-md-3 my-auto text-end">Nome:</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" value="@product?.Name" disabled />
+            <input type="text" class="form-control" value="@_product?.Name" disabled />
         </div>
     </div>
 
     <div class="form-group row my-2">
         <label class="from-label col-md-3 my-auto text-end">Descrição</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" value="@product?.Description" disabled />
+            <input type="text" class="form-control" value="@_product?.Description" disabled />
         </div>
     </div>
 
     <div class="form-group row my-2">
         <label class="form-label col-md-3 my-auto text-end">Valor</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" value="@product?.Price.ToString("C")" disabled />
+            <input type="text" class="form-control" value="@_product?.Price.ToString("C")" disabled />
         </div>
     </div>
 
     <div class="form-group row my-2">
         <label class="form-label col-md-3 my-auto text-end">URL imagem produto:</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" value="@product?.ImageUrl" disabled />
+            <input type="text" class="form-control" value="@_product?.ImageUrl" disabled />
         </div>
     </div>
 
     <div class="form-group row my-2">
         <label class="form-label col-md-3 my-auto text-end">Categoria:</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" value="@product?.Category" disabled />
+            <input type="text" class="form-control" value="@_product?.Category" disabled />
         </div>
     </div>
 
     <div class="form-group row my-2">
         <label class="form-label col-md-3 my-auto text-end my-auto">Marca:</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" value="@product?.Brand" disabled />
+            <input type="text" class="form-control" value="@_product?.Brand" disabled />
         </div>
     </div>
 
     <div class="form-group row my-2">
         <label class="form-label col-md-3 my-auto text-end">Quantidade:</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" value="@product?.Stock" disabled />
+            <input type="text" class="form-control" value="@_product?.Stock" disabled />
         </div>
     </div>
 
     <div class="form-group row my-2">
         <label class="form-label col-md-3 my-auto text-end">Está Ativo:</label>
         <div class="form-check col-md-2 ms-3">
-            <input type="checkbox" class="form-check-input" checked="@product?.IsActive" disabled />
+            <input type="checkbox" class="form-check-input" checked="@_product?.IsActive" disabled />
         </div>
     </div>
 
     <div class="form-group row my-2">
         <label class="form-label col-md-3 my-auto text-end">Criado por:</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" value="@product?.CreatedBy" disabled />
+            <input type="text" class="form-control" value="@_product?.CreatedBy" disabled />
         </div>
         <div class="col-md-2">
-            <input type="text" class="form-control" value="@product?.CreatedOn.ToString("dd/MM/yyyy")" disabled />
+            <input type="text" class="form-control" value="@_product?.CreatedOn.ToString("dd/MM/yyyy hh:mm:ss")" disabled />
         </div>
     </div>
 
     <div class="form-group row my-2">
         <label class="form-label col-md-3 my-auto text-end">Modificado por:</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" value="@product?.ModifiedBy" disabled />
+            <input type="text" class="form-control" value="@_product?.ModifiedBy" disabled />
         </div>
         <div class="col-md-2">
-            <input type="text" class="form-control" value="@product?.ModifiedOn.ToString("dd/MM/yyyy")" disabled />
+            <input type="text" class="form-control" value="@_product?.ModifiedOn.ToString("dd/MM/yyyy hh:mm:ss")" disabled />
         </div>
     </div>
-}
-
-@code {
-    [Parameter]
-    [SupplyParameterFromQuery(Name = "id")]
-    public Guid Id { get; set; }
-
-    private ProductCompleteViewModel? product;
-
-    protected override async Task OnInitializedAsync()
-    {
-        Console.WriteLine($"OnInitializedAsync - parametro recebido: {Id}");
-        await CarregaDadosProduto();
-        await base.OnInitializedAsync();
-    }
-
-    private async ValueTask CarregaDadosProduto()
-    {
-        var productResult = await Mediator.Send(new GetProductByIdCommandRequest(Id));
-
-        if (productResult is not null)
-        {
-            product = productResult.ToViewModel();
-        }
-    }
 
 }

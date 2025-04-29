@@ -1,0 +1,27 @@
+﻿<div class="@Css()" role="alert">
+    @Mensagem
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string Mensagem { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public TipoAlerta Tipo { get; set; }
+
+    private string Css()
+    {
+        return Tipo switch
+        {
+            TipoAlerta.Aviso => "alert alert-primary my-4",
+            TipoAlerta.Erro => "alert alert-danger my-4",
+            TipoAlerta.Sucesso => "alert alert-warning my-4",
+            _ => "alert alert-info my-4"
+        };
+    }
+
+    public enum TipoAlerta
+    {
+        Aviso,
+        Erro,
+        Sucesso,
+        Informacao
+    }
+}

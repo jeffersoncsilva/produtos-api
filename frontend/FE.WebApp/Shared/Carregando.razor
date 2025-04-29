@@ -1,0 +1,46 @@
+﻿
+@if (EstaCarregando)
+{
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="@Css()" role="status">
+            <span class="@VisuallyHidden">@Texto</span>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter, EditorRequired] 
+    public bool EstaCarregando { get; set; }
+    [Parameter, EditorRequired]
+    public ECarregandoTipo Tipo { get; set; }
+
+    [Parameter] public string? Texto { get; set; } = string.Empty;
+
+    public string VisuallyHidden => string.IsNullOrWhiteSpace(Texto) ? "visually-hidden" : "";
+
+    public string Css()
+    {
+        switch (Tipo)
+        {
+            case ECarregandoTipo.Primary:
+                return "spinner-border text-primary";
+            case ECarregandoTipo.Secondary:
+                return "spinner-border text-secondary";
+            case ECarregandoTipo.Warning:
+                return "spinner-border text-warning";
+            case ECarregandoTipo.Danger:
+                return "spinner-border text-danger";
+            default:
+                return "spinner-border text-success";
+        }
+    }
+
+    public enum ECarregandoTipo
+    {
+        Primary,
+        Secondary,
+        Warning,
+        Danger,
+        Success
+    }
+}

@@ -1,0 +1,10 @@
+﻿
+<div class="my-4 d-flex justify-content-center align-content-center">
+    <button class="btn btn-primary btn-sm" @onclick="Tentar"><i class="bi bi-arrow-clockwise"></i>Tentar Novamente</button>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public EventCallback TentarNovamente { get; set; }
+
+    private async Task Tentar() => await TentarNovamente.InvokeAsync();
+}

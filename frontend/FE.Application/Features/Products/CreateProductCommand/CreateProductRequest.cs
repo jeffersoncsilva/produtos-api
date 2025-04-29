@@ -1,7 +1,8 @@
-﻿using MediatR;
+﻿using FE.ViewModels;
+using MediatR;
 
 namespace FE.Application.Features.Products.CreateProductCommand;
-public sealed class CreateProductCommandRequest : IRequest<CreateProductCommandResponse>
+public sealed class CreateProductRequest : IRequest<BaseResponse<CreateProductResponse?>>
 {
 	public string? Name { get; set; }
 	public string? Description { get; set; }

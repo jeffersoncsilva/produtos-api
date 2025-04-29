@@ -1,29 +1,28 @@
-﻿using System.Net.Http.Headers;
-using MediatR;
-using System.Text.Json;
+﻿using MediatR;
 using FE.Application.Contracts;
-using static FE.Application.JsonOptionsSerialize;
+using FE.ViewModels;
+
 
 namespace FE.Application.Features.Sales.GetSalesCommand;
 
-public class GetSalesHandler(IHttpClientFactory factory, IAuthenticationTokenService tokenService) : IRequestHandler<GetSalesRequest, GetSalesResponse?>
+public class GetSalesHandler(IHttpClientFactory factory, IAuthenticationTokenService tokenService) : BaseHandler(factory, tokenService), IRequestHandler<GetSalesRequest, BaseResponse<GetSalesResponse?>>
 {
-	public async Task<GetSalesResponse?> Handle(GetSalesRequest request, CancellationToken ct)
+	public async Task<BaseResponse<GetSalesResponse?>> Handle(GetSalesRequest request, CancellationToken ct)
 	{
 		try
 		{
 			var uri = $"api/sales?page={request.Page}&pageSize={request.Size}";
-			var httpClient = factory.CreateClient(HttpConfiguration.HttpClientName);
-			var token = await tokenService.GetTokenAsync(ct);
-			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token); 
-			var resultado = await httpClient.GetAsync(uri, ct);
-			resultado.EnsureSuccessStatusCode();
-			var obj = await JsonSerializer.DeserializeAsync<GetSalesResponse>(await resultado.Content.ReadAsStreamAsync(ct), JsonOptions, ct);
-			return obj;
+			var result = await SendRequestAsync(HttpMethod.Get, uri, null, ct);
+			return await HandleResponseAsync<GetSalesResponse>(result, ct);
 		}
 		catch (Exception ex)
 		{
-			return null;
+			Console.WriteLine($"Erro não previsto. MESSAGE: {ex.Message}");
+			return new BaseResponse<GetSalesResponse?>()
+			{
+				Dado = null,
+				Status = EStatusResponse.ErroNaoIdentificado
+			};
 		}
 	}
 }

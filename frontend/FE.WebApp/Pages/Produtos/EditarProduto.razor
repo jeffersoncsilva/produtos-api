@@ -1,182 +1,106 @@
 ﻿@page "/editar-produto"
-@using FE.Application.Features.Products.GetProductByIdCommand
-@using FE.Application.Features.Products.UpdateProductCommand
-@inject IMediator Mediator
-@inject NavigationManager NavManager
-@implements IDisposable
 @attribute [Authorize(Roles = "Admin")]
 
-<h3>Edição do produto: @updateProduct?.Name</h3>
-@if (_editContext is not null)
+@if (_carregando)
 {
-    <EditForm EditContext="_editContext" OnValidSubmit="AtualizarDadosFormulario">
-        <AntiforgeryToken />
-        <div class="form-group row my-2">
-            <label class="form-label col-md-3 my-auto text-end">Nome:</label>
-            <div class="col-md-6">
-                <InputText @bind-Value="updateProduct!.Name" class="form-control" />
-                <ValidationMessage For="() => updateProduct.Name" />
-            </div>
-        </div>
-        <div class="form-group row my-2">
-            <label class="from-label col-md-3 my-auto text-end">Descrição</label>
-            <div class="col-md-6">
-                <InputTextArea @bind-Value="updateProduct.Description" class="form-control" />
-                <ValidationMessage For="() => updateProduct.Description" />
-            </div>
-        </div>
+    <Carregando Tipo="Carregando.ECarregandoTipo.Primary" EstaCarregando="_carregando" />
+}
+else
+{
+    @if (_ocorreuErro)
+    {
+        <Alerta Tipo="Alerta.TipoAlerta.Erro" Mensagem="@_mensagemErro" />
+    }
+    
+    @if (_editContext is not null)
+    {
+        <h4 class="fs-4 text-center my-4">Editando o produto: @_updateProduct?.Name</h4>
 
-        <div class="form-group row my-2">
-            <label class="form-label col-md-3 my-auto text-end">Valor</label>
-            <div class="col-md-6">
-                <InputNumber TValue="decimal" @bind-Value="updateProduct.Price" class="form-control" />
-                <ValidationMessage For="() => updateProduct.Price" />
+        <EditForm EditContext="_editContext" OnValidSubmit="AtualizarDadosFormulario">
+            <AntiforgeryToken/>
+            <div class="form-group row my-2">
+                <label class="form-label col-md-3 my-auto text-end">Nome:</label>
+                <div class="col-md-6">
+                    <InputText @bind-Value="_updateProduct!.Name" class="form-control"/>
+                    <ValidationMessage For="() => _updateProduct.Name"/>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row my-2">
-            <label class="form-label col-md-3 my-auto text-end">URL imagem produto:</label>
-            <div class="col-md-6">
-                <InputText @bind-Value="updateProduct.ImageUrl" class="form-control" />
-                <ValidationMessage For="() => updateProduct.ImageUrl" />
+            <div class="form-group row my-2">
+                <label class="from-label col-md-3 my-auto text-end">Descrição</label>
+                <div class="col-md-6">
+                    <InputTextArea @bind-Value="_updateProduct.Description" class="form-control"/>
+                    <ValidationMessage For="() => _updateProduct.Description"/>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row my-2">
-            <label class="form-label col-md-3 my-auto text-end">Categoria:</label>
-            <div class="col-md-6">
-                <InputText @bind-Value="updateProduct.Category" class="form-control" />
-                <ValidationMessage For="() => updateProduct.Category" />
+            <div class="form-group row my-2">
+                <label class="form-label col-md-3 my-auto text-end">Valor</label>
+                <div class="col-md-6">
+                    <InputNumber TValue="decimal" @bind-Value="_updateProduct.Price" class="form-control"/>
+                    <ValidationMessage For="() => _updateProduct.Price"/>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row my-2">
-            <label class="form-label col-md-3 my-auto text-end my-auto">Marca:</label>
-            <div class="col-md-6">
-                <InputText @bind-Value="updateProduct.Brand" class="form-control" />
-                <ValidationMessage For="() => updateProduct.Brand" />
+            <div class="form-group row my-2">
+                <label class="form-label col-md-3 my-auto text-end">URL imagem produto:</label>
+                <div class="col-md-6">
+                    <InputText @bind-Value="_updateProduct.ImageUrl" class="form-control"/>
+                    <ValidationMessage For="() => _updateProduct.ImageUrl"/>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row my-2">
-            <label class="form-label col-md-3 my-auto text-end">Quantidade:</label>
-            <div class="col-md-6">
-                <InputNumber TValue="Int32" @bind-Value="updateProduct.Stock" class="form-control" />
-                <ValidationMessage For="() => updateProduct.Stock" />
+            <div class="form-group row my-2">
+                <label class="form-label col-md-3 my-auto text-end">Categoria:</label>
+                <div class="col-md-6">
+                    <InputText @bind-Value="_updateProduct.Category" class="form-control"/>
+                    <ValidationMessage For="() => _updateProduct.Category"/>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row my-2">
-            <label class="form-label col-md-3 my-auto text-end">Está Ativo:</label>
-            <div class="form-check col-md-2 ms-3">
-                <InputCheckbox @bind-Value="updateProduct.IsActive" class="form-check-input" />
-                <ValidationMessage For="() => updateProduct.IsActive" />
+            <div class="form-group row my-2">
+                <label class="form-label col-md-3 my-auto text-end my-auto">Marca:</label>
+                <div class="col-md-6">
+                    <InputText @bind-Value="_updateProduct.Brand" class="form-control"/>
+                    <ValidationMessage For="() => _updateProduct.Brand"/>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row my-2">
-            <label class="form-label col-md-3 my-auto text-end">Criado por:</label>
-            <div class="col-md-6">
-                <input type="text" class="form-control desabled" value="@updateProduct.CreatedBy" disabled />
+            <div class="form-group row my-2">
+                <label class="form-label col-md-3 my-auto text-end">Quantidade:</label>
+                <div class="col-md-6">
+                    <InputNumber TValue="Int32" @bind-Value="_updateProduct.Stock" class="form-control"/>
+                    <ValidationMessage For="() => _updateProduct.Stock"/>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row my-2">
-            <label class="form-label col-md-3 my-auto text-end">Modificado por:</label>
-            <div class="col-md-6">
-                <InputText @bind-Value="updateProduct.ModifiedBy" class="form-control" />
-                <ValidationMessage For="() => updateProduct.ModifiedBy" />
+            <div class="form-group row my-2">
+                <label class="form-label col-md-3 my-auto text-end">Está Ativo:</label>
+                <div class="form-check col-md-2 ms-3">
+                    <InputCheckbox @bind-Value="_updateProduct.IsActive" class="form-check-input"/>
+                    <ValidationMessage For="() => _updateProduct.IsActive"/>
+                </div>
             </div>
-        </div>
 
-        <div class="d-flex flex-row justify-content-center align-content-center">
-            <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
-        </div>
-    </EditForm>
+            <div class="form-group row my-2">
+                <label class="form-label col-md-3 my-auto text-end">Criado por:</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control desabled" value="@_updateProduct.CreatedBy" disabled/>
+                </div>
+            </div>
+
+            <div class="form-group row my-2">
+                <label class="form-label col-md-3 my-auto text-end">Modificado por:</label>
+                <div class="col-md-6">
+                    <InputText @bind-Value="_updateProduct.ModifiedBy" class="form-control"/>
+                    <ValidationMessage For="() => _updateProduct.ModifiedBy"/>
+                </div>
+            </div>
+
+            <div class="d-flex flex-row justify-content-center align-content-center">
+                <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-floppy me-2"></i>Salvar Alterações </button>
+            </div>
+        </EditForm>
+    }
 }
 <Modal />
-
-@code {
-    [Parameter]
-    [SupplyParameterFromQuery(Name = "id")]
-    public Guid? Id { get; set; }
-
-    private UpdateProductCommandRequest? updateProduct;
-    private EditContext? _editContext;
-    private ValidationMessageStore? messageStore;
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        Console.WriteLine($"OnInitializedAsync - parametro recebido: {Id}");
-        await CarregaDadosProduto();
-        await base.OnInitializedAsync();
-    }
-
-    private async ValueTask CarregaDadosProduto()
-    {
-        var productResult = await Mediator.Send(new GetProductByIdCommandRequest(Id));
-
-        if (productResult is not null)
-        {
-            updateProduct = new();
-            updateProduct.Id = productResult.Id;
-            updateProduct.Name = productResult.Name;
-            updateProduct.Description = productResult.Description;
-            updateProduct.Price = productResult.Price;
-            updateProduct.ImageUrl = productResult.ImageUrl;
-            updateProduct.Category = productResult.Category;
-            updateProduct.Brand = productResult.Brand;
-            updateProduct.Stock = productResult.Stock;
-            updateProduct.IsActive = productResult.IsActive;
-            updateProduct.CreatedBy = productResult.CreatedBy;
-            // TODO: adicionar modifiedBy do usuário que está logado.
-
-            _editContext = new(updateProduct);
-            _editContext.OnValidationRequested += HandleValidationRequested;
-            messageStore = new(_editContext);
-        }
-    }
-
-    private void HandleValidationRequested(object? sender, ValidationRequestedEventArgs args)
-    {
-        if (messageStore is null || updateProduct is null)
-            return;
-        messageStore.Clear();
-        if (string.IsNullOrWhiteSpace(updateProduct?.Name))
-            messageStore?.Add(() => updateProduct!.Name!, "Nome é Obrigatório.");
-        if (string.IsNullOrWhiteSpace(updateProduct?.Description))
-            messageStore?.Add(() => updateProduct!.Description!, "Descrição é Obrigatório.");
-        if (updateProduct?.Price <= 0)
-            messageStore?.Add(() => updateProduct.Price, "Valor maior que zero é Obrigatório.");
-        if (string.IsNullOrWhiteSpace(updateProduct?.ImageUrl))
-            messageStore?.Add(() => updateProduct!.ImageUrl!, "A URL Da imagem e Obrigatório.");
-        if (string.IsNullOrWhiteSpace(updateProduct?.Category))
-            messageStore?.Add(() => updateProduct!.Category!, "A categoria e Obrigatório.");
-        if (string.IsNullOrWhiteSpace(updateProduct?.Brand))
-            messageStore?.Add(() => updateProduct!.Brand!, "A Marca e Obrigatório.");
-        if (updateProduct!.Stock < 0)
-            messageStore?.Add(() => updateProduct.Stock, "A quantidade deve ser maior ou igual a 1.");
-        if (string.IsNullOrWhiteSpace(updateProduct?.ModifiedBy))
-            messageStore?.Add(() => updateProduct!.ModifiedBy!, "O nome de quem criou o produto e Obrigatório.");
-        if (!updateProduct!.IsActive)
-            messageStore?.Add(() => updateProduct.IsActive, "Não pode adicionar um produto inativo.");
-    }
-
-    private async Task AtualizarDadosFormulario()
-    {
-        var resultadoAlteracao = await Mediator.Send(updateProduct!);
-        if(resultadoAlteracao is not null)
-        {
-            NavManager.NavigateTo($"detalhes-produto?id={resultadoAlteracao.Id}");
-        }
-    }
-
-    public void Dispose()
-    {
-        if (_editContext is not null)
-        {
-            _editContext.OnValidationRequested -= HandleValidationRequested;
-        }
-    }
-}
