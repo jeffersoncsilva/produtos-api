@@ -9,18 +9,47 @@ public class CreateSaleCommandHandler(IProductsRepository productRepository, ISa
 {
     public async Task<CreateSaleResult> Handle(CreateSaleCommand request, CancellationToken ct)
     {
-        var validator = new CreateSaleValidator();
-        var resultValidation = await validator.ValidateAsync(request, ct);
+	    try
+	    {
+		    var validator = new CreateSaleValidator();
+		    var resultValidation = await validator.ValidateAsync(request, ct);
 
-        if (!resultValidation.IsValid)
-            throw new BadRequestException(resultValidation);
+		    if (!resultValidation.IsValid)
+			    throw new BadRequestException(resultValidation);
 
-		var sale = CreateSale(request);
-		sale.Itens = await GetSaleItens(request.Products, sale, ct);
+		    var sale = CreateSale(request);
+		    sale.Itens = await GetSaleItens(request.Products, sale, ct);
 
-        var result = await saleRepository.CreateAsync(sale, ct);
+		    if (sale.Itens.Count == 0)
+			    throw new EstoqueProdutoInsuficienteException(Guid.Empty, "Nenhum produto foi adicionado a venda.");
+		    
+		    var result = await saleRepository.CreateAsync(sale, ct);
 
-        return new CreateSaleResult() { SaleId = sale.Id };
+		    return new CreateSaleResult
+		    {
+			    SaleId = result.Id,
+			    Success = true,
+			    Errors = null
+		    };
+	    }
+	    catch (EstoqueProdutoInsuficienteException ex)
+	    {
+		    return new CreateSaleResult()
+		    {
+			    Errors = [ ex.Message ],
+			    Success = false,
+			    SaleId = Guid.Empty
+		    };
+	    }
+	    catch (Exception ex)
+	    {
+		    return new CreateSaleResult()
+		    {
+			    Errors = [ ex.Message ],
+			    Success = false,
+			    SaleId = Guid.Empty
+		    };
+	    }
 	}
 
     private async Task<ICollection<SaleItem>> GetSaleItens(IEnumerable<ProductSaleCommand> products, Sale sale, CancellationToken ct)
@@ -29,9 +58,11 @@ public class CreateSaleCommandHandler(IProductsRepository productRepository, ISa
 
 		foreach (var ps in products)
 		{
-			var product = await productRepository.GetProductAsync(p => p.Id == ps.ProductId, ct);
+			var product = await productRepository.GetProductAsync(p => p.Id == ps.ProductId && p.Stock >= ps.Quantity && p.IsActive, ct);
 			if (product is null)
-				throw new BadRequestException($"Produto de Id {ps.ProductId} não foi encontrado.");
+				throw new EstoqueProdutoInsuficienteException(ps.ProductId, "Verifique se há estoque disponível do produto e se ele está ativo.");
+			product.Stock -= ps.Quantity;
+			productRepository.Update(product);
 			saleItems.Add(new SaleItem(product, ps.Quantity, sale));
 		}
 
