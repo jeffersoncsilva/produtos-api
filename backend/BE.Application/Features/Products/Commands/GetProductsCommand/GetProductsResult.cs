@@ -12,6 +12,9 @@ public class GetProductsResult
     
     [JsonPropertyName("size")]
     public int Size { get; init; }
+
+    [JsonPropertyName("total_products")]
+    public int TotalProducts { get; init; }
 }
 
 public class ProductsSimpleResult

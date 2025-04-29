@@ -10,15 +10,15 @@
 
     <main>
         <div class="top-row p-0 m-0 d-flex align-content-center justify-content-between" style="background: #07173D;">
+            <AuthorizeView>
+                <span class="my-auto text-white fs-4">@_user?.Identity?.Name</span>
+            </AuthorizeView>
+            <span class="mx-auto my-auto text-white fs-6">@_currentTime</span>
             <AuthorizeView Roles="Admin">
                 <div class="my-auto me-5">
                     <BotaoCarrinhoCompra />
                 </div>
             </AuthorizeView>
-            <AuthorizeView>
-                <span class="my-auto text-white fs-4">@_user?.Identity?.Name</span>
-            </AuthorizeView>
-            <span class="mx-auto my-auto text-white fs-6">@_currentTime</span>
         </div>
 
         <article class="content px-4">

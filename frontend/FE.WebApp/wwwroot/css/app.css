@@ -107,3 +107,14 @@ code {
 	background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
 	background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
 }
+
+.limit-tables-lines {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* Define o número máximo de linhas */
+	-webkit-box-orient: vertical;
+	/* As propriedades abaixo são para navegadores que não suportam -webkit-line-clamp */
+	max-height: calc(3 * 1.5em); /* Ajuste 1.5em com a sua line-height */
+	line-height: 1.5em;
+}
+

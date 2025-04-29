@@ -8,7 +8,7 @@ public class GetProductsCommandHandler(IProductsRepository productsRepository) :
     public async Task<GetProductsResult> Handle(GetProductsRequest request, CancellationToken ct)
     {
         var products = await productsRepository.GetPagedProducts(request.Page, request.PageSize, ct);
-
+        var totalProducts = await productsRepository.GetTotalProducts(ct);
         return new GetProductsResult
         {
             Products = products.Select(p => new ProductsSimpleResult() 
@@ -21,7 +21,8 @@ public class GetProductsCommandHandler(IProductsRepository productsRepository) :
                     IsActive = p.IsActive
                 }).ToList(),
             Page = request.Page,
-            Size = products.Count
+            Size = products.Count,
+            TotalProducts = totalProducts
         };
     }
 }

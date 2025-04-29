@@ -15,8 +15,10 @@ public partial class ListarProdutos
 	[Inject] public ICarrinhoCompraServico CarrinhoDeCompra { get; set; } = default!;
 
 	private int _page = 0;
-	private int _size = 5;
+	private int _size = 12;
+	private int _totalProdutos;
 	private IEnumerable<ProductSimpleViewModel>? _products;
+	private readonly List<ProductSimpleViewModel> _totalProductsLoaded = new();
 	private bool _exibeMensagemErro = false;
 	private bool _carregando;
 
@@ -26,23 +28,46 @@ public partial class ListarProdutos
 		await base.OnInitializedAsync();
 	}
 
-	private async ValueTask CarregarProdutos()
+	private async Task CarregarProdutos()
 	{
 		_exibeMensagemErro = false;
 		_carregando = true;
+
+		_products = _totalProductsLoaded.Skip(_page * _size).Take(_size).ToList();
+
+		if (_products.Count() == _size)
+		{
+			_carregando = false;
+			return;
+		}
+
 		var resultado = await Mediator.Send(new GetProductRequest(_page, _size));
 		if (resultado is { Status: EStatusResponse.Ok, Dado: not null })
 		{
 			var dados = resultado.Dado;
+			_totalProductsLoaded.AddRange(dados.Products!);
 			_products = dados.Products;
 			_page = dados.Page;
 			_size = dados.Size;
+			_totalProdutos = dados.TotalProducts;
 		}
 		else
 		{
 			_exibeMensagemErro = true;
 		}
 		_carregando = false;
+	}
+
+	private async Task CarregarProximaPaginaProdutos()
+	{
+		_page++;
+		await CarregarProdutos();
+	}
+
+	private async Task CarregarPaginaAnteriorProdutos()
+	{
+		_page--;
+		await CarregarProdutos();
 	}
 
 	private void NavegaPaginaNovoProduto()
