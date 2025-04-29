@@ -23,6 +23,9 @@ public class UpdateSaleRequest : IRequest<BaseResponse<UpdateSaleResult?>>
 
 	[JsonPropertyName("product_itens")]
 	public List<SaleItemUpdate> Itens { get; set; } = new();
+
+	[JsonPropertyName("modified_by")]
+	public string? ModifiedBy { get; set; }
 }
 
 

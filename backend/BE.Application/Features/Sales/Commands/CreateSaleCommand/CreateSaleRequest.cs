@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BE.Application.Features.Sales.Commands.CreateSaleCommand;
 
-public class CreateSaleCommand : IRequest<CreateSaleResult>
+public class CreateSaleRequest : IRequest<CreateSaleResult>
 {
 	[JsonPropertyName("name")]
 	public string? Name { get; set; }
@@ -19,6 +19,9 @@ public class CreateSaleCommand : IRequest<CreateSaleResult>
 	
 	[JsonPropertyName("itens")]
 	public IEnumerable<ProductSaleCommand> Products { get; set; } = [];
+
+	[JsonPropertyName("created_by")]
+	public string? CreatedBy { get; set; }
 }
 
 public sealed class ProductSaleCommand

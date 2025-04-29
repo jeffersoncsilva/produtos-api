@@ -3,7 +3,9 @@ using FE.Application.Features.Sales.UpdateSaleCommand;
 using FE.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Security.Claims;
 
 namespace FE.WebApp.Pages.Vendas;
 
@@ -11,6 +13,7 @@ public partial class EditarVenda : IDisposable
 {
 	[Inject] public IMediator Mediator { get; set; } = default!;
 	[Inject] public NavigationManager NavManager { get; set; } = default!;
+	[Inject] public AuthenticationStateProvider AuthApi { get; set; } = default!;
 
 	[Parameter]
 	[SupplyParameterFromQuery(Name = "id")]
@@ -73,7 +76,8 @@ public partial class EditarVenda : IDisposable
 		_carregando = false;
 		_erroAoCarregarDados = false;
 		_erroAoAtualizar = false;
-
+		var user = await ((ApiAuthenticationStateProvider)AuthApi).GetAuthenticationStateAsync();
+		_request.ModifiedBy = user.User.FindFirst(f => f.Type == ClaimTypes.Email)?.Value ?? string.Empty;
 		var resultado = await Mediator.Send(_request);
 
 		if (resultado is { Status: EStatusResponse.Ok, Dado: not null } && resultado.Dado.SaleIdUpdated != Guid.Empty)

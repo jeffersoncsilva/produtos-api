@@ -20,7 +20,11 @@ public class UpdateSaleCommandRequest : IRequest<UpdateSaleCommandReponse?>
     [JsonPropertyName("descount")]
     public decimal Descount { get; set; }
 
-    [JsonPropertyName("product_itens")]
+
+    [JsonPropertyName("modified_by")]
+    public string? ModifiedBy { get; set; }
+
+	[JsonPropertyName("product_itens")]
     public List<SaleItemUpdate> Itens { get; set; } = new();
 }
 

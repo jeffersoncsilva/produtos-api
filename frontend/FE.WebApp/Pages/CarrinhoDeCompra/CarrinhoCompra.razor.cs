@@ -1,10 +1,12 @@
-﻿using FE.Application.Features.Sales.CreateSaleCommand;
+﻿using System.Security.Claims;
+using FE.Application.Features.Sales.CreateSaleCommand;
 using MediatR;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components;
 using FE.ViewModels;
 using FE.ViewModels.Features.Sales;
 using FE.WebApp.Services.Interfaces;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace FE.WebApp.Pages.CarrinhoDeCompra;
 
@@ -14,6 +16,8 @@ public partial class CarrinhoCompra : IDisposable
 	[Inject] public IMediator Mediator { get; set; } = default!;
 	[Inject] public NavigationManager NavManager { get; set; } = default!;
 	[Inject] public ICarrinhoCompraServico CarrinhoDeCompra { get; set; } = default!;
+	[Inject] public AuthenticationStateProvider AuthApi { get; set; } = default!;
+
 
 	private EditContext? _editContext;
 	private ValidationMessageStore? _messageStore;
@@ -41,6 +45,8 @@ public partial class CarrinhoCompra : IDisposable
 		StateHasChanged();
 		_request.Itens = CarrinhoDeCompra.Produtos.Select(i => new ProductsSale(i.Produto.Id, i.Quantidade)).ToList();
 		_request.Price = CarrinhoDeCompra.ValorTotalCarrinho();
+		var user = await ((ApiAuthenticationStateProvider)AuthApi).GetAuthenticationStateAsync();
+		_request.CreatedBy = user?.User?.FindFirst(f => f.Type == ClaimTypes.Email)?.Value ?? string.Empty;
 		var resultado = await Mediator.Send(_request);
 		if (resultado is { Status: EStatusResponse.Ok, Dado.Success: true } && resultado.Dado.SaleId != Guid.Empty)
 			NavManager.NavigateTo($"vendas-detalhes?id={resultado.Dado.SaleId}");

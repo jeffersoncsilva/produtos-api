@@ -5,9 +5,9 @@ using BE.Domain.Exception;
 
 namespace BE.Application.Features.Sales.Commands.CreateSaleCommand;
 
-public class CreateSaleCommandHandler(IProductsRepository productRepository, ISaleRepository saleRepository) : IRequestHandler<CreateSaleCommand, CreateSaleResult>
+public class CreateSaleCommandHandler(IProductsRepository productRepository, ISaleRepository saleRepository) : IRequestHandler<CreateSaleRequest, CreateSaleResult>
 {
-    public async Task<CreateSaleResult> Handle(CreateSaleCommand request, CancellationToken ct)
+    public async Task<CreateSaleResult> Handle(CreateSaleRequest request, CancellationToken ct)
     {
 	    try
 	    {
@@ -69,7 +69,7 @@ public class CreateSaleCommandHandler(IProductsRepository productRepository, ISa
 		return saleItems;
 	}
 
-	private Sale CreateSale(CreateSaleCommand request)
+	private Sale CreateSale(CreateSaleRequest request)
 	{
 		return new Sale()
 		{

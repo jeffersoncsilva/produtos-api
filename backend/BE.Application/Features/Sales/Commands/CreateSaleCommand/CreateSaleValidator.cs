@@ -2,7 +2,7 @@
 
 namespace BE.Application.Features.Sales.Commands.CreateSaleCommand;
 
-public class CreateSaleValidator : AbstractValidator<CreateSaleCommand>
+public class CreateSaleValidator : AbstractValidator<CreateSaleRequest>
 {
     public CreateSaleValidator()
     {

@@ -17,7 +17,10 @@ public class CreateSaleRequest : IRequest<BaseResponse<CreateSaleResponse?>>
 	
 	[JsonPropertyName("descount")]
 	public decimal Descount { get; set; }
-	
+
+	[JsonPropertyName("created_by")]
+	public string? CreatedBy { get; set; }
+
 	[JsonPropertyName("itens")]
 	public ICollection<ProductsSale> Itens { get; set; } = [];
 }
