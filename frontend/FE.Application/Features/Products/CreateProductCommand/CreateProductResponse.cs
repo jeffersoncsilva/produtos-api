@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace FE.Application.Features.Products.CreateProductCommand;
 
-public sealed class CreateProductCommandResponse
+public sealed class CreateProductResponse
 {
 	[JsonPropertyName("id")]
 	public Guid Id { get; init; }
