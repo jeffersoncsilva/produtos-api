@@ -32,6 +32,8 @@ Algumas características desse template (projeto como um todo) são:
 - [X] Implementar o cancelamento de uma venda.
 - [X] Criar a opção de carrinho de compra, fazendo com que o usuário logado possa escolher mais de um produto para venda.
 - [ ] ✨ Implementar paginação de Produtos e Vendas
+- [ ] 💡 Adicionar o usuário que criou uma venda.
+- [ ] 💡 Possibilitar que usúario do tipo Customer possa criar vendas, mas não editar ou remover.
 - [ ] 🔧 Justar Data e Hora de cadastro e modificação de produtos e vendas.
 - [ ] Criar a opção de relatório de produtos, onde o usuário logado possa ver os produtos cadastrados, podendo filtrar por período, categoria e os produtos que ele mesmo cadastrou.
 - [ ] Criar a opção de relatório de vendas, onde o usuário logado possa ver as vendas que ele realizou e possa filtrar por período.
