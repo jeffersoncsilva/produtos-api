@@ -181,6 +181,14 @@ public class SeedSales
             updateProductCmd.Parameters.AddWithValue("id", product.Id);
             
             await updateProductCmd.ExecuteNonQueryAsync();
+            
+            await using var updateSalePrice = _connection.CreateCommand();
+            updateSalePrice.Transaction = transaction;
+            updateSalePrice.CommandType = CommandType.Text;
+            updateSalePrice.CommandText = "UPDATE public.\"Sales\" SET \"Price\" = @price WHERE \"Id\" = @id";
+            updateSalePrice.Parameters.AddWithValue("price", price);
+            updateSalePrice.Parameters.AddWithValue("id", saleId);
+            await updateSalePrice.ExecuteNonQueryAsync();
         }
     }
     
