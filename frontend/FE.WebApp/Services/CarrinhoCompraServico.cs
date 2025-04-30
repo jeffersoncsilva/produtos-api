@@ -39,7 +39,11 @@ public sealed class CarrinhoCompraServico : ICarrinhoCompraServico
 		OnCarrinhoChanged?.Invoke();
 	}
 
-	public void LimparCarrinho() => Produtos.Clear();
+	public void LimparCarrinho()
+	{
+		Produtos.Clear();
+		OnCarrinhoChanged?.Invoke();
+	} 
 
 	public decimal ValorTotalCarrinho() => Produtos.Sum(p => p.ValorTotalItem);
 

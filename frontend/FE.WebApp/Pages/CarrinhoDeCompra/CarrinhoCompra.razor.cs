@@ -49,7 +49,11 @@ public partial class CarrinhoCompra : IDisposable
 		_request.CreatedBy = user?.User?.FindFirst(f => f.Type == ClaimTypes.Email)?.Value ?? string.Empty;
 		var resultado = await Mediator.Send(_request);
 		if (resultado is { Status: EStatusResponse.Ok, Dado.Success: true } && resultado.Dado.SaleId != Guid.Empty)
+		{
 			NavManager.NavigateTo($"vendas-detalhes?id={resultado.Dado.SaleId}");
+			CarrinhoDeCompra.LimparCarrinho();
+		}
+			
 		else
 		{
 			_erroCadastarVenda = true;
