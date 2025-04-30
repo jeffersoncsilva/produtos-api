@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\backend\BE.Application\BE.Application.csproj" />
+      <ProjectReference Include="..\backend\BE.Domain\BE.Domain.csproj" />
+      <ProjectReference Include="..\backend\BE.Infrastructure\BE.Infrastructure.csproj" />
+      <ProjectReference Include="..\backend\BE.Persistence\BE.Persistence.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Bogus" Version="35.6.3" />
+      <PackageReference Include="Dapper" Version="2.1.66" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.4" />
+      <PackageReference Include="Npgsql" Version="8.0.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>
