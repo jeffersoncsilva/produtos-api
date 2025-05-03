@@ -10,11 +10,12 @@ public class GetSalesCommandHandler(ISaleRepository saleRepository) : IRequestHa
 		int size = request.Size == 0 ? 10 : request.Size;
 
 		var sales = await saleRepository.GetPagedSalesAsync(page, size, ct);
-
+		var salesCount = await saleRepository.GetTotalSalesAsync(ct);
 		return new GetSalesResult()
 		{
 			Page = page,
 			Size = sales.Count,
+			TotalSales = salesCount,
 			Sales = sales.Select(s => new SaleItem()
 			{
 				SaleId = s.Id, 

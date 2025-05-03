@@ -5,10 +5,15 @@ public class GetSalesResult
 {
 	[JsonPropertyName("sales_item")]
 	public IReadOnlyList<SaleItem> Sales { get; set; } = [];
+	
 	[JsonPropertyName("page")]
 	public int Page { get; set; }
+	
 	[JsonPropertyName("size")]
 	public int Size { get; set; }
+	
+	[JsonPropertyName("total_sales")]
+	public int TotalSales { get; set; }
 }
 
 public class SaleItem
