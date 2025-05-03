@@ -10,6 +10,9 @@ public class GetSalesResponse
 	public int Page { get; set; }
 	[JsonPropertyName("size")]
 	public int Size { get; set; }
+
+	[JsonPropertyName("total_sales")]
+	public int TotalSales { get; set; }
 }
 
 public class SaleItem

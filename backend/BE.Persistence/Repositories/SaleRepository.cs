@@ -29,4 +29,6 @@ public class SaleRepository(DefaultContext db) : BaseRepository<Sale>(db),ISaleR
             .ThenInclude(i => i.Product)
             .FirstOrDefaultAsync(ct);
     }
+
+    public async Task<int> GetTotalSalesAsync(CancellationToken ct) => await db.Sales.AsNoTracking().Where(s => !s.IsCanceled).CountAsync(ct);
 }
