@@ -15,8 +15,8 @@ public partial class Vendas
 
 
 	private GetSalesResponse? _vendasRealizadas;
-	private int _paginaAtual = 12;
-	private int _tamanhoPagina = 10;
+	private int _paginaAtual = 0;
+	private int _tamanhoPagina = 12;
 	private int _totalDeItens;
 
 	private bool _carregando;
