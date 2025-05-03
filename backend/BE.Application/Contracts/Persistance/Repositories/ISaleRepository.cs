@@ -6,4 +6,5 @@ public interface ISaleRepository : IBaseRepository<Sale>
 {
 	Task<IReadOnlyList<Sale>> GetPagedSalesAsync(int page, int size, CancellationToken ct);
 	Task<Sale?> GetSaleById(Guid id, CancellationToken ct);
+	Task<int> GetTotalSalesAsync(CancellationToken ct);
 }

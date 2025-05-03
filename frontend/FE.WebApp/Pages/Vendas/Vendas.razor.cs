@@ -15,8 +15,9 @@ public partial class Vendas
 
 
 	private GetSalesResponse? _vendasRealizadas;
-	private int _paginaAtual = 0;
+	private int _paginaAtual = 12;
 	private int _tamanhoPagina = 10;
+	private int _totalDeItens;
 
 	private bool _carregando;
 	private bool _removendoItem;
@@ -29,18 +30,20 @@ public partial class Vendas
 		await base.OnInitializedAsync();
 	}
 
-	private async ValueTask CarregarVendas()
+	private async Task CarregarVendas()
 	{
 		_carregando = true;
 		_erroAoCarregarItens = false;
 		StateHasChanged();
 
 		var resultado = await Mediator.Send(new GetSalesRequest(_paginaAtual, _tamanhoPagina));
-		if (resultado.Status == EStatusResponse.Ok && resultado.Dado is not null)
+		if (resultado is { Status: EStatusResponse.Ok, Dado: not null })
 		{
 			_vendasRealizadas = resultado.Dado;
 			_paginaAtual = resultado.Dado.Page;
 			_tamanhoPagina = resultado.Dado.Size;
+			_totalDeItens = resultado.Dado.TotalSales;
+			Console.WriteLine("Total de itens: " + _totalDeItens);
 		}
 			
 		else
@@ -80,5 +83,17 @@ public partial class Vendas
 	{
 		if (item is not null) 
 			NavManager.NavigateTo($"vendas-detalhes?id={item.SaleId}");
+	}
+
+	private async Task CarregarProximaPaginaVendas()
+	{
+		_paginaAtual++;
+		await CarregarVendas();
+	}
+
+	private async Task CarregarPaginaAnteriorVendas()
+	{
+		_paginaAtual--;
+		await CarregarVendas();
 	}
 }

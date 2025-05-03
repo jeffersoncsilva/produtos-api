@@ -26,13 +26,34 @@ else
     }
     else
     {
-        <h3 class="fs-3 text-center">Vendas já realizadas</h3>
-
-        <div class="d-flex align-content-start flex-wrap">
-            @foreach(var venda in _vendasRealizadas.Sales)
-            {
-                <VendaComponent Venda="venda" OnEditarVenda="EditarVenda" OnRemoverVenda="RemoverVenda" OnInfoVenda="InformacoesVenda" />
-            }
+        <div class="d-flex justify-content-between">
+            <h3 class="flex-grow-1 fs-3 text-center">Vendas já realizadas encontradas</h3>
+            <div class="flex-shrink-1">
+                <select @bind-value="_tamanhoPagina" @bind-value:event="oninput" class="form-select" @onchange="CarregarVendas">
+                    <option value="12">12</option>
+                    <option value="24">24</option>
+                    <option value="32">32</option>
+                    <option value="64">64</option>
+                </select>
+            </div>
         </div>
+
+
+        <Paginacao
+            ItensPorPagina="_tamanhoPagina"
+            PaginaAtual="_paginaAtual"
+            TotalDeItens="_totalDeItens"
+            ProximaPagina="CarregarProximaPaginaVendas"
+            PaginaAnterior="CarregarPaginaAnteriorVendas">
+            <PageContent>
+                <div class="d-flex justify-content-center flex-wrap">
+                    @foreach(var venda in _vendasRealizadas.Sales)
+                    {
+                        <VendaComponent Venda="venda" OnEditarVenda="EditarVenda" OnRemoverVenda="RemoverVenda" OnInfoVenda="InformacoesVenda" />
+                    }
+                </div>
+            </PageContent>
+        </Paginacao>
+
     }
 }

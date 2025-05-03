@@ -1,5 +1,5 @@
 ﻿@using FE.Application.Features.Sales.GetSalesCommand
-<div class="card col-md-4 m-1">
+<div class="card col-sm-2 col-md-3 m-2">
     <div class="card-header d-flex justify-content-between">
         <span class="card-text my-auto">@Venda?.Name</span>
         @if (OnInfoVenda is not null)
@@ -11,16 +11,14 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col" style="width: 25%">Preço</th>
-                    <th scope="col" style="width: 25%">Desconto</th>
-                    <th scope="col" style="width: 50%">Nomes dos Produtos</th>
+                    <th scope="col" style="width: 70%">Preço</th>
+                    <th scope="col" style="width: 30%">Desconto</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>@Venda?.Price.ToString("C")</td>
                     <td>@Venda?.Descount.ToString("C")</td>
-                    <td class="text-end">@(string.Join(", ", Venda?.ProductsName ?? []))</td>
                 </tr>
             </tbody>
         </table>
