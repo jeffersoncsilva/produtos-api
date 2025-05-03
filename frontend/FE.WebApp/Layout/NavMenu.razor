@@ -12,14 +12,33 @@
             </NavLink>
         </div>
         <div class="nav-item p-3">
-            <NavLink class="nav-link d-flex align-items-center" href="vendas">
+            <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#collapseVendas" role="button" aria-expanded="false" aria-controls="collapseVendas">
                 <i class="bi bi-basket2 me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Vendas
-            </NavLink>
+            </a>
+            <div class="ms-4 collapse" id="collapseVendas">
+                <NavLink class="nav-link d-flex align-items-center" href="vendas">
+                    <i class="bi bi-list-check me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Listar Vendas
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="detalhe-vendas">
+                    <i class="bi bi-info-circle me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Detalhes Vendas
+                </NavLink>
+            </div>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link d-flex align-items-center" href="produtos">
+            <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#collapseProdutos" role="button" aria-expanded="false" aria-controls="collapseProdutos">
                 <i class="bi bi-box-seam me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Produtos
-            </NavLink>
+            </a>
+            <div class="ms-4 collapse" id="collapseProdutos">
+                <NavLink class="nav-link d-flex align-items-center" href="produtos">
+                    <i class="bi bi-list-check me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Listar Produto
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="novo-produto">
+                    <i class="bi bi-plus-circle me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Novo Produto
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="categorias">
+                    <i class="bi bi-bookmark-check me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Categorias
+                </NavLink>
+            </div>
         </div>
         <AuthorizeView>
             <div class="nav-item px-3">
@@ -34,3 +53,4 @@
 @code {
     
 }
+
