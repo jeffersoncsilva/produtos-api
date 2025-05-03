@@ -21,14 +21,6 @@ else
         {
             <div class="d-flex justify-content-between">
 
-                <AuthorizeView Roles="Admin">
-                    <div class="justify-content-end align-content-center">
-                        <button type="button" @onclick="NavegaPaginaNovoProduto" class="btn btn-outline-primary btn-sm m-2">
-                            <i class="bi bi-plus-circle"></i> Novo Produto
-                        </button>
-                    </div>
-                </AuthorizeView>
-
                 <h3 class="flex-grow-1 fs-3 text-center">Produtos encontrados</h3>
                 <div class="flex-shrink-1">
                     <select @bind-value="_size" @bind-value:event="oninput" class="form-select" @onchange="CarregarProdutos">

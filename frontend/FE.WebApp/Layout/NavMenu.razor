@@ -11,16 +11,145 @@
                 <i class="bi bi-house me-4" style="font-size: 1.6rem"></i> Home
             </NavLink>
         </div>
+
         <div class="nav-item p-3">
-            <NavLink class="nav-link d-flex align-items-center" href="vendas">
+            <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#collapseVendas" role="button" aria-expanded="false" aria-controls="collapseVendas">
                 <i class="bi bi-basket2 me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Vendas
-            </NavLink>
+                <span class="ms-auto">
+                    <i class="bi bi-chevron-down seta-baixo" style="font-size: 1rem;"></i>
+                    <i class="bi bi-chevron-up seta-cima" style="font-size: 1rem;"></i>
+                </span>
+            </a>
+            <div class="ms-4 collapse" id="collapseVendas">
+                <NavLink class="nav-link d-flex align-items-center" href="nova-venda">
+                    <i class="bi bi-cart-plus me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Nova Venda
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="vendas">
+                    <i class="bi bi-list-check me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Listar Vendas
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="#">
+                    <i class="bi bi-info-circle me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Info Vendas
+                </NavLink>
+            </div>
         </div>
+        
         <div class="nav-item px-3">
-            <NavLink class="nav-link d-flex align-items-center" href="produtos">
-                <i class="bi bi-box-seam me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Produtos
-            </NavLink>
+            <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#collapseEntregas" role="button" aria-expanded="false" aria-controls="collapseEntregas">
+                <i class="bi bi-truck me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Entregas
+                <span class="ms-auto">
+                    <i class="bi bi-chevron-down seta-baixo" style="font-size: 1rem;"></i>
+                    <i class="bi bi-chevron-up seta-cima" style="font-size: 1rem;"></i>
+                </span>
+            </a>
+            <div class="ms-4 collapse" id="collapseEntregas">
+                <NavLink class="nav-link d-flex align-items-center" href="em-andamento">
+                    <i class="bi bi-hourglass-split me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Entregando
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="entregas-concluidas">
+                    <i class="bi bi-clipboard-check me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Concluídas
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="planejamento">
+                    <i class="bi bi-pin-map me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Planejadas
+                </NavLink>
+            </div>
         </div>
+
+        <div class="nav-item px-3">
+            <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#collapseProdutos" role="button" aria-expanded="false" aria-controls="collapseProdutos">
+                <i class="bi bi-box-seam me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Produtos
+                <span class="ms-auto">
+                    <i class="bi bi-chevron-down seta-baixo" style="font-size: 1rem;"></i>
+                    <i class="bi bi-chevron-up seta-cima" style="font-size: 1rem;"></i>
+                </span>
+            </a>
+            <div class="ms-4 collapse" id="collapseProdutos">
+                <NavLink class="nav-link d-flex align-items-center" href="produtos">
+                    <i class="bi bi-list-check me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Listar Produto
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="novo-produto">
+                    <i class="bi bi-plus-circle me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Novo Produto
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="categorias">
+                    <i class="bi bi-bookmark-check me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Categorias
+                </NavLink>
+            </div>
+        </div>
+        
+        <div class="nav-item px-3">
+            <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#collapseFornecedores" role="button" aria-expanded="false" aria-controls="collapseFornecedores">
+                <i class="bi bi-truck-flatbed me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Fornecedores
+                <span class="ms-auto">
+                    <i class="bi bi-chevron-down seta-baixo" style="font-size: 1rem;"></i>
+                    <i class="bi bi-chevron-up seta-cima" style="font-size: 1rem;"></i>
+                </span>
+            </a>
+            <div class="ms-4 collapse" id="collapseFornecedores">
+                <NavLink class="nav-link d-flex align-items-center" href="produtos">
+                    <i class="bi bi-list-ul me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Listar
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="novo-produto">
+                    <i class="bi bi-plus-circle me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Novo
+                </NavLink>
+            </div>
+        </div>
+        
+        <div class="nav-item px-3">
+            <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#collapseClientes" role="button" aria-expanded="false" aria-controls="collapseClientes">
+                <i class="bi bi-person me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Clientes
+                <span class="ms-auto">
+                    <i class="bi bi-chevron-down seta-baixo" style="font-size: 1rem;"></i>
+                    <i class="bi bi-chevron-up seta-cima" style="font-size: 1rem;"></i>
+                </span>
+            </a>
+            <div class="ms-4 collapse" id="collapseClientes">
+                <NavLink class="nav-link d-flex align-items-center" href="lista-clientes">
+                    <i class="bi bi-person-lines-fill me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Clientes
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="novo-cliente">
+                    <i class="bi bi-person-add me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Novo Cliente
+                </NavLink>
+            </div>
+        </div>
+        
+        <div class="nav-item px-3">
+            <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#collapseRelatorios" role="button" aria-expanded="false" aria-controls="collapseRelatorios">
+                <i class="bi bi-clipboard-data me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Relatórios
+                <span class="ms-auto">
+                    <i class="bi bi-chevron-down seta-baixo" style="font-size: 1rem;"></i>
+                    <i class="bi bi-chevron-up seta-cima" style="font-size: 1rem;"></i>
+                </span>
+            </a>
+            <div class="ms-4 collapse" id="collapseRelatorios">
+                <NavLink class="nav-link d-flex align-items-center" href="lista-clientes">
+                    <i class="bi bi-graph-up-arrow me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Vendas
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="estoque">
+                    <i class="bi bi-clipboard-data me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Estoque
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="entregas">
+                    <i class="bi bi-boxes me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Entregas
+                </NavLink>
+            </div>
+        </div>
+        
+        <div class="nav-item px-3">
+            <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#collapseUsuarios" role="button" aria-expanded="false" aria-controls="collapseUsuarios">
+                <i class="bi bi-people-fill me-4" style="vertical-align: middle; font-size: 1.6rem"></i> Funcionários
+                <span class="ms-auto">
+                    <i class="bi bi-chevron-down seta-baixo" style="font-size: 1rem;"></i>
+                    <i class="bi bi-chevron-up seta-cima" style="font-size: 1rem;"></i>
+                </span>
+            </a>
+            <div class="ms-4 collapse" id="collapseUsuarios">
+                <NavLink class="nav-link d-flex align-items-center" href="listar-funcionarios">
+                    <i class="bi bi-person-lines-fill me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Listar
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="novo-funcionario">
+                    <i class="bi bi-person-plus me-4" style="vertical-align: middle; font-size: 1.6rem"></i>Novo
+                </NavLink>
+            </div>
+        </div>
+
         <AuthorizeView>
             <div class="nav-item px-3">
                 <NavLink class="nav-link d-flex align-items-center" href="sair">
@@ -34,3 +163,4 @@
 @code {
     
 }
+

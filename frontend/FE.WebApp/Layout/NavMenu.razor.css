@@ -53,3 +53,31 @@
 		overflow-y: auto;
 	}
 }
+
+.nav-link[aria-expanded="false"] .seta-baixo {
+	opacity: 1;
+	display: inline-block;
+}
+
+.nav-link[aria-expanded="false"] .seta-cima {
+	opacity: 0;
+	display: none;
+}
+
+.nav-link[aria-expanded="true"] .seta-baixo {
+	opacity: 0;
+	display: none;
+}
+
+.nav-link[aria-expanded="true"] .seta-cima {
+	opacity: 1;
+	display: inline-block;
+}
+
+.collapse {
+	transition-duration: 0.6s !important; /* Aumenta a duração para 0.6 segundos */
+}
+
+.collapse.collapsing {
+	transition-duration: 0.6s !important; /* Garante que o estado de "collapsing" também tenha a mesma duração */
+}
